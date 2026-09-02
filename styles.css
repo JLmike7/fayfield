@@ -327,3 +327,35 @@ body:has(.cal-controls) main {
 .month-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-family: system-ui, sans-serif; font-size: 0.85rem; }
 .month-grid div { background: #efe9dc; min-height: 3.2rem; padding: 0.35rem; }
 .notice { font-family: system-ui, sans-serif; font-size: 0.9rem; color: var(--muted); }
+
+.history-copy a { color: var(--leaf); }
+.history-timeline {
+  overflow-x: auto;
+  margin: 1rem 0 2rem;
+  -webkit-overflow-scrolling: touch;
+}
+.history-timeline table {
+  width: 100%;
+  min-width: 28rem;
+  border-collapse: collapse;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+}
+.history-timeline th,
+.history-timeline td {
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+.history-timeline th {
+  font-family: system-ui, sans-serif;
+  font-weight: 650;
+  color: var(--bark);
+}
+.history-sources {
+  padding-left: 1.35rem;
+}
+.history-sources li {
+  margin: 0 0 0.7rem;
+}
