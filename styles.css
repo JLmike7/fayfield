@@ -119,6 +119,68 @@ main { flex: 1; padding: 1.5rem 1.25rem 3rem; max-width: 40rem; }
 .links p { margin: 0.25rem 0 0; font-family: system-ui, sans-serif; font-size: 0.95rem; color: var(--muted); }
 .section-note { font-family: system-ui, sans-serif; color: var(--muted); font-size: 0.95rem; }
 
+.cal-filter-bar {
+  position: relative;
+  margin: 1rem 0 1.25rem;
+}
+.cal-filters > summary {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  min-height: 44px;
+  min-width: 44px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--bark);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.cal-filters > summary::-webkit-details-marker {
+  display: none;
+}
+.cal-filters > summary::marker {
+  content: "";
+}
+.cal-filters > summary:focus-visible {
+  outline: 2px solid var(--leaf);
+  outline-offset: 2px;
+}
+.cal-filters-title {
+  color: var(--leaf);
+}
+.cal-filters-meta {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+.cal-filters .cal-controls {
+  margin: 0;
+}
+.cal-filters[open] .cal-controls {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 8;
+  box-sizing: border-box;
+  width: min(100%, 48rem);
+  max-height: min(70vh, 32rem);
+  overflow: auto;
+  margin: 0;
+  padding: 0.85rem 1rem 1rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 0.45rem 1.15rem rgba(31, 36, 28, 0.16);
+}
 .cal-controls {
   font-family: system-ui, sans-serif;
   margin: 1rem 0 1.5rem;

@@ -14,6 +14,33 @@
     return { enabled: enabled, view: viewEl ? viewEl.value : "agenda" };
   }
 
+  function capitalizeView(view) {
+    view = view || "agenda";
+    return view.charAt(0).toUpperCase() + view.slice(1);
+  }
+
+  function updateFiltersMeta(prefs) {
+    var meta = document.getElementById("cal-filters-meta");
+    if (!meta) return;
+    var names = [];
+    form.querySelectorAll('input[name="source"]:checked').forEach(function (el) {
+      var label = el.closest("label");
+      var text = label ? label.textContent.replace(/\s+/g, " ").trim() : "";
+      if (text) names.push(text);
+    });
+    var sources = names.length ? names.join(", ") : "No sources";
+    meta.textContent = sources + " · " + capitalizeView(prefs.view);
+  }
+
+  function filtersDetails() {
+    return document.querySelector("details.cal-filters");
+  }
+
+  function closeFilters() {
+    var details = filtersDetails();
+    if (details && details.open) details.open = false;
+  }
+
   function render(events, view) {
     if (!events.length) {
       results.innerHTML = '<p class="cal-empty">No events to show. Fayfield Community does not have a public calendar ID yet, so this source is hidden (fail closed). Nearby publisher pages that are not browser-readable feeds are on Useful Links.</p>';
@@ -33,6 +60,7 @@
 
   async function refresh() {
     var prefs = currentPrefs();
+    updateFiltersMeta(prefs);
     cal.savePrefs(window.localStorage, prefs);
     var loaded = await cal.loadEnabledEvents(cal.CATALOG, prefs);
     var filtered = cal.filterEvents(loaded, {
@@ -52,5 +80,19 @@
   });
   form.addEventListener("change", refresh);
   form.addEventListener("input", refresh);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeFilters();
+  });
+
+  document.addEventListener("pointerdown", function (e) {
+    var details = filtersDetails();
+    if (!details || !details.open) return;
+    if (details.contains(e.target)) return;
+    var active = document.activeElement;
+    if (active && active.type === "date" && details.contains(active)) return;
+    details.open = false;
+  });
+
   refresh();
 })();

@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Calendar — Fayfield Community</title>
   <base href="/fayfield/">
-  <link rel="stylesheet" href="styles.css?v=cc241c92">
+  <link rel="stylesheet" href="styles.css?v=072919c3">
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
@@ -25,23 +25,31 @@
   <main id="content">
     <h1>Calendar</h1>
     <p class="notice">Unofficial community calendar. Original publishers are authoritative. This is not an emergency-alert service. Source choices are saved in this browser only, using localStorage.</p>
-    <form class="cal-controls" id="cal-controls">
-      <fieldset>
-        <legend>Sources</legend>
-        <label><input type="checkbox" name="source" value="fayfield-community" checked> Fayfield Community</label>
-      </fieldset>
-      <fieldset>
-        <legend>View</legend>
-        <label><input type="radio" name="view" value="agenda" checked> Agenda</label>
-        <label><input type="radio" name="view" value="month"> Month</label>
-      </fieldset>
-      <fieldset>
-        <legend>Find</legend>
-        <label>Search <input type="search" name="query" id="cal-query"></label>
-        <label>From <input type="date" name="start" id="cal-start"></label>
-        <label>To <input type="date" name="end" id="cal-end"></label>
-      </fieldset>
-    </form>
+    <div class="cal-filter-bar">
+      <details class="cal-filters">
+        <summary>
+          <span class="cal-filters-title">Filters</span>
+          <span class="cal-filters-meta" id="cal-filters-meta">Fayfield Community · Agenda</span>
+        </summary>
+        <form class="cal-controls" id="cal-controls">
+          <fieldset>
+            <legend>Sources</legend>
+            <label><input type="checkbox" name="source" value="fayfield-community" checked> Fayfield Community</label>
+          </fieldset>
+          <fieldset>
+            <legend>View</legend>
+            <label><input type="radio" name="view" value="agenda" checked> Agenda</label>
+            <label><input type="radio" name="view" value="month"> Month</label>
+          </fieldset>
+          <fieldset>
+            <legend>Find</legend>
+            <label>Search <input type="search" name="query" id="cal-query"></label>
+            <label>From <input type="date" name="start" id="cal-start"></label>
+            <label>To <input type="date" name="end" id="cal-end"></label>
+          </fieldset>
+        </form>
+      </details>
+    </div>
     <div id="cal-results">
       <p class="cal-empty">No events to show. Fayfield Community does not have a public calendar ID yet, so this source is hidden (fail closed). Nearby publisher pages that are not browser-readable feeds are on Useful Links.</p>
     </div>
