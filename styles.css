@@ -181,6 +181,7 @@ main { flex: 1; padding: 1.5rem 1.25rem 3rem; max-width: 40rem; }
   border: 1px solid var(--line);
   box-shadow: 0 0.45rem 1.15rem rgba(31, 36, 28, 0.16);
 }
+/* overlay fingerprint */
 .cal-controls {
   font-family: system-ui, sans-serif;
   margin: 1rem 0 1.5rem;
