@@ -1,0 +1,95 @@
+:root {
+  --paper: #f7f4ee;
+  --ink: #1f241c;
+  --muted: #5c6356;
+  --bark: #5c4636;
+  --bark-dark: #3e2f25;
+  --leaf: #4a5c3a;
+  --line: #ddd6c8;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+.skip:focus { left: 12px; background: #fff; padding: 8px; }
+.site-header {
+  padding: 1rem 1.25rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.brand-mark { width: 36px; height: 36px; flex-shrink: 0; }
+.wordmark {
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+.nav a { color: var(--leaf); text-decoration: none; }
+.nav a:hover, .nav a[aria-current="page"] { text-decoration: underline; }
+main { flex: 1; padding: 1.5rem 1.25rem 3rem; max-width: 40rem; }
+.welcome { font-size: 1.15rem; color: var(--ink); }
+.cta {
+  display: inline-block;
+  margin-top: 1.25rem;
+  background: var(--bark);
+  color: #fff;
+  text-decoration: none;
+  font-family: system-ui, sans-serif;
+  font-weight: 650;
+  padding: 0.75rem 1.1rem;
+  border-radius: 4px;
+}
+.cta:hover { background: var(--bark-dark); }
+.photo {
+  margin: 1.25rem 0;
+  background: #e6dfd2;
+  border: 1px dashed var(--muted);
+  min-height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  font-family: system-ui, sans-serif;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.stub {
+  font-family: system-ui, sans-serif;
+  color: var(--muted);
+}
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1rem 1.25rem 1.5rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.site-footer a { color: var(--leaf); }
