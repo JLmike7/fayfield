@@ -30,18 +30,19 @@ body {
 }
 .brand {
   display: flex;
-  align-items: flex-end;
-  gap: 0.65rem;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
   color: var(--ink);
 }
 .brand-mark {
-  height: 1.4rem;
+  height: 2.75rem;
   width: auto;
   object-fit: contain;
+  object-position: 50% 18%;
   display: block;
   flex-shrink: 0;
-  transform: translateY(3px);
+  transform: none;
 }
 .wordmark {
   font-size: 1.65rem;
