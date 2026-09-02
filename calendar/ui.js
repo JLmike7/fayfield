@@ -43,7 +43,7 @@
 
   function render(events, view) {
     if (!events.length) {
-      results.innerHTML = '<p class="cal-empty">No events to show. Fayfield Community does not have a public calendar ID yet, so this source is hidden (fail closed). Nearby publisher pages that are not browser-readable feeds are on Useful Links.</p>';
+      results.innerHTML = '<p class="cal-empty">Nothing on the calendar yet. Fayfield doesn’t have a public calendar ID, so we hide that source rather than make something up. Nearby publisher pages that aren’t feeds live on Useful Links.</p>';
       return;
     }
     if (view === "month") {
