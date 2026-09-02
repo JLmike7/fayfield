@@ -24,12 +24,36 @@
   </header>
   <main id="content">
     <h1>Calendar</h1>
-    <p class="stub">This calendar is not built yet. It will show Fayfield Community events first, with optional nearby public sources later. Coming in a later slice.</p>
-
+    <p class="notice">Unofficial community calendar. Original publishers are authoritative. This is not an emergency-alert service. Source choices are saved in this browser only, using localStorage.</p>
+    <form class="cal-controls" id="cal-controls">
+      <fieldset>
+        <legend>Sources</legend>
+        <details open>
+          <summary>Fayfield Community</summary>
+          <label><input type="checkbox" name="source" value="fayfield-community" checked> Fayfield Community</label>
+        </details>
+      </fieldset>
+      <fieldset>
+        <legend>View</legend>
+        <label><input type="radio" name="view" value="agenda" checked> Agenda</label>
+        <label><input type="radio" name="view" value="month"> Month</label>
+      </fieldset>
+      <fieldset>
+        <legend>Find</legend>
+        <label>Search <input type="search" name="query" id="cal-query"></label>
+        <label>From <input type="date" name="start" id="cal-start"></label>
+        <label>To <input type="date" name="end" id="cal-end"></label>
+      </fieldset>
+    </form>
+    <div id="cal-results">
+      <p class="cal-empty">No events to show. Fayfield Community does not have a public calendar ID yet, so this source is hidden (fail closed). Nearby publisher pages that are not browser-readable feeds are on Useful Links.</p>
+    </div>
   </main>
   <footer class="site-footer">
     <p>Unofficial, resident-run. Not a township, HOA, or government site. Development preview — not a public launch.</p>
     <p><a href="privacy/">Privacy</a></p>
   </footer>
+  <script src="calendar.js"></script>
+  <script src="calendar/ui.js"></script>
 </body>
 </html>
