@@ -295,7 +295,7 @@ test("calendar controls are 44px touch targets, stacked on phone, paper/sycamore
   assert.doesNotMatch(html, /bootstrap/i);
   assert.doesNotMatch(html, /maple/i);
 });
-test("Sources fieldset has Fayfield checked and five county opt-in sources", () => {
+test("Sources fieldset has Fayfield + Court checked and five county opt-in sources", () => {
   const html = read("calendar/index.html");
   const match = html.match(/<fieldset>\s*<legend>Sources<\/legend>[\s\S]*?<\/fieldset>/);
   assert.ok(match, "Sources fieldset present");
@@ -303,6 +303,7 @@ test("Sources fieldset has Fayfield checked and five county opt-in sources", () 
   const nameCount = (fieldset.match(/Fayfield Community/g) || []).length;
   assert.equal(nameCount, 1);
   assert.match(fieldset, /<label><input type="checkbox" name="source" value="fayfield-community" checked>\s*Fayfield Community<\/label>/);
+  assert.match(fieldset, /<label><input type="checkbox" name="source" value="york-county-court" checked>\s*York County Court<\/label>/);
   for (const id of [
     "york-county-main",
     "york-county-parks",
