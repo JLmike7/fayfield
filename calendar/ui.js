@@ -5,6 +5,18 @@
   var results = document.getElementById("cal-results");
   if (!form || !results) return;
 
+  var snapshot = null;
+  var catalog = cal.CATALOG;
+  var asOfEl = document.getElementById("cal-asof");
+
+  function escapeHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
   function currentPrefs() {
     var enabled = [];
     form.querySelectorAll('input[name="source"]:checked').forEach(function (el) {
@@ -41,58 +53,145 @@
     if (details && details.open) details.open = false;
   }
 
-  function render(events, view) {
+  function formatWhen(event) {
+    var start = event.start || event.dtstart || "";
+    if (!start) return "";
+    if (event.allDay || /^\d{4}-\d{2}-\d{2}$/.test(start)) {
+      return start.slice(0, 10);
+    }
+    return start.replace("T", " ").replace(/Z$/, " UTC");
+  }
+
+  function attributionHtml(prefs) {
+    if (!snapshot) return "";
+    var parts = [];
+    var retrieved = snapshot.retrievedAt || "";
+    if (retrieved) {
+      parts.push('<p class="cal-asof">As of ' + escapeHtml(retrieved) + " (snapshot).</p>");
+    }
+    var enabled = prefs.enabled || [];
+    var links = [];
+    (snapshot.sources || []).forEach(function (s) {
+      if (enabled.indexOf(s.id) === -1) return;
+      if (!s.ok) return;
+      var href = s.homepage || "";
+      var name = s.name || s.id;
+      if (href) {
+        links.push('<a href="' + escapeHtml(href) + '" rel="noopener noreferrer">' + escapeHtml(name) + "</a>");
+      } else {
+        links.push(escapeHtml(name));
+      }
+    });
+    if (links.length) {
+      parts.push('<p class="cal-attribution">Publishers: ' + links.join(" · ") + ". We don’t invent events.</p>");
+    }
+    return parts.join("");
+  }
+
+  function emptyMessage(prefs) {
+    var onlyFayfield =
+      prefs.enabled.length === 1 && prefs.enabled[0] === "fayfield-community";
+    if (onlyFayfield) {
+      return "Nothing on the calendar yet. Fayfield’s public feed has no upcoming events in this window, so we show nothing rather than make something up.";
+    }
+    return "Nothing on the calendar yet for the sources you checked. We only show what the public feeds returned — rather than make something up.";
+  }
+
+  function render(events, prefs) {
+    var attr = attributionHtml(prefs);
     if (!events.length) {
-      results.innerHTML = '<p class="cal-empty">Nothing on the calendar yet. Fayfield doesn’t have a public calendar ID, so we hide that source rather than make something up. Nearby publisher pages that aren’t feeds live on Useful Links.</p>';
+      results.innerHTML =
+        attr + '<p class="cal-empty">' + escapeHtml(emptyMessage(prefs)) + "</p>";
       return;
     }
-    if (view === "month") {
-      results.innerHTML = '<div class="month-grid"></div>';
+    if (prefs.view === "month") {
+      results.innerHTML = attr + '<div class="month-grid"></div>';
       return;
     }
-    var items = events.map(function (event) {
-      var label = event.sourceName ? '<span class="source">' + event.sourceName + "</span>" : "";
-      var link = event.url ? ' <a href="' + event.url + '">Original event</a>' : "";
-      return "<li>" + label + " <strong>" + event.title + "</strong> " + (event.start || "") + link + "</li>";
-    }).join("");
-    results.innerHTML = '<ol class="cal-agenda">' + items + "</ol>";
+    var items = events
+      .slice()
+      .sort(function (a, b) {
+        return String(a.start || a.dtstart || "").localeCompare(String(b.start || b.dtstart || ""));
+      })
+      .map(function (event) {
+        var label = event.sourceName
+          ? '<span class="source">' + escapeHtml(event.sourceName) + "</span>"
+          : "";
+        var link = event.url
+          ? ' <a href="' + escapeHtml(event.url) + '" rel="noopener noreferrer">Original event</a>'
+          : "";
+        var when = escapeHtml(formatWhen(event));
+        var loc = event.location
+          ? ' <span class="cal-loc">' + escapeHtml(event.location) + "</span>"
+          : "";
+        return (
+          "<li>" +
+          label +
+          " <strong>" +
+          escapeHtml(event.title) +
+          "</strong> " +
+          when +
+          loc +
+          link +
+          "</li>"
+        );
+      })
+      .join("");
+    results.innerHTML = attr + '<ol class="cal-agenda">' + items + "</ol>";
   }
 
   async function refresh() {
     var prefs = currentPrefs();
     updateFiltersMeta(prefs);
     cal.savePrefs(window.localStorage, prefs);
-    var loaded = await cal.loadEnabledEvents(cal.CATALOG, prefs);
+    if (asOfEl && snapshot && snapshot.retrievedAt) {
+      asOfEl.textContent = "As of " + snapshot.retrievedAt;
+    }
+    var loaded = await cal.loadEnabledEvents(catalog, prefs, { snapshot: snapshot });
     var filtered = cal.filterEvents(loaded, {
       query: document.getElementById("cal-query").value,
       start: document.getElementById("cal-start").value,
       end: document.getElementById("cal-end").value,
     });
-    render(filtered, prefs.view);
+    render(filtered, prefs);
   }
 
-  var stored = cal.readPrefs(window.localStorage) || cal.defaultSelection(cal.CATALOG);
-  form.querySelectorAll('input[name="source"]').forEach(function (el) {
-    el.checked = stored.enabled.indexOf(el.value) !== -1;
-  });
-  form.querySelectorAll('input[name="view"]').forEach(function (el) {
-    el.checked = el.value === stored.view;
-  });
-  form.addEventListener("change", refresh);
-  form.addEventListener("input", refresh);
+  async function boot() {
+    try {
+      var res = await fetch(cal.SNAPSHOT_URL, { credentials: "same-origin" });
+      if (!res.ok) throw new Error("snapshot " + res.status);
+      snapshot = await res.json();
+      catalog = cal.catalogFromSnapshot(snapshot, cal.CATALOG);
+    } catch (e) {
+      snapshot = null;
+      catalog = cal.CATALOG;
+    }
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeFilters();
-  });
+    var stored = cal.readPrefs(window.localStorage) || cal.defaultSelection(catalog);
+    form.querySelectorAll('input[name="source"]').forEach(function (el) {
+      el.checked = stored.enabled.indexOf(el.value) !== -1;
+    });
+    form.querySelectorAll('input[name="view"]').forEach(function (el) {
+      el.checked = el.value === stored.view;
+    });
+    form.addEventListener("change", refresh);
+    form.addEventListener("input", refresh);
 
-  document.addEventListener("pointerdown", function (e) {
-    var details = filtersDetails();
-    if (!details || !details.open) return;
-    if (details.contains(e.target)) return;
-    var active = document.activeElement;
-    if (active && active.type === "date" && details.contains(active)) return;
-    details.open = false;
-  });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeFilters();
+    });
 
-  refresh();
+    document.addEventListener("pointerdown", function (e) {
+      var details = filtersDetails();
+      if (!details || !details.open) return;
+      if (details.contains(e.target)) return;
+      var active = document.activeElement;
+      if (active && active.type === "date" && details.contains(active)) return;
+      details.open = false;
+    });
+
+    refresh();
+  }
+
+  boot();
 })();

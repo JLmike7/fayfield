@@ -4,6 +4,8 @@
   root.FayfieldCalendar = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   var STORAGE_KEY = "fayfield-calendar-prefs";
+  var SNAPSHOT_URL = "data/calendar-snapshot.json";
+  var PROTO_ID = "calendar-snap-proto-20260905";
 
   var CATALOG = {
     sources: [
@@ -12,13 +14,91 @@
         name: "Fayfield Community",
         group: "Fayfield Community",
         defaultEnabled: true,
-        sourceHomepage: null,
-        transport: null,
-        endpoint: null,
-        parser: null,
+        sourceHomepage:
+          "https://calendar.google.com/calendar/embed?src=fayfieldcommunity%40gmail.com&ctz=America/New_York",
+        icsUrl:
+          "https://calendar.google.com/calendar/ical/fayfieldcommunity%40gmail.com/public/basic.ics",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
         timezone: "America/New_York",
         enabled: true,
-        notes: "No public calendar ID yet. Fail closed.",
+        notes: "Public ICS via same-origin snapshot. Fail closed.",
+      },
+      {
+        id: "york-county-main",
+        name: "York County Main",
+        group: "York County",
+        defaultEnabled: false,
+        sourceHomepage: "https://yorkcountypa.gov/calendar.aspx",
+        icsUrl:
+          "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. Public ICS via same-origin snapshot.",
+      },
+      {
+        id: "york-county-parks",
+        name: "York County Parks",
+        group: "York County",
+        defaultEnabled: false,
+        sourceHomepage: "https://www.yorkcountypa.gov/568/Parks-Recreation",
+        icsUrl:
+          "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. Public ICS via same-origin snapshot.",
+      },
+      {
+        id: "york-county-commissioners",
+        name: "York County Commissioners",
+        group: "York County",
+        defaultEnabled: false,
+        sourceHomepage: "https://yorkcountypa.gov/calendar.aspx",
+        icsUrl:
+          "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. Public ICS via same-origin snapshot.",
+      },
+      {
+        id: "york-county-human-services",
+        name: "York County Human Services",
+        group: "York County",
+        defaultEnabled: false,
+        sourceHomepage: "https://yorkcountypa.gov/278/County-Human-Services",
+        icsUrl:
+          "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. Public ICS via same-origin snapshot.",
+      },
+      {
+        id: "york-county-aging",
+        name: "York County Aging",
+        group: "York County",
+        defaultEnabled: false,
+        sourceHomepage: "https://yorkcountypa.gov/calendar.aspx",
+        icsUrl:
+          "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. Public ICS via same-origin snapshot.",
       },
     ],
   };
@@ -30,11 +110,85 @@
     };
   }
 
-  function loadSource(source) {
-    if (!source || !source.endpoint) {
+  function sourceMetaFromSnapshot(snapshot, sourceId) {
+    if (!snapshot || !Array.isArray(snapshot.sources)) return null;
+    for (var i = 0; i < snapshot.sources.length; i++) {
+      if (snapshot.sources[i].id === sourceId) return snapshot.sources[i];
+    }
+    return null;
+  }
+
+  function eventsForSource(snapshot, sourceId) {
+    if (!snapshot || !Array.isArray(snapshot.events)) return [];
+    return snapshot.events.filter(function (e) { return e.sourceId === sourceId; });
+  }
+
+  function mapSnapshotEvent(raw, source) {
+    return {
+      id: raw.uid,
+      uid: raw.uid,
+      title: raw.title || "",
+      start: raw.dtstart || "",
+      end: raw.dtend || "",
+      dtstart: raw.dtstart || "",
+      dtend: raw.dtend || "",
+      allDay: !!raw.allDay,
+      location: raw.location || "",
+      description: raw.description || "",
+      url: raw.url || "",
+      sourceId: source.id,
+      sourceName: source.name,
+      sourceHomepage: source.sourceHomepage || source.homepage || null,
+      retrievedAt: raw.retrievedAt || "",
+    };
+  }
+
+  /**
+   * Fail closed: missing source, ok===false, or no snapshot → hidden, no events.
+   * opts.snapshot: preloaded snapshot object (preferred in UI).
+   * opts.fetchImpl: optional fetch for tests.
+   */
+  function loadSource(source, opts) {
+    opts = opts || {};
+    if (!source || !source.id) {
       return Promise.resolve({ hidden: true, events: [], publicError: false });
     }
-    return Promise.resolve({ hidden: true, events: [], publicError: false });
+
+    function fromSnapshot(snapshot) {
+      var meta = sourceMetaFromSnapshot(snapshot, source.id);
+      if (!meta || meta.ok !== true) {
+        return { hidden: true, events: [], publicError: false, sourceMeta: meta || null };
+      }
+      var raws = eventsForSource(snapshot, source.id);
+      var events = raws.map(function (raw) { return mapSnapshotEvent(raw, source); });
+      return { hidden: false, events: events, publicError: false, sourceMeta: meta };
+    }
+
+    if (opts.snapshot) {
+      return Promise.resolve(fromSnapshot(opts.snapshot));
+    }
+
+    var url = opts.snapshotUrl || source.endpoint || SNAPSHOT_URL;
+    if (!url) {
+      return Promise.resolve({ hidden: true, events: [], publicError: false });
+    }
+
+    var fetchFn = opts.fetchImpl || (typeof fetch === "function" ? fetch.bind(globalThis) : null);
+    if (!fetchFn) {
+      return Promise.resolve({ hidden: true, events: [], publicError: false });
+    }
+
+    return fetchFn(url, { credentials: "same-origin" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("snapshot HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (snapshot) {
+        return fromSnapshot(snapshot);
+      })
+      .catch(function () {
+        return { hidden: true, events: [], publicError: false };
+      });
   }
 
   function filterEvents(events, opts) {
@@ -44,7 +198,7 @@
     var end = opts.end || "";
     return events.filter(function (event) {
       if (query && String(event.title || "").toLowerCase().indexOf(query) === -1) return false;
-      var day = String(event.start || "").slice(0, 10);
+      var day = String(event.start || event.dtstart || "").slice(0, 10);
       if (start && day < start) return false;
       if (end && day > end) return false;
       return true;
@@ -71,22 +225,52 @@
     return groups;
   }
 
-  async function loadEnabledEvents(catalog, selection) {
+  async function loadEnabledEvents(catalog, selection, opts) {
+    opts = opts || {};
     var enabled = selection.enabled || [];
     var all = [];
     for (var i = 0; i < catalog.sources.length; i++) {
       var source = catalog.sources[i];
       if (enabled.indexOf(source.id) === -1) continue;
-      var result = await loadSource(source);
+      var result = await loadSource(source, opts);
       if (result.hidden) continue;
       all = all.concat(result.events);
     }
     return all;
   }
 
+  function catalogFromSnapshot(snapshot, baseCatalog) {
+    baseCatalog = baseCatalog || CATALOG;
+    if (!snapshot || !Array.isArray(snapshot.sources)) return baseCatalog;
+    var byId = {};
+    baseCatalog.sources.forEach(function (s) { byId[s.id] = s; });
+    var sources = snapshot.sources.map(function (meta) {
+      var base = byId[meta.id] || {};
+      return {
+        id: meta.id,
+        name: meta.name || base.name || meta.id,
+        group: base.group || meta.name || meta.id,
+        defaultEnabled: typeof meta.defaultEnabled === "boolean" ? meta.defaultEnabled : !!base.defaultEnabled,
+        sourceHomepage: meta.homepage || base.sourceHomepage || null,
+        homepage: meta.homepage || base.sourceHomepage || null,
+        icsUrl: meta.icsUrl || base.icsUrl || null,
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: base.timezone || "America/New_York",
+        enabled: typeof meta.defaultEnabled === "boolean" ? meta.defaultEnabled : !!base.defaultEnabled,
+        ok: meta.ok === true,
+        notes: base.notes || "",
+      };
+    });
+    return { sources: sources };
+  }
+
   return {
     CATALOG: CATALOG,
     STORAGE_KEY: STORAGE_KEY,
+    SNAPSHOT_URL: SNAPSHOT_URL,
+    PROTO_ID: PROTO_ID,
     defaultSelection: defaultSelection,
     loadSource: loadSource,
     filterEvents: filterEvents,
@@ -94,5 +278,6 @@
     readPrefs: readPrefs,
     groupSources: groupSources,
     loadEnabledEvents: loadEnabledEvents,
+    catalogFromSnapshot: catalogFromSnapshot,
   };
 });

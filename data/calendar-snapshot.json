@@ -1,0 +1,76 @@
+{
+  "protoId": "calendar-snap-proto-20260905",
+  "retrievedAt": "2026-09-05T13:29:17.172Z",
+  "horizonDays": 90,
+  "windowStart": "2026-09-05",
+  "windowEnd": "2026-12-04",
+  "sources": [
+    {
+      "id": "fayfield-community",
+      "name": "Fayfield Community",
+      "defaultEnabled": true,
+      "homepage": "https://calendar.google.com/calendar/embed?src=fayfieldcommunity%40gmail.com&ctz=America/New_York",
+      "icsUrl": "https://calendar.google.com/calendar/ical/fayfieldcommunity%40gmail.com/public/basic.ics",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "eventCount": 0
+    },
+    {
+      "id": "york-county-main",
+      "name": "York County Main",
+      "defaultEnabled": false,
+      "homepage": "https://yorkcountypa.gov/calendar.aspx",
+      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "eventCount": 0
+    },
+    {
+      "id": "york-county-parks",
+      "name": "York County Parks",
+      "defaultEnabled": false,
+      "homepage": "https://www.yorkcountypa.gov/568/Parks-Recreation",
+      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "eventCount": 0
+    },
+    {
+      "id": "york-county-commissioners",
+      "name": "York County Commissioners",
+      "defaultEnabled": false,
+      "homepage": "https://yorkcountypa.gov/calendar.aspx",
+      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "eventCount": 0
+    },
+    {
+      "id": "york-county-human-services",
+      "name": "York County Human Services",
+      "defaultEnabled": false,
+      "homepage": "https://yorkcountypa.gov/278/County-Human-Services",
+      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "eventCount": 0
+    },
+    {
+      "id": "york-county-aging",
+      "name": "York County Aging",
+      "defaultEnabled": false,
+      "homepage": "https://yorkcountypa.gov/calendar.aspx",
+      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "eventCount": 0
+    }
+  ],
+  "events": []
+}
