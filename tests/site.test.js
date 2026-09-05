@@ -82,7 +82,7 @@ test("photo is a labeled placeholder, not a fake Fayfield street", () => {
 test("calendar UI is fail-closed with Fayfield default-on and no fake feed", () => {
   const html = read("calendar/index.html");
   assert.match(html, /Fayfield Community/);
-  assert.match(html, /agenda/i);
+  assert.match(html, /cal-results|Month calendar|snapshot/i);
   assert.match(html, /localStorage|this browser/i);
   assert.match(html, /unofficial|authoritative/i);
   assert.match(html, /Nothing on the calendar yet/);
@@ -367,8 +367,8 @@ test("calendar ui updates filter meta and closes overlay on Escape and outside p
   assert.match(html, /Nothing on the calendar yet/);
   assert.match(html, /rather than make something up/);
   assert.match(html, /class="cal-empty"/);
-  assert.match(js, /Nothing on the calendar yet/);
-  assert.match(js, /rather than make something up/);
+  assert.match(js, /emptyDayMessage|Nothing on/);
+  assert.match(js, /public feeds returned/);
 });
 
 test("calendar page cache-busts calendar.js and calendar/ui.js with 8-char queries", () => {
@@ -395,11 +395,26 @@ test("main body links use sycamore leaf, not browser blue", () => {
   }
 });
 
+test("calendar uses Teams-like month pane without Agenda/Month radios", () => {
+  const html = read("calendar/index.html");
+  assert.doesNotMatch(html, /name="view"/);
+  assert.doesNotMatch(html, /<legend>View<\/legend>/);
+  const css = read("styles.css");
+  assert.match(css, /\.cal-month-pane/);
+  assert.match(css, /\.month-count/);
+  assert.match(css, /\.month-cell--selected/);
+  const ui = read("calendar/ui.js");
+  assert.match(ui, /renderMonthPane/);
+  assert.match(ui, /renderDayAgenda/);
+  assert.match(ui, /selectedDay/);
+  assert.match(ui, /colorForSourceId/);
+});
+
 test("month grid columns use minmax(0, 1fr) so event titles cannot stretch tracks", () => {
   const css = read("styles.css");
   assert.match(css, /\.month-grid[\s\S]{0,200}grid-template-columns:\s*repeat\(7,\s*minmax\(0,\s*1fr\)\)/);
   assert.match(css, /\.month-cell[\s\S]{0,120}min-width:\s*0/);
-  assert.match(css, /\.month-event[\s\S]{0,160}text-overflow:\s*ellipsis/);
+  assert.match(css, /\.month-dow[\s\S]{0,220}text-overflow:\s*ellipsis/);
 });
 
 test("styles.css cache-bust token is SHA256 first 8 hex", () => {

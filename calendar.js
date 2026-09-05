@@ -413,6 +413,66 @@
     return { sources: sources };
   }
 
+
+  var SOURCE_COLOR_PALETTE = [
+    "#2f6b3a",
+    "#1d4e89",
+    "#8b5a2b",
+    "#6b3a6b",
+    "#b45309",
+    "#0f766e",
+    "#9f1239",
+    "#334155",
+  ];
+
+  function colorForSourceId(sourceId, catalog) {
+    catalog = catalog || CATALOG;
+    var sources = (catalog && catalog.sources) || [];
+    var idx = -1;
+    for (var i = 0; i < sources.length; i++) {
+      if (sources[i].id === sourceId) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx < 0) {
+      var h = 0;
+      var s = String(sourceId || "");
+      for (var j = 0; j < s.length; j++) h = (h * 31 + s.charCodeAt(j)) >>> 0;
+      idx = h % SOURCE_COLOR_PALETTE.length;
+    }
+    return SOURCE_COLOR_PALETTE[idx % SOURCE_COLOR_PALETTE.length];
+  }
+
+  function eventsOnDay(events, ymd) {
+    ymd = String(ymd || "").slice(0, 10);
+    return (events || []).filter(function (ev) {
+      return eventDayKey(ev) === ymd;
+    });
+  }
+
+  function countByDay(events) {
+    var map = {};
+    (events || []).forEach(function (ev) {
+      var d = eventDayKey(ev);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
+      map[d] = (map[d] || 0) + 1;
+    });
+    return map;
+  }
+
+  function sourceIdsOnDay(events, ymd) {
+    var seen = {};
+    var out = [];
+    eventsOnDay(events, ymd).forEach(function (ev) {
+      var id = ev.sourceId || "";
+      if (!id || seen[id]) return;
+      seen[id] = true;
+      out.push(id);
+    });
+    return out;
+  }
+
   return {
     CATALOG: CATALOG,
     STORAGE_KEY: STORAGE_KEY,
@@ -425,6 +485,11 @@
     eventDayKey: eventDayKey,
     pickMonthKey: pickMonthKey,
     buildMonthModel: buildMonthModel,
+    SOURCE_COLOR_PALETTE: SOURCE_COLOR_PALETTE,
+    colorForSourceId: colorForSourceId,
+    eventsOnDay: eventsOnDay,
+    countByDay: countByDay,
+    sourceIdsOnDay: sourceIdsOnDay,
     savePrefs: savePrefs,
     readPrefs: readPrefs,
     mergePrefsWithCatalog: mergePrefsWithCatalog,

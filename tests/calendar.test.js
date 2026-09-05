@@ -154,3 +154,26 @@ test("pickMonthKey prefers current month when it has events", () => {
   assert.equal(cal.pickMonthKey(events, "2026-09-05"), "2026-09");
   assert.equal(cal.pickMonthKey(events, "2026-08-01"), "2026-09");
 });
+
+test("colorForSourceId is stable per catalog order", () => {
+  const a = cal.colorForSourceId("york-county-court", cal.CATALOG);
+  const b = cal.colorForSourceId("york-county-court", cal.CATALOG);
+  assert.equal(a, b);
+  assert.match(a, /^#[0-9a-fA-F]{6}$/);
+  const fay = cal.colorForSourceId("fayfield-community", cal.CATALOG);
+  assert.notEqual(fay, a);
+});
+
+test("eventsOnDay and countByDay respect YYYY-MM-DD keys", () => {
+  const events = [
+    { title: "A", start: "2026-09-08T09:00:00", sourceId: "york-county-court" },
+    { title: "B", start: "2026-09-08T12:00:00", sourceId: "fayfield-community" },
+    { title: "C", start: "2026-09-09", sourceId: "york-county-court" },
+  ];
+  assert.equal(cal.eventsOnDay(events, "2026-09-08").length, 2);
+  assert.equal(cal.countByDay(events)["2026-09-08"], 2);
+  assert.deepEqual(cal.sourceIdsOnDay(events, "2026-09-08"), [
+    "york-county-court",
+    "fayfield-community",
+  ]);
+});
