@@ -1,6 +1,6 @@
 {
   "protoId": "calendar-snap-proto-20260905",
-  "retrievedAt": "2026-09-05T13:29:17.172Z",
+  "retrievedAt": "2026-09-05T14:11:21.252Z",
   "horizonDays": 90,
   "windowStart": "2026-09-05",
   "windowEnd": "2026-12-04",
@@ -13,7 +13,7 @@
       "icsUrl": "https://calendar.google.com/calendar/ical/fayfieldcommunity%40gmail.com/public/basic.ics",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
       "eventCount": 0
     },
     {
@@ -24,7 +24,7 @@
       "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
       "eventCount": 0
     },
     {
@@ -35,7 +35,7 @@
       "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
       "eventCount": 0
     },
     {
@@ -46,7 +46,7 @@
       "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
       "eventCount": 0
     },
     {
@@ -57,7 +57,7 @@
       "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
       "eventCount": 0
     },
     {
@@ -68,9 +68,201 @@
       "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T13:29:17.172Z",
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
       "eventCount": 0
+    },
+    {
+      "id": "york-county-court",
+      "name": "York County Court",
+      "defaultEnabled": true,
+      "homepage": "https://yorkcountypa.gov/calendar.aspx",
+      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-05T14:11:21.252Z",
+      "eventCount": 15
     }
   ],
-  "events": []
+  "events": [
+    {
+      "uid": "2130",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Divorce)",
+      "dtstart": "2026-09-30T09:00:00",
+      "dtend": "2026-09-30T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2130",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2125",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Custody)",
+      "dtstart": "2026-09-29T09:00:00",
+      "dtend": "2026-09-29T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2125",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2135",
+      "sourceId": "york-county-court",
+      "title": "Civil Motions Court (In Person)",
+      "dtstart": "2026-09-29T09:00:00",
+      "dtend": "2026-09-29T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2135",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2134",
+      "sourceId": "york-county-court",
+      "title": "Civil Motions Court (In Person)",
+      "dtstart": "2026-09-24T09:00:00",
+      "dtend": "2026-09-24T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2134",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2129",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Divorce)",
+      "dtstart": "2026-09-23T09:00:00",
+      "dtend": "2026-09-23T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2129",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2124",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Custody)",
+      "dtstart": "2026-09-22T09:00:00",
+      "dtend": "2026-09-22T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2124",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2139",
+      "sourceId": "york-county-court",
+      "title": "No Civil Motions Court",
+      "dtstart": "2026-09-22",
+      "dtend": "2026-09-22",
+      "allDay": true,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2139",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2133",
+      "sourceId": "york-county-court",
+      "title": "Civil Motions Court (In Person)",
+      "dtstart": "2026-09-17T09:00:00",
+      "dtend": "2026-09-17T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2133",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2128",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Divorce)",
+      "dtstart": "2026-09-16T09:00:00",
+      "dtend": "2026-09-16T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2128",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2123",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Custody)",
+      "dtstart": "2026-09-15T09:00:00",
+      "dtend": "2026-09-15T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2123",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2138",
+      "sourceId": "york-county-court",
+      "title": "No Civil Motions Court",
+      "dtstart": "2026-09-15",
+      "dtend": "2026-09-15",
+      "allDay": true,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2138",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2137",
+      "sourceId": "york-county-court",
+      "title": "No Civil Motions Court",
+      "dtstart": "2026-09-10",
+      "dtend": "2026-09-10",
+      "allDay": true,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2137",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2122",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Custody)",
+      "dtstart": "2026-09-08T09:00:00",
+      "dtend": "2026-09-08T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2122",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2127",
+      "sourceId": "york-county-court",
+      "title": "Family Motions Court (Divorce)",
+      "dtstart": "2026-09-08T09:00:00",
+      "dtend": "2026-09-08T23:59:00",
+      "allDay": false,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2127",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    },
+    {
+      "uid": "2136",
+      "sourceId": "york-county-court",
+      "title": "No Civil Motions Court",
+      "dtstart": "2026-09-08",
+      "dtend": "2026-09-08",
+      "allDay": true,
+      "location": " -   York  PA 17401",
+      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2136",
+      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
+      "retrievedAt": "2026-09-05T14:11:21.252Z"
+    }
+  ]
 }

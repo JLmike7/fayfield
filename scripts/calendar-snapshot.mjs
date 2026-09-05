@@ -63,6 +63,14 @@ const SOURCE_DEFS = [
     icsUrl:
       "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
   },
+  {
+    id: "york-county-court",
+    name: "York County Court",
+    defaultEnabled: true,
+    homepage: "https://yorkcountypa.gov/calendar.aspx",
+    icsUrl:
+      "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  },
 ];
 
 function nowIso() {

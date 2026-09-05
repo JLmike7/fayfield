@@ -100,6 +100,21 @@
         enabled: false,
         notes: "Opt-in. Public ICS via same-origin snapshot.",
       },
+      {
+        id: "york-county-court",
+        name: "York County Court",
+        group: "York County",
+        defaultEnabled: true,
+        sourceHomepage: "https://yorkcountypa.gov/calendar.aspx",
+        icsUrl:
+          "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: true,
+        notes: "Demo Source. Public ICS (Civil & Family Court catID=30) via same-origin snapshot.",
+      },
     ],
   };
 
