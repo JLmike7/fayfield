@@ -330,10 +330,12 @@ body:has(.cal-controls) main {
 .month-title { font-size: 1.15rem; margin: 0; color: var(--ink, #1c1915); }
 .month-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  /* minmax(0,1fr): 1fr alone is minmax(auto,1fr) and long event titles stretch tracks */
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 2px;
   font-family: system-ui, sans-serif;
   font-size: 0.8rem;
+  width: 100%;
 }
 .month-dow {
   background: var(--bark, #3d3429);
@@ -341,10 +343,16 @@ body:has(.cal-controls) main {
   text-align: center;
   padding: 0.35rem 0.15rem;
   font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .month-cell {
   background: #efe9dc;
   min-height: 4.5rem;
+  min-width: 0;
+  overflow: hidden;
   padding: 0.3rem;
 }
 .month-cell--pad { background: transparent; min-height: 0; }
@@ -352,6 +360,8 @@ body:has(.cal-controls) main {
 .month-daynum { font-weight: 650; margin-bottom: 0.2rem; }
 .month-event {
   display: block;
+  max-width: 100%;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

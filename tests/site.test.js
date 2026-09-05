@@ -395,6 +395,13 @@ test("main body links use sycamore leaf, not browser blue", () => {
   }
 });
 
+test("month grid columns use minmax(0, 1fr) so event titles cannot stretch tracks", () => {
+  const css = read("styles.css");
+  assert.match(css, /\.month-grid[\s\S]{0,200}grid-template-columns:\s*repeat\(7,\s*minmax\(0,\s*1fr\)\)/);
+  assert.match(css, /\.month-cell[\s\S]{0,120}min-width:\s*0/);
+  assert.match(css, /\.month-event[\s\S]{0,160}text-overflow:\s*ellipsis/);
+});
+
 test("styles.css cache-bust token is SHA256 first 8 hex", () => {
   const crypto = require("node:crypto");
   const hash = crypto
