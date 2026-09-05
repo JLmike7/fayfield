@@ -24,3 +24,6 @@ https://jlmike7.github.io/fayfield/calendar/
 
 ## Rejected on purpose
 No CORS proxies, no private ICS, no scrape, no multi-src Google embed combiner, no ADRs.
+
+## Workflow install note
+OAuth token lacked `workflow` scope at push time. Workflow YAML lives at `docs-proto/calendar-snapshot.yml`. Move to `.github/workflows/calendar-snapshot.yml` (or re-push with workflow scope) to enable Actions.
