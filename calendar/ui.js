@@ -23,7 +23,10 @@
       enabled.push(el.value);
     });
     var viewEl = form.querySelector('input[name="view"]:checked');
-    return { enabled: enabled, view: viewEl ? viewEl.value : "agenda" };
+    var prev = cal.readPrefs(window.localStorage) || {};
+    var prefs = { enabled: enabled, view: viewEl ? viewEl.value : "agenda" };
+    if (Array.isArray(prev.seenSourceIds)) prefs.seenSourceIds = prev.seenSourceIds;
+    return prefs;
   }
 
   function capitalizeView(view) {
@@ -97,6 +100,80 @@
     return "Nothing on the calendar yet for the sources you checked. We only show what the public feeds returned — rather than make something up.";
   }
 
+  function renderMonthHtml(events) {
+    var monthKey = cal.pickMonthKey(events);
+    var model = cal.buildMonthModel(monthKey, events);
+    var today = cal.todayYmdNy();
+    var head =
+      '<div class="month-head"><h2 class="month-title">' +
+      escapeHtml(model.label) +
+      "</h2></div>";
+    var dow = model.weekdayLabels
+      .map(function (d) {
+        return '<div class="month-dow">' + escapeHtml(d) + "</div>";
+      })
+      .join("");
+    var cells = model.weeks
+      .map(function (week) {
+        return week
+          .map(function (cell) {
+            if (!cell.inMonth) {
+              return '<div class="month-cell month-cell--pad" aria-hidden="true"></div>';
+            }
+            var isToday = cell.ymd === today ? " month-cell--today" : "";
+            var list = (cell.events || [])
+              .slice(0, 3)
+              .map(function (event) {
+                var tip = escapeHtml(event.title || "");
+                return (
+                  '<div class="month-event" title="' +
+                  tip +
+                  '">' +
+                  tip +
+                  "</div>"
+                );
+              })
+              .join("");
+            var more =
+              (cell.events || []).length > 3
+                ? '<div class="month-more">+' +
+                  ((cell.events || []).length - 3) +
+                  " more</div>"
+                : "";
+            return (
+              '<div class="month-cell' +
+              isToday +
+              '"><div class="month-daynum">' +
+              cell.day +
+              "</div>" +
+              list +
+              more +
+              "</div>"
+            );
+          })
+          .join("");
+      })
+      .join("");
+    var note =
+      model.outsideCount > 0
+        ? '<p class="month-note">' +
+          model.outsideCount +
+          " more event" +
+          (model.outsideCount === 1 ? "" : "s") +
+          " outside this month — switch to Agenda to see them.</p>"
+        : "";
+    return (
+      head +
+      '<div class="month-grid" role="grid" aria-label="' +
+      escapeHtml(model.label) +
+      '">' +
+      dow +
+      cells +
+      "</div>" +
+      note
+    );
+  }
+
   function render(events, prefs) {
     var attr = attributionHtml(prefs);
     if (!events.length) {
@@ -105,7 +182,7 @@
       return;
     }
     if (prefs.view === "month") {
-      results.innerHTML = attr + '<div class="month-grid"></div>';
+      results.innerHTML = attr + renderMonthHtml(events);
       return;
     }
     var items = events

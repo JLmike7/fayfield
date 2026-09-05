@@ -124,3 +124,33 @@ test("prefs round-trip in a storage object", () => {
   cal.savePrefs(store, prefs);
   assert.deepEqual(cal.readPrefs(store), prefs);
 });
+
+test("buildMonthModel places events on Sunday-start grid cells", () => {
+  const events = [
+    { title: "A", start: "2026-09-08T09:00:00" },
+    { title: "B", start: "2026-09-08T12:00:00" },
+    { title: "C", start: "2026-10-01T09:00:00" },
+  ];
+  const model = cal.buildMonthModel("2026-09", events);
+  assert.equal(model.monthKey, "2026-09");
+  assert.equal(model.label, "September 2026");
+  assert.equal(model.weekdayLabels[0], "Sun");
+  assert.equal(model.outsideCount, 1);
+  // 2026-09-01 was a Tuesday → 2 pad cells before day 1
+  assert.equal(model.weeks[0][0].inMonth, false);
+  assert.equal(model.weeks[0][1].inMonth, false);
+  assert.equal(model.weeks[0][2].day, 1);
+  const day8 = model.weeks.flat().find((c) => c.ymd === "2026-09-08");
+  assert.ok(day8);
+  assert.equal(day8.events.length, 2);
+  assert.equal(day8.events[0].title, "A");
+});
+
+test("pickMonthKey prefers current month when it has events", () => {
+  const events = [
+    { start: "2026-09-10" },
+    { start: "2026-10-02" },
+  ];
+  assert.equal(cal.pickMonthKey(events, "2026-09-05"), "2026-09");
+  assert.equal(cal.pickMonthKey(events, "2026-08-01"), "2026-09");
+});

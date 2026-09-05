@@ -206,6 +206,110 @@
       });
   }
 
+
+  function todayYmdNy(d) {
+    d = d || new Date();
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/New_York",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(d);
+  }
+
+  function eventDayKey(event) {
+    return String(event.start || event.dtstart || "").slice(0, 10);
+  }
+
+  /** Pick YYYY-MM to display: current NY month if it has events, else earliest event month. */
+  function pickMonthKey(events, todayYmd) {
+    todayYmd = todayYmd || todayYmdNy();
+    var currentMonth = todayYmd.slice(0, 7);
+    var days = (events || [])
+      .map(eventDayKey)
+      .filter(function (d) { return /^\d{4}-\d{2}-\d{2}$/.test(d); })
+      .sort();
+    if (!days.length) return currentMonth;
+    for (var i = 0; i < days.length; i++) {
+      if (days[i].slice(0, 7) === currentMonth) return currentMonth;
+    }
+    return days[0].slice(0, 7);
+  }
+
+  /**
+   * Build a Sunday-start month grid model.
+   * year/month from monthKey "YYYY-MM". Cells: { ymd|null, day|null, inMonth, events[] }.
+   */
+  function buildMonthModel(monthKey, events) {
+    var parts = String(monthKey || "").split("-");
+    var year = Number(parts[0]);
+    var month = Number(parts[1]); // 1-12
+    if (!year || !month) {
+      var today = todayYmdNy();
+      year = Number(today.slice(0, 4));
+      month = Number(today.slice(5, 7));
+      monthKey = today.slice(0, 7);
+    }
+    var byDay = {};
+    (events || []).forEach(function (ev) {
+      var day = eventDayKey(ev);
+      if (day.slice(0, 7) !== monthKey) return;
+      if (!byDay[day]) byDay[day] = [];
+      byDay[day].push(ev);
+    });
+    Object.keys(byDay).forEach(function (d) {
+      byDay[d].sort(function (a, b) {
+        return eventDayKey(a).localeCompare(eventDayKey(b)) ||
+          String(a.title || "").localeCompare(String(b.title || ""));
+      });
+    });
+    var first = new Date(Date.UTC(year, month - 1, 1));
+    var startPad = first.getUTCDay(); // 0=Sun
+    var daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
+    var cells = [];
+    var i;
+    for (i = 0; i < startPad; i++) {
+      cells.push({ ymd: null, day: null, inMonth: false, events: [] });
+    }
+    for (i = 1; i <= daysInMonth; i++) {
+      var ymd =
+        year +
+        "-" +
+        String(month).padStart(2, "0") +
+        "-" +
+        String(i).padStart(2, "0");
+      cells.push({
+        ymd: ymd,
+        day: i,
+        inMonth: true,
+        events: byDay[ymd] || [],
+      });
+    }
+    while (cells.length % 7 !== 0) {
+      cells.push({ ymd: null, day: null, inMonth: false, events: [] });
+    }
+    var weeks = [];
+    for (i = 0; i < cells.length; i += 7) {
+      weeks.push(cells.slice(i, i + 7));
+    }
+    var outside = (events || []).filter(function (ev) {
+      return eventDayKey(ev).slice(0, 7) !== monthKey;
+    }).length;
+    return {
+      monthKey: monthKey,
+      year: year,
+      month: month,
+      label: new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(Date.UTC(year, month - 1, 1))),
+      weekdayLabels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      weeks: weeks,
+      outsideCount: outside,
+    };
+  }
+
   function filterEvents(events, opts) {
     opts = opts || {};
     var query = (opts.query || "").trim().toLowerCase();
@@ -317,6 +421,10 @@
     defaultSelection: defaultSelection,
     loadSource: loadSource,
     filterEvents: filterEvents,
+    todayYmdNy: todayYmdNy,
+    eventDayKey: eventDayKey,
+    pickMonthKey: pickMonthKey,
+    buildMonthModel: buildMonthModel,
     savePrefs: savePrefs,
     readPrefs: readPrefs,
     mergePrefsWithCatalog: mergePrefsWithCatalog,

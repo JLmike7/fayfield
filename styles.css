@@ -326,8 +326,48 @@ body:has(.cal-controls) main {
 .cal-agenda { list-style: none; margin: 0; padding: 0; }
 .cal-agenda li { border-bottom: 1px solid var(--line); padding: 0.75rem 0; }
 .cal-empty { color: var(--muted); font-family: system-ui, sans-serif; }
-.month-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-family: system-ui, sans-serif; font-size: 0.85rem; }
-.month-grid div { background: #efe9dc; min-height: 3.2rem; padding: 0.35rem; }
+.month-head { margin: 0.75rem 0 0.5rem; }
+.month-title { font-size: 1.15rem; margin: 0; color: var(--ink, #1c1915); }
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+}
+.month-dow {
+  background: var(--bark, #3d3429);
+  color: var(--paper, #f7f4ee);
+  text-align: center;
+  padding: 0.35rem 0.15rem;
+  font-weight: 600;
+}
+.month-cell {
+  background: #efe9dc;
+  min-height: 4.5rem;
+  padding: 0.3rem;
+}
+.month-cell--pad { background: transparent; min-height: 0; }
+.month-cell--today { outline: 2px solid var(--leaf, #2f6b3a); outline-offset: -2px; }
+.month-daynum { font-weight: 650; margin-bottom: 0.2rem; }
+.month-event {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: var(--paper, #f7f4ee);
+  border-left: 3px solid var(--leaf, #2f6b3a);
+  padding: 0.1rem 0.25rem;
+  margin-bottom: 0.15rem;
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+.month-more { font-size: 0.7rem; opacity: 0.75; }
+.month-note { font-size: 0.9rem; margin-top: 0.75rem; }
+@media (max-width: 40rem) {
+  .month-cell { min-height: 3.6rem; padding: 0.2rem; }
+  .month-event { font-size: 0.65rem; }
+}
 .notice { font-family: system-ui, sans-serif; font-size: 0.9rem; color: var(--muted); }
 
 .history-copy a { color: var(--leaf); }
