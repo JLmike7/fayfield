@@ -2,17 +2,38 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const cal = require("../calendar.js");
 
-test("Fayfield Community is the only default-on source among six catalog entries", () => {
+test("Fayfield Community and Court are default-on among seven catalog entries", () => {
   const defaults = cal.defaultSelection(cal.CATALOG);
-  assert.deepEqual(defaults.enabled, ["fayfield-community"]);
+  assert.deepEqual(defaults.enabled, ["fayfield-community", "york-county-court"]);
   assert.equal(defaults.view, "agenda");
-  assert.equal(cal.CATALOG.sources.length, 6);
+  assert.equal(cal.CATALOG.sources.length, 7);
   const src = cal.CATALOG.sources.find((s) => s.id === "fayfield-community");
   assert.equal(src.defaultEnabled, true);
   assert.equal(src.endpoint, cal.SNAPSHOT_URL);
+  const court = cal.CATALOG.sources.find((s) => s.id === "york-county-court");
+  assert.equal(court.defaultEnabled, true);
   const county = cal.CATALOG.sources.filter((s) => s.id.startsWith("york-county-"));
-  assert.equal(county.length, 5);
-  for (const s of county) assert.equal(s.defaultEnabled, false);
+  assert.equal(county.length, 6);
+  for (const s of county) {
+    if (s.id === "york-county-court") continue;
+    assert.equal(s.defaultEnabled, false);
+  }
+});
+
+test("mergePrefsWithCatalog opts in new defaultEnabled sources once", () => {
+  const stale = { enabled: ["fayfield-community"], view: "agenda" };
+  const merged = cal.mergePrefsWithCatalog(stale, cal.CATALOG);
+  assert.ok(merged.enabled.includes("fayfield-community"));
+  assert.ok(merged.enabled.includes("york-county-court"));
+  assert.ok(merged.seenSourceIds.includes("york-county-court"));
+  // User unchecked Court after seeing it — do not re-force
+  const afterUncheck = {
+    enabled: ["fayfield-community"],
+    view: "agenda",
+    seenSourceIds: merged.seenSourceIds,
+  };
+  const again = cal.mergePrefsWithCatalog(afterUncheck, cal.CATALOG);
+  assert.ok(!again.enabled.includes("york-county-court"));
 });
 
 test("loadSource fail-closes when snapshot source ok is false", async () => {

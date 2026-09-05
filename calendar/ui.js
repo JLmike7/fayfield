@@ -167,7 +167,8 @@
       catalog = cal.CATALOG;
     }
 
-    var stored = cal.readPrefs(window.localStorage) || cal.defaultSelection(catalog);
+    var stored = cal.mergePrefsWithCatalog(cal.readPrefs(window.localStorage), catalog);
+    cal.savePrefs(window.localStorage, stored);
     form.querySelectorAll('input[name="source"]').forEach(function (el) {
       el.checked = stored.enabled.indexOf(el.value) !== -1;
     });

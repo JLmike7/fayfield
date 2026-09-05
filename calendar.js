@@ -230,6 +230,34 @@
     try { return JSON.parse(raw); } catch (e) { return null; }
   }
 
+  /**
+   * Merge stored prefs with catalog: newly introduced defaultEnabled sources
+   * are opted in once. User unchecks stay respected via seenSourceIds.
+   */
+  function mergePrefsWithCatalog(stored, catalog) {
+    if (!stored || !Array.isArray(stored.enabled)) {
+      var fresh = defaultSelection(catalog);
+      fresh.seenSourceIds = catalog.sources.map(function (s) { return s.id; });
+      return fresh;
+    }
+    var enabled = stored.enabled.slice();
+    var seen = Array.isArray(stored.seenSourceIds)
+      ? stored.seenSourceIds.slice()
+      : enabled.slice();
+    catalog.sources.forEach(function (s) {
+      if (seen.indexOf(s.id) !== -1) return;
+      seen.push(s.id);
+      if (s.defaultEnabled && enabled.indexOf(s.id) === -1) {
+        enabled.push(s.id);
+      }
+    });
+    return {
+      enabled: enabled,
+      view: stored.view || "agenda",
+      seenSourceIds: seen,
+    };
+  }
+
   function groupSources(catalog) {
     var groups = {};
     catalog.sources.forEach(function (source) {
@@ -291,6 +319,7 @@
     filterEvents: filterEvents,
     savePrefs: savePrefs,
     readPrefs: readPrefs,
+    mergePrefsWithCatalog: mergePrefsWithCatalog,
     groupSources: groupSources,
     loadEnabledEvents: loadEnabledEvents,
     catalogFromSnapshot: catalogFromSnapshot,
