@@ -1,9 +1,9 @@
 {
   "protoId": "calendar-snap-proto-20260905",
-  "retrievedAt": "2026-09-05T14:11:21.252Z",
+  "retrievedAt": "2026-09-12T23:10:33.066Z",
   "horizonDays": 90,
-  "windowStart": "2026-09-05",
-  "windowEnd": "2026-12-04",
+  "windowStart": "2026-09-12",
+  "windowEnd": "2026-12-11",
   "sources": [
     {
       "id": "fayfield-community",
@@ -11,64 +11,9 @@
       "defaultEnabled": true,
       "homepage": "https://calendar.google.com/calendar/embed?src=fayfieldcommunity%40gmail.com&ctz=America/New_York",
       "icsUrl": "https://calendar.google.com/calendar/ical/fayfieldcommunity%40gmail.com/public/basic.ics",
-      "ok": true,
-      "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
-      "eventCount": 0
-    },
-    {
-      "id": "york-county-main",
-      "name": "York County Main",
-      "defaultEnabled": false,
-      "homepage": "https://yorkcountypa.gov/calendar.aspx",
-      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-      "ok": true,
-      "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
-      "eventCount": 0
-    },
-    {
-      "id": "york-county-parks",
-      "name": "York County Parks",
-      "defaultEnabled": false,
-      "homepage": "https://www.yorkcountypa.gov/568/Parks-Recreation",
-      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
-      "ok": true,
-      "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
-      "eventCount": 0
-    },
-    {
-      "id": "york-county-commissioners",
-      "name": "York County Commissioners",
-      "defaultEnabled": false,
-      "homepage": "https://yorkcountypa.gov/calendar.aspx",
-      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
-      "ok": true,
-      "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
-      "eventCount": 0
-    },
-    {
-      "id": "york-county-human-services",
-      "name": "York County Human Services",
-      "defaultEnabled": false,
-      "homepage": "https://yorkcountypa.gov/278/County-Human-Services",
-      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
-      "ok": true,
-      "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
-      "eventCount": 0
-    },
-    {
-      "id": "york-county-aging",
-      "name": "York County Aging",
-      "defaultEnabled": false,
-      "homepage": "https://yorkcountypa.gov/calendar.aspx",
-      "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
-      "ok": true,
-      "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
+      "ok": false,
+      "error": "HTTP 429",
+      "retrievedAt": "2026-09-12T23:10:33.066Z",
       "eventCount": 0
     },
     {
@@ -79,8 +24,30 @@
       "icsUrl": "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
       "ok": true,
       "error": null,
-      "retrievedAt": "2026-09-05T14:11:21.252Z",
-      "eventCount": 15
+      "retrievedAt": "2026-09-12T23:10:33.066Z",
+      "eventCount": 11
+    },
+    {
+      "id": "city-of-york",
+      "name": "City of York",
+      "defaultEnabled": false,
+      "homepage": "https://www.yorkcity.org/calendar/",
+      "icsUrl": "https://www.yorkcity.org/calendar/?ical=1",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-12T23:10:33.066Z",
+      "eventCount": 11
+    },
+    {
+      "id": "hellam-township",
+      "name": "Hellam Township",
+      "defaultEnabled": false,
+      "homepage": "https://www.hellamtownship.com/calendar/",
+      "icsUrl": "https://www.hellamtownship.com/calendar/?ical=1",
+      "ok": true,
+      "error": null,
+      "retrievedAt": "2026-09-12T23:10:33.066Z",
+      "eventCount": 6
     }
   ],
   "events": [
@@ -94,7 +61,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2130",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2125",
@@ -106,7 +73,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2125",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2135",
@@ -118,7 +85,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2135",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2134",
@@ -130,7 +97,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2134",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2129",
@@ -142,7 +109,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2129",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2124",
@@ -154,7 +121,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2124",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2139",
@@ -166,7 +133,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2139",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2133",
@@ -178,7 +145,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2133",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2128",
@@ -190,7 +157,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2128",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2123",
@@ -202,7 +169,7 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2123",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
       "uid": "2138",
@@ -214,55 +181,211 @@
       "location": " -   York  PA 17401",
       "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2138",
       "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
-      "uid": "2137",
-      "sourceId": "york-county-court",
-      "title": "No Civil Motions Court",
-      "dtstart": "2026-09-10",
-      "dtend": "2026-09-10",
-      "allDay": true,
-      "location": " -   York  PA 17401",
-      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2137",
-      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
-    },
-    {
-      "uid": "2122",
-      "sourceId": "york-county-court",
-      "title": "Family Motions Court (Custody)",
-      "dtstart": "2026-09-08T09:00:00",
-      "dtend": "2026-09-08T23:59:00",
+      "uid": "20046-1789408800-1789412400@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "Planning Commission",
+      "dtstart": "2026-09-14T18:00:00",
+      "dtend": "2026-09-14T19:00:00",
       "allDay": false,
-      "location": " -   York  PA 17401",
-      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2122",
-      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "location": "PA",
+      "description": "",
+      "url": "https://www.yorkcity.org/event/planning-commission-25/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
-      "uid": "2127",
-      "sourceId": "york-county-court",
-      "title": "Family Motions Court (Divorce)",
-      "dtstart": "2026-09-08T09:00:00",
-      "dtend": "2026-09-08T23:59:00",
+      "uid": "19355-1789495200-1789502400@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "City Council Meeting",
+      "dtstart": "2026-09-15T18:00:00",
+      "dtend": "2026-09-15T20:00:00",
       "allDay": false,
-      "location": " -   York  PA 17401",
-      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2127",
-      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "location": "Council Chambers, 101 S George St, York, PA, 17401, United States",
+      "description": "If you are a person with a disability and plan to attend the public meeting, please call (717) 849-2246 if any accommodations are needed to participate in the proceedings. Persons with hearing impairments may contact the Deaf Center at TDD (717) 848-6765 for assistance. Click here to visit Council’s page to view agendas.",
+      "url": "https://www.yorkcity.org/event/city-council-meeting-80/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     },
     {
-      "uid": "2136",
-      "sourceId": "york-county-court",
-      "title": "No Civil Motions Court",
-      "dtstart": "2026-09-08",
-      "dtend": "2026-09-08",
-      "allDay": true,
-      "location": " -   York  PA 17401",
-      "description": " https://www.yorkcountypa.gov/calendar.aspx?EID=2136",
-      "url": "/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=30",
-      "retrievedAt": "2026-09-05T14:11:21.252Z"
+      "uid": "20073-1789574400-1789578000@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "Redevelopment Authority Meeting",
+      "dtstart": "2026-09-16T16:00:00",
+      "dtend": "2026-09-16T17:00:00",
+      "allDay": false,
+      "location": "Council Chambers, 101 S George St, York, PA, 17401, United States",
+      "description": "Notice is hereby given that the Redevelopment Authority of the City of York (RDA) will conduct its regular public meetings for the transaction of general business on the third Wednesday of every month at 4:00 PM from January 2026 through December 2026 in City Council Chambers, 101 South George Street, York, PA. \nAll are open public meetings to which members of the public are invited to attend. \nNote: If you are a person with a disability and wish to attend these meetings and require any accommodations to participate, please contact DECD at 717-849-2264. Persons with hearing impairments may contact the Deaf Center at TTD 717-848-6765.",
+      "url": "https://www.yorkcity.org/event/redevelopment-authority-meeting-6/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "20038-1789668000-1789671600@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "Zoning Hearing Board",
+      "dtstart": "2026-09-17T18:00:00",
+      "dtend": "2026-09-17T19:00:00",
+      "allDay": false,
+      "location": "Council Chambers, 101 S George St, York, PA, 17401, United States",
+      "description": "Zoning Hearing board meeting are on the 3rd Thursday at 6PM each month.",
+      "url": "https://www.yorkcity.org/event/zoning-hearing-board-26/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "20006-1789992000-1789995600@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "Health Bureau Board Meeting",
+      "dtstart": "2026-09-21T12:00:00",
+      "dtend": "2026-09-21T13:00:00",
+      "allDay": false,
+      "location": "City Hall, 101 S. George Street, York, PA, United States",
+      "description": "Meeting to be held in Customer Service Center conference room.",
+      "url": "https://www.yorkcity.org/event/health-bureau-board-meeting-6/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "20080-1790013600-1790017200@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "HRC Board Meeting",
+      "dtstart": "2026-09-21T18:00:00",
+      "dtend": "2026-09-21T19:00:00",
+      "allDay": false,
+      "location": "Council Chambers, 101 S George St, York, PA, 17401, United States",
+      "description": "The Human Relations Commission Board meets once a month on the 3rd Monday, in City Council Chambers at 6:00pm, unless it falls on holiday; except for the summer recession months which are July and August. These meetings are opened to the public and live streamed on WRTV’s YouTube channel.",
+      "url": "https://www.yorkcity.org/event/hrc-board-meeting-4/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "19994-1790182800-1790186400@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "York Housing Authority Board of Commissioner Meeting",
+      "dtstart": "2026-09-23T17:00:00",
+      "dtend": "2026-09-23T18:00:00",
+      "allDay": false,
+      "location": "York Housing Authority, 31 S. Broad Street, York, PA, 17403, United States",
+      "description": "Meetings are the 4th Tuesday of every month at 5:00pm. We usually combine the November and December meetings to take place in early December. A draft Agenda is posted the Thursday prior to the meetings. \nMore Information",
+      "url": "https://www.yorkcity.org/event/york-housing-authority-board-of-commissioner-meeting-9/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "19356-1790186400-1790193600@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "City Council Committee Meeting",
+      "dtstart": "2026-09-23T18:00:00",
+      "dtend": "2026-09-23T20:00:00",
+      "allDay": false,
+      "location": "Council Chambers, 101 S George St, York, PA, 17401, United States",
+      "description": "If you are a person with a disability and plan to attend the public meeting, please call (717) 849-2246 if any accommodations are needed to participate in the proceedings. Persons with hearing impairments may contact the Deaf Center at TDD (717) 848-6765 for assistance. Click here to visit Council’s page to view agendas.",
+      "url": "https://www.yorkcity.org/event/city-council-committee-meeting-59/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "20061-1790272800-1790276400@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "HARB Meeting",
+      "dtstart": "2026-09-24T18:00:00",
+      "dtend": "2026-09-24T19:00:00",
+      "allDay": false,
+      "location": "Council Chambers, 101 S George St, York, PA, 17401, United States",
+      "description": "",
+      "url": "https://www.yorkcity.org/event/harb-meeting-53/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "19968-1790443800-1790447400@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "Civil Service Board Meeting",
+      "dtstart": "2026-09-26T17:30:00",
+      "dtend": "2026-09-26T18:30:00",
+      "allDay": false,
+      "location": "PA",
+      "description": "The City of York Civil Service Commission will hold public meetings for the purpose of reviewing rules and regulations and other such issues that come before the Commission on the fourth Tuesday of each month in 2025.\nMeetings start at 5:30 pm and are held in York City Hall, Former Bank Space Conference Room, located at 101 S. George Street, 1st floor, York PA 17401. Any notice of cancellation of a meeting will be posted at York City Hall.",
+      "url": "https://www.yorkcity.org/event/civil-service-board-meeting-30/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "19982-1790755200-1790758800@www.yorkcity.org",
+      "sourceId": "city-of-york",
+      "title": "SARAA Board Meeting",
+      "dtstart": "2026-09-30T08:00:00",
+      "dtend": "2026-09-30T09:00:00",
+      "allDay": false,
+      "location": "Harrisburg International Airport: McIntosh Boardroom, 1 Terminal Dr, Middletown, PA, 17057, United States",
+      "description": "The Board meetings are held the last Wednesday of the month, with the exception of December, which is held on the first Wednesday. There is no Board meeting scheduled for the month of November.",
+      "url": "https://www.yorkcity.org/event/saraa-board-meeting-9/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "2180@hellamtownship.gov",
+      "sourceId": "hellam-township",
+      "title": "Board of Supervisors Meeting",
+      "dtstart": "2026-09-17T18:00:00",
+      "dtend": "2026-09-17T20:00:00",
+      "allDay": false,
+      "location": "Hellam Township Municipal Complex, 35 Walnut Springs Road, York, Pennsylvania, 17406, United States",
+      "description": "The Hellam Township Board of Supervisors meetings are regularly scheduled to occur the 1st &amp; 3rd Thursday of the month. They take place in-person at the Hellam Township Municipal Complex, located at 35 Walnut Springs Road York, PA 17406, at 6PM. Meetings maybe be cancelled for various reasons, so please check our website for scheduling details, at www.hellamtownship.gov\n\nView meeting material.\n\nAll meetings are now in person, but you may also join via Zoom. For accommodations, please contact the Township manager, Corina Mann, at cmann@hellamtownship.com.\n\nZoom Instructions:\nEveryone will be able to access each meeting using the same login information below:\nUse the Zoom app or visit www.zoom.us\nClick \"Join Meeting\"\nMeeting ID: 634 220 1697\nPassword: Hellam44",
+      "url": "https://www.hellamtownship.gov/event/board-of-supervisors-meeting-2-2026-09-17/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "2230@hellamtownship.gov",
+      "sourceId": "hellam-township",
+      "title": "First Thursday Board of Supervisors Meeting",
+      "dtstart": "2026-10-01T18:00:00",
+      "dtend": "2026-10-01T19:00:00",
+      "allDay": false,
+      "location": "Hellam Township Municipal Complex, 35 Walnut Springs Road, York, Pennsylvania, 17406, United States",
+      "description": "The Hellam Township Board of Supervisors meetings are regularly scheduled to occur the 1st &amp; 3rd Thursday of the month. They take place in-person at the Hellam Township Municipal Complex, located at 35 Walnut Springs Road York, PA 17406, at 6PM. Meetings maybe be cancelled for various reasons, so please check our website for scheduling details, at www.hellamtownship.gov\n\nAll meetings are now in person, but you may also join via Zoom. For accommodations, please contact the Township manager, Corina Mann, at cmann@hellamtownship.com.\n\nZoom Instructions:\nEveryone will be able to access each meeting using the same login information below:\nUse the Zoom app or visit www.zoom.us\nClick \"Join Meeting\"\nMeeting ID: 634 220 1697\nPassword: Hellam44",
+      "url": "https://www.hellamtownship.gov/event/board-of-supervisors-meeting-2026-10-01/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "2181@hellamtownship.gov",
+      "sourceId": "hellam-township",
+      "title": "Board of Supervisors Meeting",
+      "dtstart": "2026-10-15T18:00:00",
+      "dtend": "2026-10-15T20:00:00",
+      "allDay": false,
+      "location": "Hellam Township Municipal Complex, 35 Walnut Springs Road, York, Pennsylvania, 17406, United States",
+      "description": "The Hellam Township Board of Supervisors meetings are regularly scheduled to occur the 1st &amp; 3rd Thursday of the month. They take place in-person at the Hellam Township Municipal Complex, located at 35 Walnut Springs Road York, PA 17406, at 6PM. Meetings maybe be cancelled for various reasons, so please check our website for scheduling details, at www.hellamtownship.gov\n\nView meeting material.\n\nAll meetings are now in person, but you may also join via Zoom. For accommodations, please contact the Township manager, Corina Mann, at cmann@hellamtownship.com.\n\nZoom Instructions:\nEveryone will be able to access each meeting using the same login information below:\nUse the Zoom app or visit www.zoom.us\nClick \"Join Meeting\"\nMeeting ID: 634 220 1697\nPassword: Hellam44",
+      "url": "https://www.hellamtownship.gov/event/board-of-supervisors-meeting-2-2026-10-15/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "2231@hellamtownship.gov",
+      "sourceId": "hellam-township",
+      "title": "First Thursday Board of Supervisors Meeting",
+      "dtstart": "2026-11-05T18:00:00",
+      "dtend": "2026-11-05T19:00:00",
+      "allDay": false,
+      "location": "Hellam Township Municipal Complex, 35 Walnut Springs Road, York, Pennsylvania, 17406, United States",
+      "description": "The Hellam Township Board of Supervisors meetings are regularly scheduled to occur the 1st &amp; 3rd Thursday of the month. They take place in-person at the Hellam Township Municipal Complex, located at 35 Walnut Springs Road York, PA 17406, at 6PM. Meetings maybe be cancelled for various reasons, so please check our website for scheduling details, at www.hellamtownship.gov\n\nAll meetings are now in person, but you may also join via Zoom. For accommodations, please contact the Township manager, Corina Mann, at cmann@hellamtownship.com.\n\nZoom Instructions:\nEveryone will be able to access each meeting using the same login information below:\nUse the Zoom app or visit www.zoom.us\nClick \"Join Meeting\"\nMeeting ID: 634 220 1697\nPassword: Hellam44",
+      "url": "https://www.hellamtownship.gov/event/board-of-supervisors-meeting-2026-11-05/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "2182@hellamtownship.gov",
+      "sourceId": "hellam-township",
+      "title": "Board of Supervisors Meeting",
+      "dtstart": "2026-11-19T18:00:00",
+      "dtend": "2026-11-19T20:00:00",
+      "allDay": false,
+      "location": "Hellam Township Municipal Complex, 35 Walnut Springs Road, York, Pennsylvania, 17406, United States",
+      "description": "The Hellam Township Board of Supervisors meetings are regularly scheduled to occur the 1st &amp; 3rd Thursday of the month. They take place in-person at the Hellam Township Municipal Complex, located at 35 Walnut Springs Road York, PA 17406, at 6PM. Meetings maybe be cancelled for various reasons, so please check our website for scheduling details, at www.hellamtownship.gov\n\nView meeting material.\n\nAll meetings are now in person, but you may also join via Zoom. For accommodations, please contact the Township manager, Corina Mann, at cmann@hellamtownship.com.\n\nZoom Instructions:\nEveryone will be able to access each meeting using the same login information below:\nUse the Zoom app or visit www.zoom.us\nClick \"Join Meeting\"\nMeeting ID: 634 220 1697\nPassword: Hellam44",
+      "url": "https://www.hellamtownship.gov/event/board-of-supervisors-meeting-2-2026-11-19/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
+    },
+    {
+      "uid": "2232@hellamtownship.gov",
+      "sourceId": "hellam-township",
+      "title": "First Thursday Board of Supervisors Meeting",
+      "dtstart": "2026-12-03T18:00:00",
+      "dtend": "2026-12-03T19:00:00",
+      "allDay": false,
+      "location": "Hellam Township Municipal Complex, 35 Walnut Springs Road, York, Pennsylvania, 17406, United States",
+      "description": "The Hellam Township Board of Supervisors meetings are regularly scheduled to occur the 1st &amp; 3rd Thursday of the month. They take place in-person at the Hellam Township Municipal Complex, located at 35 Walnut Springs Road York, PA 17406, at 6PM. Meetings maybe be cancelled for various reasons, so please check our website for scheduling details, at www.hellamtownship.gov\n\nAll meetings are now in person, but you may also join via Zoom. For accommodations, please contact the Township manager, Corina Mann, at cmann@hellamtownship.com.\n\nZoom Instructions:\nEveryone will be able to access each meeting using the same login information below:\nUse the Zoom app or visit www.zoom.us\nClick \"Join Meeting\"\nMeeting ID: 634 220 1697\nPassword: Hellam44",
+      "url": "https://www.hellamtownship.gov/event/board-of-supervisors-meeting-2026-12-03/",
+      "retrievedAt": "2026-09-12T23:10:33.066Z"
     }
   ]
 }

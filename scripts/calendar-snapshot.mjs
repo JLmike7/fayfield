@@ -24,52 +24,26 @@ const SOURCE_DEFS = [
       "https://calendar.google.com/calendar/ical/fayfieldcommunity%40gmail.com/public/basic.ics",
   },
   {
-    id: "york-county-main",
-    name: "York County Main",
-    defaultEnabled: false,
-    homepage: "https://yorkcountypa.gov/calendar.aspx",
-    icsUrl:
-      "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-  },
-  {
-    id: "york-county-parks",
-    name: "York County Parks",
-    defaultEnabled: false,
-    homepage: "https://www.yorkcountypa.gov/568/Parks-Recreation",
-    icsUrl:
-      "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
-  },
-  {
-    id: "york-county-commissioners",
-    name: "York County Commissioners",
-    defaultEnabled: false,
-    homepage: "https://yorkcountypa.gov/calendar.aspx",
-    icsUrl:
-      "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
-  },
-  {
-    id: "york-county-human-services",
-    name: "York County Human Services",
-    defaultEnabled: false,
-    homepage: "https://yorkcountypa.gov/278/County-Human-Services",
-    icsUrl:
-      "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
-  },
-  {
-    id: "york-county-aging",
-    name: "York County Aging",
-    defaultEnabled: false,
-    homepage: "https://yorkcountypa.gov/calendar.aspx",
-    icsUrl:
-      "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
-  },
-  {
     id: "york-county-court",
     name: "York County Court",
     defaultEnabled: true,
     homepage: "https://yorkcountypa.gov/calendar.aspx",
     icsUrl:
       "https://www.yorkcountypa.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  },
+  {
+    id: "city-of-york",
+    name: "City of York",
+    defaultEnabled: false,
+    homepage: "https://www.yorkcity.org/calendar/",
+    icsUrl: "https://www.yorkcity.org/calendar/?ical=1",
+  },
+  {
+    id: "hellam-township",
+    name: "Hellam Township",
+    defaultEnabled: false,
+    homepage: "https://www.hellamtownship.com/calendar/",
+    icsUrl: "https://www.hellamtownship.com/calendar/?ical=1",
   },
 ];
 

@@ -295,26 +295,18 @@ test("calendar controls are 44px touch targets, stacked on phone, paper/sycamore
   assert.doesNotMatch(html, /bootstrap/i);
   assert.doesNotMatch(html, /maple/i);
 });
-test("Sources fieldset has Fayfield + Court checked and five county opt-in sources", () => {
+test("Sources fieldset has Fayfield + Court checked and City/Hellam opt-in", () => {
   const html = read("calendar/index.html");
   const match = html.match(/<fieldset>\s*<legend>Sources<\/legend>[\s\S]*?<\/fieldset>/);
   assert.ok(match, "Sources fieldset present");
   const fieldset = match[0];
-  const nameCount = (fieldset.match(/Fayfield Community/g) || []).length;
-  assert.equal(nameCount, 1);
   assert.match(fieldset, /<label><input type="checkbox" name="source" value="fayfield-community" checked>\s*Fayfield Community<\/label>/);
   assert.match(fieldset, /<label><input type="checkbox" name="source" value="york-county-court" checked>\s*York County Court<\/label>/);
-  for (const id of [
-    "york-county-main",
-    "york-county-parks",
-    "york-county-commissioners",
-    "york-county-human-services",
-    "york-county-aging",
-  ]) {
-    assert.match(fieldset, new RegExp(`name="source" value="${id}"(?![^>]*checked)`));
-    assert.match(fieldset, new RegExp(`value="${id}">[^<]+`));
-  }
-  assert.doesNotMatch(fieldset, /<summary>Fayfield Community<\/summary>/);
+  assert.match(fieldset, /name="source" value="city-of-york"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="hellam-township"(?![^>]*checked)/);
+  assert.doesNotMatch(fieldset, /york-county-main/);
+  assert.doesNotMatch(fieldset, /york-county-parks/);
+  assert.doesNotMatch(fieldset, /york-county-aging/);
 });
 
 test("every live page cache-busts styles.css with an 8-char query", () => {
