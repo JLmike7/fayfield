@@ -82,6 +82,20 @@
         enabled: false,
         notes: "Opt-in. York Township public ICS via same-origin snapshot.",
       },
+      {
+        id: "crispus-attucks",
+        name: "Crispus Attucks",
+        group: "Nearby",
+        defaultEnabled: false,
+        sourceHomepage: "https://crispusattucks.org/events/",
+        icsUrl: "https://crispusattucks.org/events/?ical=1",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. Crispus Attucks York public ICS via same-origin snapshot.",
+      },
     ],
   };
 

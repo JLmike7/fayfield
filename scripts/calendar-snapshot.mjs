@@ -52,6 +52,13 @@ const SOURCE_DEFS = [
     homepage: "https://yorktownshippa.gov/events/",
     icsUrl: "https://yorktownshippa.gov/events/?ical=1",
   },
+  {
+    id: "crispus-attucks",
+    name: "Crispus Attucks",
+    defaultEnabled: false,
+    homepage: "https://crispusattucks.org/events/",
+    icsUrl: "https://crispusattucks.org/events/?ical=1",
+  },
 ];
 
 function nowIso() {
