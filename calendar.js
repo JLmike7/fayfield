@@ -68,6 +68,20 @@
         enabled: false,
         notes: "Opt-in. Hellam Township public ICS via same-origin snapshot.",
       },
+      {
+        id: "york-township",
+        name: "York Township",
+        group: "Nearby",
+        defaultEnabled: false,
+        sourceHomepage: "https://yorktownshippa.gov/events/",
+        icsUrl: "https://yorktownshippa.gov/events/?ical=1",
+        transport: "snapshot",
+        endpoint: SNAPSHOT_URL,
+        parser: "ics-snapshot",
+        timezone: "America/New_York",
+        enabled: false,
+        notes: "Opt-in. York Township public ICS via same-origin snapshot.",
+      },
     ],
   };
 

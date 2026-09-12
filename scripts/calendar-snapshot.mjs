@@ -45,6 +45,13 @@ const SOURCE_DEFS = [
     homepage: "https://www.hellamtownship.com/calendar/",
     icsUrl: "https://www.hellamtownship.com/calendar/?ical=1",
   },
+  {
+    id: "york-township",
+    name: "York Township",
+    defaultEnabled: false,
+    homepage: "https://yorktownshippa.gov/events/",
+    icsUrl: "https://yorktownshippa.gov/events/?ical=1",
+  },
 ];
 
 function nowIso() {

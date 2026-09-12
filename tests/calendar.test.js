@@ -2,11 +2,11 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const cal = require("../calendar.js");
 
-test("Fayfield Community and Court are default-on among four catalog entries", () => {
+test("Fayfield Community and Court are default-on among five catalog entries", () => {
   const defaults = cal.defaultSelection(cal.CATALOG);
   assert.deepEqual(defaults.enabled, ["fayfield-community", "york-county-court"]);
   assert.equal(defaults.view, "agenda");
-  assert.equal(cal.CATALOG.sources.length, 4);
+  assert.equal(cal.CATALOG.sources.length, 5);
   const src = cal.CATALOG.sources.find((s) => s.id === "fayfield-community");
   assert.equal(src.defaultEnabled, true);
   assert.equal(src.endpoint, cal.SNAPSHOT_URL);
@@ -17,6 +17,9 @@ test("Fayfield Community and Court are default-on among four catalog entries", (
   const hellam = cal.CATALOG.sources.find((s) => s.id === "hellam-township");
   assert.equal(hellam.defaultEnabled, false);
   assert.ok(!cal.CATALOG.sources.some((s) => s.id === "york-county-main"));
+  const yorkTwp = cal.CATALOG.sources.find((s) => s.id === "york-township");
+  assert.equal(yorkTwp.defaultEnabled, false);
+  assert.ok(!cal.CATALOG.sources.some((s) => /cysd|central-york/i.test(s.id)));
 });
 
 test("mergePrefsWithCatalog opts in new defaultEnabled sources once", () => {
