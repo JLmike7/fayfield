@@ -201,6 +201,7 @@ test("useful links jump-nav is full-width page chrome, not a content panel", () 
   assert.match(css, /\.jump-band[\s\S]*width:\s*100%/);
   assert.match(css, /\.jump-band\s*\{[^}]*border-top:\s*0/);
   assert.match(css, /\.jump-band\s*\{[^}]*border-bottom:\s*1px solid var\(--line\)/);
+  assert.match(css, /\.useful-links-section \+ \.useful-links-section\s*\{[^}]*margin-top:\s*8px/);
   assert.match(css, /\.useful-links-section \+ \.useful-links-section\s*\{[^}]*border-top:\s*1px solid var\(--line\)/);
   assert.match(css, /\.jump-band[\s\S]*border-radius:\s*0/);
   assert.match(css, /\.jump-band[\s\S]*margin:\s*1\.15rem 0/);

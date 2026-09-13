@@ -180,6 +180,7 @@ main.useful-links-page {
   box-shadow: none;
 }
 .useful-links-section + .useful-links-section {
+  margin-top: 8px; /* 5–10px paper gap between tinted sections */
   border-top: 1px solid var(--line);
 }
 .useful-links-section h2 {
