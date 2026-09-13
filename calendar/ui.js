@@ -89,9 +89,31 @@
     return m ? m[1] : "";
   }
 
-  function clockOf(iso) {
-    var m = String(iso || "").match(/T(\d{2}:\d{2})/);
-    return m ? m[1] : "";
+  function rawClockOf(iso) {
+    var m = String(iso || "").match(/T(\d{2}):(\d{2})/);
+    if (!m) return null;
+    return { hour: Number(m[1]), minute: m[2], hhmm: m[1] + ":" + m[2] };
+  }
+
+  /** User-facing clock: 12-hour with am/pm (never 24-hour). */
+  function formatClock12(isoOrHhmm) {
+    var hour;
+    var minute;
+    var s = String(isoOrHhmm || "");
+    var fromIso = rawClockOf(s);
+    if (fromIso) {
+      hour = fromIso.hour;
+      minute = fromIso.minute;
+    } else {
+      var m = s.match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) return "";
+      hour = Number(m[1]);
+      minute = m[2];
+    }
+    var suffix = hour >= 12 ? "pm" : "am";
+    var h12 = hour % 12;
+    if (h12 === 0) h12 = 12;
+    return h12 + ":" + minute + " " + suffix;
   }
 
   function addDaysYmd(ymd, days) {
@@ -122,7 +144,7 @@
     }).format(dt);
   }
 
-  /** Option 3 when portion: includes end when available. */
+  /** Option 3 when portion: includes end when available. 12-hour am/pm only. */
   function formatWhen(event) {
     var start = event.start || event.dtstart || "";
     var end = event.end || event.dtend || "";
@@ -137,23 +159,24 @@
       if (!eYmd || last <= sYmd) return "All day";
       return "All day · " + shortMonthDay(sYmd) + "–" + shortMonthDay(last);
     }
-    var startClock = clockOf(start);
+    var startRaw = rawClockOf(start);
+    var startClock = startRaw ? formatClock12(start) : "";
     if (!startClock) {
-      var t = start.replace("T", " ").replace(/Z$/, " UTC");
-      var m = t.match(/\d{2}:\d{2}/);
-      return m ? m[0] : t;
+      var loose = String(start).match(/(\d{1,2}):(\d{2})/);
+      if (loose) startClock = formatClock12((loose[1].length < 2 ? "0" : "") + loose[1] + ":" + loose[2]);
+      else return "";
     }
     if (!end) return startClock;
-    var endClock = clockOf(end);
+    var endRaw = rawClockOf(end);
     var sDay = ymdOf(start);
     var eDay = ymdOf(end);
-    if (endClock && sDay && eDay && sDay === eDay) {
+    if (endRaw && sDay && eDay && sDay === eDay) {
       // CivicEngage-style sentinel end-of-day — skim as start-only
-      if (endClock === "23:59" || endClock === "00:00") return startClock;
-      return startClock + "–" + endClock;
+      if (endRaw.hhmm === "23:59" || endRaw.hhmm === "00:00") return startClock;
+      return startClock + "–" + formatClock12(end);
     }
-    if (endClock && eDay) {
-      return startClock + "–" + shortWeekday(eDay) + " " + endClock;
+    if (endRaw && eDay) {
+      return startClock + "–" + shortWeekday(eDay) + " " + formatClock12(end);
     }
     return startClock;
   }

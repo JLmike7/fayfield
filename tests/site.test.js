@@ -440,8 +440,10 @@ test("day agenda meta includes end times and description peek", () => {
   const ui = read("calendar/ui.js");
   const css = read("styles.css");
   assert.match(ui, /function formatWhen/);
-  assert.match(ui, /startClock \+ "–" \+ endClock/);
+  assert.match(ui, /function formatClock12/);
+  assert.match(ui, /am"|"pm"/);
   assert.match(ui, /All day · /);
+  assert.doesNotMatch(ui, /function clockOf\(/);
   assert.match(ui, /function descriptionPlain/);
   assert.match(ui, /function shouldShowDescription/);
   assert.match(ui, /class="cal-agenda-desc-toggle"/);
@@ -454,7 +456,7 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(css, /\.cal-agenda-desc-toggle[\s\S]*text-decoration:\s*underline/);
   assert.match(css, /\.cal-agenda-original[\s\S]*text-decoration:\s*underline/);
   assert.match(css, /\.cal-agenda-links/);
-  assert.match(ui, /endClock === "23:59"/);
+  assert.match(ui, /endRaw\.hhmm === "23:59"/);
 });
 
 test("calendar buries intro below Filters/results (collapsed About)", () => {
