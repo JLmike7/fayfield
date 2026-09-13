@@ -411,6 +411,19 @@ test("calendar uses Teams-like month pane without Agenda/Month radios", () => {
   assert.match(ui, /colorForSourceId/);
 });
 
+test("day agenda cards use stacked title / when / where (not run-on blobs)", () => {
+  const ui = read("calendar/ui.js");
+  const css = read("styles.css");
+  assert.match(ui, /class="cal-agenda-title"/);
+  assert.match(ui, /class="cal-agenda-when"/);
+  assert.match(ui, /class="cal-agenda-where"/);
+  assert.match(ui, /class="cal-agenda-source"/);
+  assert.doesNotMatch(ui, /label \+ " <strong>" \+\s*escapeHtml\(event\.title\)/);
+  assert.match(css, /\.cal-agenda-title\s*\{/);
+  assert.match(css, /\.cal-agenda-item[^{]*\{[\s\S]*flex-direction:\s*column/);
+});
+
+
 test("month grid columns use minmax(0, 1fr) so event titles cannot stretch tracks", () => {
   const css = read("styles.css");
   assert.match(css, /\.month-grid[\s\S]{0,200}grid-template-columns:\s*repeat\(7,\s*minmax\(0,\s*1fr\)\)/);

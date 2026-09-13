@@ -277,27 +277,30 @@
     var items = dayEvents
       .map(function (event) {
         var color = cal.colorForSourceId(event.sourceId, catalog);
-        var label = event.sourceName
-          ? '<span class="source">' + escapeHtml(event.sourceName) + "</span>"
+        var source = event.sourceName
+          ? '<p class="cal-agenda-source">' + escapeHtml(event.sourceName) + "</p>"
+          : "";
+        var title =
+          '<h3 class="cal-agenda-title">' + escapeHtml(event.title || "Event") + "</h3>";
+        var when = formatWhen(event);
+        var whenHtml = when
+          ? '<p class="cal-agenda-when">' + escapeHtml(when) + "</p>"
+          : "";
+        var loc = event.location
+          ? '<p class="cal-agenda-where">' + escapeHtml(event.location) + "</p>"
           : "";
         var link = event.url
-          ? ' <a href="' +
+          ? '<p class="cal-agenda-link"><a href="' +
             escapeHtml(event.url) +
-            '" rel="noopener noreferrer">Original event</a>'
-          : "";
-        var when = escapeHtml(formatWhen(event));
-        var loc = event.location
-          ? ' <span class="cal-loc">' + escapeHtml(event.location) + "</span>"
+            '" rel="noopener noreferrer">Original event</a></p>'
           : "";
         return (
           '<li class="cal-agenda-item" style="border-left-color:' +
           escapeHtml(color) +
           '">' +
-          label +
-          " <strong>" +
-          escapeHtml(event.title) +
-          "</strong> " +
-          when +
+          source +
+          title +
+          whenHtml +
           loc +
           link +
           "</li>"
