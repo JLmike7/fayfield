@@ -345,7 +345,7 @@ body:has(.cal-controls) main {
   }
 }
 .cal-agenda { list-style: none; margin: 0; padding: 0; }
-.cal-agenda li { border-bottom: 1px solid var(--line); padding: 0.75rem 0; }
+.cal-agenda:not(.cal-agenda--day) li { border-bottom: 1px solid var(--line); padding: 0.75rem 0; }
 .cal-empty { color: var(--muted); font-family: system-ui, sans-serif; }
 .cal-swatch {
   display: inline-block;
@@ -461,7 +461,7 @@ body:has(.cal-controls) main {
 .cal-day-title { font-size: 1.2rem; margin: 0; }
 .cal-day-sub { margin: 0.15rem 0 0; opacity: 0.8; font-size: 0.9rem; }
 .cal-agenda--day { list-style: none; padding: 0; margin: 0; }
-.cal-agenda-item {
+.cal-agenda--day > .cal-agenda-item {
   border-left: 4px solid var(--leaf, #2f6b3a);
   background: #efe9dc;
   padding: 0.65rem 0.75rem;

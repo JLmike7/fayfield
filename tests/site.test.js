@@ -468,6 +468,14 @@ test("day agenda strips leading hyphen from location", () => {
   assert.match(ui, /cleanLocation\(event\.location\)/);
 });
 
+test("day agenda cards keep horizontal padding (specificity over .cal-agenda li)", () => {
+  const css = read("styles.css");
+  assert.match(css, /\.cal-agenda--day\s*>\s*\.cal-agenda-item\s*\{[\s\S]*padding:\s*0\.65rem\s+0\.75rem/);
+  assert.match(css, /\.cal-agenda:not\(\.cal-agenda--day\)\s+li\s*\{/);
+  assert.doesNotMatch(css, /\.cal-agenda\s+li\s*\{[^}]*padding:\s*0\.75rem\s+0\s*;/);
+});
+
+
 
 
 test("month grid columns use minmax(0, 1fr) so event titles cannot stretch tracks", () => {
