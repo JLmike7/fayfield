@@ -35,18 +35,6 @@
     return prefs;
   }
 
-  function formatDayShort(ymd) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd || "")) return "Today";
-    var parts = ymd.split("-").map(Number);
-    var dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
-    return new Intl.DateTimeFormat("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      timeZone: "UTC",
-    }).format(dt);
-  }
-
   function updateFiltersMeta(prefs) {
     var meta = document.getElementById("cal-filters-meta");
     if (!meta) return;
@@ -61,10 +49,8 @@
       if (text) names.push(text);
     });
     var n = names.length;
-    var sources =
+    meta.textContent =
       n === 0 ? "No sources" : n === 1 ? names[0] : n + " sources";
-    var dayLabel = formatDayShort(prefs.selectedDay || selectedDay);
-    meta.textContent = sources + " · " + dayLabel;
   }
 
   function menuDetails() {
@@ -505,10 +491,9 @@
     updateFiltersMeta(prefs);
     cal.savePrefs(window.localStorage, prefs);
     var loaded = await cal.loadEnabledEvents(catalog, prefs, { snapshot: snapshot });
+    var queryEl = document.getElementById("cal-query");
     var filtered = cal.filterEvents(loaded, {
-      query: document.getElementById("cal-query").value,
-      start: document.getElementById("cal-start").value,
-      end: document.getElementById("cal-end").value,
+      query: queryEl ? queryEl.value : "",
     });
     render(filtered, prefs);
   }
@@ -550,15 +535,6 @@
     form.addEventListener("input", refresh);
     results.addEventListener("click", onResultsClick);
 
-    menuDetails().forEach(function (menu) {
-      menu.addEventListener("toggle", function () {
-        if (!menu.open) return;
-        menuDetails().forEach(function (other) {
-          if (other !== menu && other.open) other.open = false;
-        });
-      });
-    });
-
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closeMenus();
     });
@@ -566,10 +542,7 @@
     document.addEventListener("pointerdown", function (e) {
       var openMenus = menuDetails().filter(function (d) { return d.open; });
       if (!openMenus.length) return;
-      var inside = openMenus.some(function (d) { return d.contains(e.target); });
-      if (inside) return;
-      var active = document.activeElement;
-      if (active && active.type === "date" && openMenus.some(function (d) { return d.contains(active); })) return;
+      if (openMenus.some(function (d) { return d.contains(e.target); })) return;
       closeMenus();
     });
 

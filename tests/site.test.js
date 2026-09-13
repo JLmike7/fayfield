@@ -343,26 +343,27 @@ test("calendar CSS uses custom paper widgets and a modest two-column desktop sta
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*position:\s*absolute/);
 });
 
-test("calendar has separate Sources and Filters click menus", () => {
+test("calendar Sources menu + inline search; no Filters panel", () => {
   const html = read("calendar/index.html");
   assert.match(html, /class="cal-filter-bar"/);
   assert.match(html, /<form class="cal-controls" id="cal-controls">/);
   assert.match(html, /<details class="cal-menu cal-sources">/);
-  assert.match(html, /<details class="cal-menu cal-filters">/);
-  assert.doesNotMatch(html, /<details class="cal-menu[^"]*"[^>]*\sopen\b/);
+  assert.doesNotMatch(html, /cal-menu cal-filters|cal-menu-title">Filters</);
+  assert.doesNotMatch(html, /id="cal-start"|id="cal-end"/);
+  assert.match(html, /id="cal-query"/);
+  assert.match(html, /class="cal-search-row"/);
   assert.match(html, /cal-menu-title">Sources</);
-  assert.match(html, /cal-menu-title">Filters</);
   assert.match(html, /id="cal-filters-meta"/);
-  assert.equal((html.match(/class="cal-menu /g) || []).length, 2);
-  assert.match(html, /<form class="cal-controls"[\s\S]*cal-menu cal-sources[\s\S]*cal-menu cal-filters[\s\S]*<\/form>/);
+  assert.equal((html.match(/class="cal-menu /g) || []).length, 1);
 });
 
-test("calendar menu panels overlay absolutely and do not take document flow", () => {
+test("calendar Sources panel overlays absolutely full-width on mobile", () => {
   const css = read("styles.css");
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel/);
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*position:\s*absolute/);
   assert.match(css, /\.cal-filter-bar[\s\S]*position:\s*relative/);
-  assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*margin:\s*0/);
+  assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*width:\s*100%/);
+  assert.match(css, /\.cal-menu\s*\{[\s\S]*position:\s*static/);
   assert.doesNotMatch(css, /bootstrap/i);
   assert.doesNotMatch(css, /maple/i);
 });
@@ -534,7 +535,8 @@ test("calendar as-of is agenda subheading under selected date; no publishers pan
   assert.match(ui, /cal-day-title[\s\S]*asOfAgendaSub\(\)/);
   assert.doesNotMatch(ui, /cal-publishers|cal-foot-meta|cal-asof--foot|attributionHtml/);
   assert.match(ui, /n \+ " sources"/);
-  assert.match(ui, /function formatDayShort/);
+  assert.doesNotMatch(ui, /formatDayShort| · " \+ dayLabel/);
+  assert.match(ui, /n === 1 \? names\[0\] : n \+ " sources"/);
   assert.match(css, /\.cal-asof--agenda/);
   assert.doesNotMatch(css, /\.cal-publishers|\.cal-foot-meta|cal-asof--foot/);
 });

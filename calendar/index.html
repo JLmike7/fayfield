@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Calendar — Fayfield Community</title>
   <base href="/fayfield/">
-  <link rel="stylesheet" href="styles.css?v=602f997c">
+  <link rel="stylesheet" href="styles.css?v=1adeaa65">
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
@@ -29,7 +29,7 @@
         <details class="cal-menu cal-sources">
           <summary>
             <span class="cal-menu-title">Sources</span>
-            <span class="cal-filters-meta" id="cal-filters-meta">Fayfield Community · Today</span>
+            <span class="cal-filters-meta" id="cal-filters-meta">Fayfield Community</span>
           </summary>
           <div class="cal-menu-panel" role="group" aria-label="Sources">
             <fieldset>
@@ -49,19 +49,10 @@
             </fieldset>
           </div>
         </details>
-        <details class="cal-menu cal-filters">
-          <summary>
-            <span class="cal-menu-title">Filters</span>
-          </summary>
-          <div class="cal-menu-panel" role="group" aria-label="Filters">
-            <fieldset>
-              <legend class="visually-hidden">Find</legend>
-              <label>Search <input type="search" name="query" id="cal-query"></label>
-              <label>From <input type="date" name="start" id="cal-start"></label>
-              <label>To <input type="date" name="end" id="cal-end"></label>
-            </fieldset>
-          </div>
-        </details>
+        <div class="cal-search-row">
+          <label class="cal-search-label" for="cal-query">Search</label>
+          <input type="search" name="query" id="cal-query" class="cal-search-input" placeholder="Search events" autocomplete="off">
+        </div>
       </form>
     </div>
     <div id="cal-results">
@@ -73,6 +64,6 @@
     <p><a href="privacy/">Privacy</a></p>
   </footer>
   <script src="calendar.js?v=db7b9c4e"></script>
-  <script src="calendar/ui.js?v=77abb93f"></script>
+  <script src="calendar/ui.js?v=53a53e8f"></script>
 </body>
 </html>

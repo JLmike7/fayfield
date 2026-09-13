@@ -135,18 +135,20 @@ main a:visited { color: var(--leaf); }
 .cal-filter-bar {
   position: relative;
   margin: 1rem 0 1.25rem;
+  z-index: 4;
 }
 .cal-controls {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 0.5rem 0.65rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
   font-family: system-ui, sans-serif;
   margin: 0;
 }
 .cal-menu {
-  position: relative;
+  position: static;
   margin: 0;
+  width: 100%;
 }
 .cal-menu > summary {
   box-sizing: border-box;
@@ -191,24 +193,51 @@ main a:visited { color: var(--leaf); }
 .cal-menu-panel {
   display: none;
 }
+/* Panel anchors to .cal-filter-bar so it overlays results, not Search */
 .cal-menu[open] > .cal-menu-panel {
   display: block;
   position: absolute;
   left: 0;
-  top: calc(100% + 0.25rem);
+  right: 0;
+  top: 100%;
   z-index: 8;
   box-sizing: border-box;
-  width: min(calc(100vw - 2rem), 22rem);
+  width: 100%;
   max-height: min(70vh, 32rem);
   overflow: auto;
-  margin: 0;
+  margin: 0.35rem 0 0;
   padding: 0.85rem 1rem 1rem;
   background: var(--paper);
   border: 1px solid var(--line);
+  border-radius: 0.4rem;
   box-shadow: 0 0.45rem 1.15rem rgba(31, 36, 28, 0.16);
 }
-.cal-menu.cal-filters[open] > .cal-menu-panel {
-  width: min(calc(100vw - 2rem), 20rem);
+.cal-search-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+}
+.cal-search-label {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--bark);
+}
+.cal-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.45rem 0.7rem;
+  font: inherit;
+  color: var(--bark);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.cal-search-input:focus {
+  border-color: var(--bark);
+  outline: 2px solid var(--leaf);
+  outline-offset: 1px;
 }
 /* overlay fingerprint */
 .cal-controls fieldset {
@@ -356,13 +385,15 @@ body:has(.cal-controls) main {
 }
 @media (min-width: 40.01rem) {
   .cal-menu[open] > .cal-menu-panel {
-    width: min(28rem, calc(100vw - 2rem));
-  }
-  .cal-menu.cal-filters[open] > .cal-menu-panel {
-    width: min(22rem, calc(100vw - 2rem));
+    left: 0;
+    right: auto;
+    width: min(36rem, 100%);
   }
   .cal-controls fieldset {
     margin-bottom: 0;
+  }
+  .cal-search-row {
+    max-width: 36rem;
   }
 }
 .cal-agenda { list-style: none; margin: 0; padding: 0; }
