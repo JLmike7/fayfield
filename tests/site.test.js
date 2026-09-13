@@ -434,11 +434,15 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(ui, /All day · /);
   assert.match(ui, /function descriptionPlain/);
   assert.match(ui, /function shouldShowDescription/);
-  assert.match(ui, /<summary>description<\/summary>/);
+  assert.match(ui, /class="cal-agenda-desc-toggle"/);
+  assert.match(ui, />description<\/label>/);
   assert.match(ui, /class="cal-agenda-links"/);
-  assert.match(ui, /class="cal-agenda-desc"/);
-  assert.match(css, /\.cal-agenda-desc-body/);
+  assert.match(ui, /class="cal-agenda-actions"/);
+  assert.match(ui, /class="cal-agenda-desc-panel"/);
+  assert.doesNotMatch(ui, /<details class="cal-agenda-desc"/);
+  assert.match(css, /\.cal-agenda-desc-panel/);
   assert.match(css, /\.cal-agenda-links/);
+  assert.match(ui, /endClock === "23:59"/);
 });
 
 test("calendar mobile puts Filters and results before intro prose", () => {

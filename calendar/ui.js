@@ -132,6 +132,8 @@
     var sDay = ymdOf(start);
     var eDay = ymdOf(end);
     if (endClock && sDay && eDay && sDay === eDay) {
+      // CivicEngage-style sentinel end-of-day — skim as start-only
+      if (endClock === "23:59" || endClock === "00:00") return startClock;
       return startClock + "–" + endClock;
     }
     if (endClock && eDay) {
@@ -390,30 +392,41 @@
         var meta = metaParts.length
           ? '<p class="cal-agenda-meta">' + escapeHtml(metaParts.join(" · ")) + "</p>"
           : "";
-        var linkBits = [];
+        var descId = "cal-desc-" + String(event.uid || event.id || Math.random())
+          .replace(/[^a-zA-Z0-9_-]/g, "")
+          .slice(0, 48);
+        var rowBits = [];
+        var panel = "";
         if (shouldShowDescription(event)) {
           var body = escapeHtml(descriptionPlain(event.description)).replace(
             /\n/g,
             "<br>"
           );
-          linkBits.push(
-            '<details class="cal-agenda-desc"><summary>description</summary>' +
-              '<div class="cal-agenda-desc-body">' +
-              body +
-              "</div></details>"
+          rowBits.push(
+            '<input type="checkbox" class="cal-agenda-desc-check" id="' +
+              escapeHtml(descId) +
+              '">' +
+              '<label class="cal-agenda-desc-toggle" for="' +
+              escapeHtml(descId) +
+              '">description</label>'
           );
+          panel =
+            '<div class="cal-agenda-desc-panel">' + body + "</div>";
         }
         if (event.url) {
-          linkBits.push(
+          rowBits.push(
             '<a class="cal-agenda-original" href="' +
               escapeHtml(event.url) +
               '" rel="noopener noreferrer">Original event</a>'
           );
         }
-        var links = linkBits.length
-          ? '<p class="cal-agenda-links">' +
-            linkBits.join('<span class="cal-agenda-links-sep"> · </span>') +
-            "</p>"
+        var links = rowBits.length
+          ? '<div class="cal-agenda-actions">' +
+            '<p class="cal-agenda-links">' +
+            rowBits.join('<span class="cal-agenda-links-sep"> · </span>') +
+            "</p>" +
+            panel +
+            "</div>"
           : "";
         return (
           '<li class="cal-agenda-item" style="border-left-color:' +
