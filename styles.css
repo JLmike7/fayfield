@@ -172,12 +172,15 @@ main.useful-links-page {
   padding-right: 1.25rem;
 }
 .useful-links-section {
-  margin: 0 0 1.15rem;
+  margin: 0;
   padding: 0.85rem 1rem 0.35rem;
   background: color-mix(in srgb, var(--bark, #3d3429) 4%, var(--paper, #f7f4ee));
   border: 0;
   border-radius: 0;
   box-shadow: none;
+}
+.useful-links-section + .useful-links-section {
+  border-top: 1px solid var(--line);
 }
 .useful-links-section h2 {
   margin-top: 0;
@@ -185,16 +188,13 @@ main.useful-links-page {
 .useful-links-section .links {
   margin-bottom: 0.5rem;
 }
-.useful-links-section:last-child {
-  margin-bottom: 0;
-}
 .jump-band {
   box-sizing: border-box;
   width: 100%;
   max-width: none;
   margin: 1.15rem 0;
   padding: 0.35rem 1.25rem;
-  border-top: 1px solid var(--line);
+  border-top: 0;
   border-bottom: 1px solid var(--line);
   background: transparent;
   border-radius: 0;
