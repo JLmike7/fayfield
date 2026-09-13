@@ -164,23 +164,39 @@ main.useful-links-page {
   padding-left: 0;
   padding-right: 0;
 }
-.useful-links-intro,
-.useful-links-body {
+.useful-links-intro {
   max-width: 40rem;
   margin: 0;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
+.useful-links-stack {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
 .useful-links-section {
+  box-sizing: border-box;
+  max-width: 40rem;
   margin: 0;
   padding: 0.85rem 1rem 0.35rem;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
   background: color-mix(in srgb, var(--bark, #3d3429) 4%, var(--paper, #f7f4ee));
   border: 0;
   border-radius: 0;
   box-shadow: none;
 }
-.useful-links-section + .useful-links-section {
-  margin-top: 8px; /* 5–10px paper gap between tinted sections */
+.useful-links-rule {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 0;
+  margin: 8px 0 0; /* 5–10px paper gap above full-bleed HR */
+  padding: 0;
+  border: 0;
   border-top: 1px solid var(--line);
 }
 .useful-links-section h2 {
