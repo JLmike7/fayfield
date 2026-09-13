@@ -257,57 +257,14 @@
     }).format(dt);
   }
 
-  function attributionHtml(prefs) {
-    if (!snapshot) return "";
-    var enabled = prefs.enabled || [];
-    var rows = [];
-    (snapshot.sources || []).forEach(function (s) {
-      if (enabled.indexOf(s.id) === -1) return;
-      if (!s.ok) return;
-      var href = s.homepage || "";
-      var name = s.name || s.id;
-      var color = cal.colorForSourceId(s.id, catalog);
-      var swatch =
-        '<span class="cal-swatch" style="background:' +
-        escapeHtml(color) +
-        '" aria-hidden="true"></span>';
-      var label = href
-        ? '<a href="' +
-          escapeHtml(href) +
-          '" rel="noopener noreferrer">' +
-          escapeHtml(name) +
-          "</a>"
-        : escapeHtml(name);
-      rows.push(
-        '<li class="cal-publisher">' + swatch + " " + label + "</li>"
-      );
-    });
-    var bits = [];
-    if (rows.length) {
-      var summaryText =
-        rows.length === 1 ? "1 publisher" : rows.length + " publishers";
-      bits.push(
-        '<details class="cal-publishers">' +
-          "<summary>" +
-          escapeHtml(summaryText) +
-          "</summary>" +
-          '<ul class="cal-publisher-list">' +
-          rows.join("") +
-          "</ul>" +
-          '<p class="cal-publishers-note">We don’t invent events.</p>' +
-          "</details>"
-      );
-    }
-    var retrieved = snapshot.retrievedAt || "";
-    if (retrieved) {
-      bits.push(
-        '<p class="cal-asof cal-asof--foot">As of ' +
-          escapeHtml(formatAsOfHuman(retrieved)) +
-          "</p>"
-      );
-    }
-    if (!bits.length) return "";
-    return '<aside class="cal-foot-meta">' + bits.join("") + "</aside>";
+  /** Human as-of as agenda subheading under the selected date. */
+  function asOfAgendaSub() {
+    if (!snapshot || !snapshot.retrievedAt) return "";
+    return (
+      '<p class="cal-asof cal-asof--agenda">As of ' +
+      escapeHtml(formatAsOfHuman(snapshot.retrievedAt)) +
+      "</p>"
+    );
   }
 
   function emptyDayMessage(prefs) {
@@ -445,6 +402,7 @@
       '<div class="cal-day-head"><h2 class="cal-day-title">' +
       escapeHtml(formatDayHeading(day)) +
       "</h2>" +
+      asOfAgendaSub() +
       '<p class="cal-day-sub">' +
       dayEvents.length +
       " event" +
@@ -525,8 +483,7 @@
     lastEvents = events || [];
     results.innerHTML =
       renderMonthPane(lastEvents) +
-      renderDayAgenda(lastEvents, prefs) +
-      attributionHtml(prefs);
+      renderDayAgenda(lastEvents, prefs);
   }
 
   function onResultsClick(e) {

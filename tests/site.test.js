@@ -91,9 +91,7 @@ test("calendar UI is fail-closed with Fayfield default-on and no fake feed", () 
   assert.doesNotMatch(html, /<iframe[^>]+google\.com\/calendar/i);
   assert.doesNotMatch(html, /corsproxy|allorigins|cors-anywhere/i);
   assert.doesNotMatch(html, /error panel|could not load/i);
-  // localStorage disclaimer lives on Privacy; invent note in publishers foot (ui.js)
-  const ui = read("calendar/ui.js");
-  assert.match(ui, /don.t invent events/i);
+  // invent stance stays in fail-closed empty copy above; no publishers foot
 });
 
 test("accents are sycamore, not maple", () => {
@@ -526,20 +524,19 @@ test("month-count badge centers number with flex", () => {
   assert.match(css, /\.month-count\s*\{[\s\S]*justify-content:\s*center/);
 });
 
-test("calendar foot meta: publishers collapsed below agenda; compact filters meta", () => {
+test("calendar as-of is agenda subheading under selected date; no publishers pane", () => {
   const ui = read("calendar/ui.js");
   const css = read("styles.css");
-  assert.match(ui, /class="cal-foot-meta"/);
-  assert.match(ui, /class="cal-publishers"/);
-  assert.match(ui, /class="cal-publisher-list"/);
-  assert.match(ui, /cal-asof--foot/);
+  assert.match(ui, /function asOfAgendaSub/);
+  assert.match(ui, /cal-asof--agenda/);
   assert.match(ui, /function formatAsOfHuman/);
   assert.match(ui, /hour12:\s*true/);
-  assert.match(ui, /renderMonthPane\(lastEvents\)[\s\S]*renderDayAgenda[\s\S]*attributionHtml/);
+  assert.match(ui, /cal-day-title[\s\S]*asOfAgendaSub\(\)/);
+  assert.doesNotMatch(ui, /cal-publishers|cal-foot-meta|cal-asof--foot|attributionHtml/);
   assert.match(ui, /n \+ " sources"/);
   assert.match(ui, /function formatDayShort/);
-  assert.match(css, /\.cal-foot-meta/);
-  assert.match(css, /\.cal-publisher-list/);
+  assert.match(css, /\.cal-asof--agenda/);
+  assert.doesNotMatch(css, /\.cal-publishers|\.cal-foot-meta|cal-asof--foot/);
 });
 
 
