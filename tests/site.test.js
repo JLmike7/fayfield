@@ -485,6 +485,14 @@ test("month grid columns use minmax(0, 1fr) so event titles cannot stretch track
   assert.match(css, /\.month-dow[\s\S]{0,220}text-overflow:\s*ellipsis/);
 });
 
+test("month-count badge centers number with flex", () => {
+  const css = read("styles.css");
+  assert.match(css, /\.month-count\s*\{[\s\S]*display:\s*inline-flex/);
+  assert.match(css, /\.month-count\s*\{[\s\S]*align-items:\s*center/);
+  assert.match(css, /\.month-count\s*\{[\s\S]*justify-content:\s*center/);
+});
+
+
 test("styles.css cache-bust token is SHA256 first 8 hex", () => {
   const crypto = require("node:crypto");
   const hash = crypto

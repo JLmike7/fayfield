@@ -440,15 +440,23 @@ body:has(.cal-controls) main {
 }
 .month-daynum { font-weight: 650; line-height: 1; }
 .month-count {
-  display: inline-block;
-  min-width: 1.1rem;
-  padding: 0.05rem 0.28rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 0.28rem;
   border-radius: 999px;
   background: var(--bark, #3d3429);
   color: var(--paper, #f7f4ee);
+  font-family: system-ui, sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1;
+  text-align: center;
+  /* optical: digits sit slightly high in some UAs */
+  padding-top: 0.05em;
 }
 .month-dots { display: flex; flex-wrap: wrap; gap: 2px; margin-top: auto; }
 .month-dot {
@@ -554,7 +562,7 @@ body:has(.cal-controls) main {
 }
 @media (max-width: 40rem) {
   .month-grid--compact .month-cell { min-height: 2.75rem; padding: 0.15rem; }
-  .month-count { font-size: 0.6rem; }
+  .month-count { font-size: 0.6rem; min-width: 1.05rem; height: 1.05rem; }
 }
 
 .notice { font-family: system-ui, sans-serif; font-size: 0.9rem; color: var(--muted); }
