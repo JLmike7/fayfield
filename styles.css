@@ -411,7 +411,8 @@ body:has(.cal-controls) main {
   background: var(--paper, #f7f4ee);
   padding: 0.25rem 0.5rem 0.5rem;
 }
-.cal-month-body { padding-top: 0.15rem; }
+.cal-month-body { padding-top: 0.15rem;   padding-bottom: 0.65rem;
+}
 .month-nav {
   display: flex;
   align-items: center;
@@ -636,7 +637,7 @@ body:has(.cal-controls) main {
 /* Updated stamp: tinted footer bar inside month calendar panel */
 .cal-updated--foot {
   margin: 0;
-  padding: 0.45rem 0.75rem;
+  padding: 0.55rem 0.75rem;
   text-align: center;
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;

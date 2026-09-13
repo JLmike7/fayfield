@@ -102,7 +102,6 @@
     if (isNaN(d.getTime())) return String(iso || "");
     var stamped = new Intl.DateTimeFormat("en-US", {
       timeZone: "America/New_York",
-      weekday: "short",
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -110,7 +109,7 @@
       minute: "2-digit",
       hour12: true,
     }).format(d);
-    // Match agenda clock casing (am/pm), not Intl AM/PM.
+    // Match agenda clock casing (am/pm), not Intl AM/PM. No weekday.
     return stamped.replace(/\bAM\b/g, "am").replace(/\bPM\b/g, "pm");
   }
 
