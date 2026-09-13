@@ -68,15 +68,108 @@
       .trim();
   }
 
+  function ymdOf(iso) {
+    var m = String(iso || "").match(/^(\d{4}-\d{2}-\d{2})/);
+    return m ? m[1] : "";
+  }
+
+  function clockOf(iso) {
+    var m = String(iso || "").match(/T(\d{2}:\d{2})/);
+    return m ? m[1] : "";
+  }
+
+  function addDaysYmd(ymd, days) {
+    var parts = ymd.split("-").map(Number);
+    var dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    dt.setUTCDate(dt.getUTCDate() + days);
+    return dt.toISOString().slice(0, 10);
+  }
+
+  function shortMonthDay(ymd) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd || "")) return ymd || "";
+    var parts = ymd.split("-").map(Number);
+    var dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(dt);
+  }
+
+  function shortWeekday(ymd) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd || "")) return "";
+    var parts = ymd.split("-").map(Number);
+    var dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    return new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+      timeZone: "UTC",
+    }).format(dt);
+  }
+
+  /** Option 3 when portion: includes end when available. */
   function formatWhen(event) {
     var start = event.start || event.dtstart || "";
+    var end = event.end || event.dtend || "";
     if (!start) return "";
-    if (event.allDay || /^\d{4}-\d{2}-\d{2}$/.test(start)) {
-      return "All day";
+    var allDay = event.allDay || /^\d{4}-\d{2}-\d{2}$/.test(start);
+    if (allDay) {
+      var sYmd = ymdOf(start);
+      if (!end) return "All day";
+      var eYmd = ymdOf(end);
+      // ICS all-day DTEND is exclusive
+      var last = eYmd ? addDaysYmd(eYmd, -1) : sYmd;
+      if (!eYmd || last <= sYmd) return "All day";
+      return "All day · " + shortMonthDay(sYmd) + "–" + shortMonthDay(last);
     }
-    var t = start.replace("T", " ").replace(/Z$/, " UTC");
-    var m = t.match(/\d{2}:\d{2}/);
-    return m ? m[0] : t;
+    var startClock = clockOf(start);
+    if (!startClock) {
+      var t = start.replace("T", " ").replace(/Z$/, " UTC");
+      var m = t.match(/\d{2}:\d{2}/);
+      return m ? m[0] : t;
+    }
+    if (!end) return startClock;
+    var endClock = clockOf(end);
+    var sDay = ymdOf(start);
+    var eDay = ymdOf(end);
+    if (endClock && sDay && eDay && sDay === eDay) {
+      return startClock + "–" + endClock;
+    }
+    if (endClock && eDay) {
+      return startClock + "–" + shortWeekday(eDay) + " " + endClock;
+    }
+    return startClock;
+  }
+
+  /** Strip tags/entities for safe peek text (no HTML in card). */
+  function descriptionPlain(raw) {
+    var s = String(raw || "");
+    s = s.replace(/<script[\s\S]*?<\/script>/gi, " ");
+    s = s.replace(/<style[\s\S]*?<\/style>/gi, " ");
+    s = s.replace(/<br\s*\/?>/gi, "\n");
+    s = s.replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n");
+    s = s.replace(/<[^>]+>/g, " ");
+    s = s
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&#(\d+);/g, function (_, n) {
+        return String.fromCharCode(Number(n));
+      });
+    s = s.replace(/\r\n/g, "\n").replace(/[ \t]+\n/g, "\n");
+    s = s.replace(/\n{3,}/g, "\n\n").replace(/[ \t]{2,}/g, " ").trim();
+    return s;
+  }
+
+  function shouldShowDescription(event) {
+    var plain = descriptionPlain(event.description);
+    if (!plain) return false;
+    var url = String(event.url || "").trim();
+    if (url && plain === url) return false;
+    if (/^https?:\/\/\S+$/i.test(plain)) return false;
+    return true;
   }
 
   function formatDayHeading(ymd) {
@@ -297,10 +390,30 @@
         var meta = metaParts.length
           ? '<p class="cal-agenda-meta">' + escapeHtml(metaParts.join(" · ")) + "</p>"
           : "";
-        var link = event.url
-          ? '<p class="cal-agenda-link"><a href="' +
-            escapeHtml(event.url) +
-            '" rel="noopener noreferrer">Original event</a></p>'
+        var linkBits = [];
+        if (shouldShowDescription(event)) {
+          var body = escapeHtml(descriptionPlain(event.description)).replace(
+            /\n/g,
+            "<br>"
+          );
+          linkBits.push(
+            '<details class="cal-agenda-desc"><summary>description</summary>' +
+              '<div class="cal-agenda-desc-body">' +
+              body +
+              "</div></details>"
+          );
+        }
+        if (event.url) {
+          linkBits.push(
+            '<a class="cal-agenda-original" href="' +
+              escapeHtml(event.url) +
+              '" rel="noopener noreferrer">Original event</a>'
+          );
+        }
+        var links = linkBits.length
+          ? '<p class="cal-agenda-links">' +
+            linkBits.join('<span class="cal-agenda-links-sep"> · </span>') +
+            "</p>"
           : "";
         return (
           '<li class="cal-agenda-item" style="border-left-color:' +
@@ -309,7 +422,7 @@
           source +
           title +
           meta +
-          link +
+          links +
           "</li>"
         );
       })

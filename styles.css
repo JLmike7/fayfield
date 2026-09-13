@@ -496,12 +496,45 @@ body:has(.cal-controls) main {
   opacity: 0.9;
   line-height: 1.35;
 }
-.cal-agenda-link {
+.cal-agenda-links {
   margin: 0.15rem 0 0;
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0;
 }
-.cal-agenda-link a { color: var(--leaf, #2f6b3a); }
+.cal-agenda-links-sep { opacity: 0.55; margin: 0 0.15rem; }
+.cal-agenda-links a,
+.cal-agenda-desc > summary {
+  color: var(--leaf, #2f6b3a);
+  cursor: pointer;
+}
+.cal-agenda-desc {
+  display: inline;
+  margin: 0;
+}
+.cal-agenda-desc > summary {
+  list-style: none;
+  display: inline;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+.cal-agenda-desc > summary::-webkit-details-marker { display: none; }
+.cal-agenda-desc[open] > summary { font-weight: 650; }
+.cal-agenda-desc-body {
+  display: block;
+  margin: 0.35rem 0 0;
+  padding: 0.45rem 0.55rem;
+  background: color-mix(in srgb, var(--bark, #3d3429) 6%, transparent);
+  border-radius: 0.3rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  color: var(--ink, #1a1510);
+  max-width: 100%;
+}
 @media (max-width: 40rem) {
   .month-grid--compact .month-cell { min-height: 2.75rem; padding: 0.15rem; }
   .month-count { font-size: 0.6rem; }

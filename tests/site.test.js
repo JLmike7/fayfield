@@ -426,6 +426,21 @@ test("day agenda cards use stacked title then when · where meta line", () => {
   assert.match(css, /\.cal-agenda-item[^{]*\{[\s\S]*flex-direction:\s*column/);
 });
 
+test("day agenda meta includes end times and description peek", () => {
+  const ui = read("calendar/ui.js");
+  const css = read("styles.css");
+  assert.match(ui, /function formatWhen/);
+  assert.match(ui, /startClock \+ "–" \+ endClock/);
+  assert.match(ui, /All day · /);
+  assert.match(ui, /function descriptionPlain/);
+  assert.match(ui, /function shouldShowDescription/);
+  assert.match(ui, /<summary>description<\/summary>/);
+  assert.match(ui, /class="cal-agenda-links"/);
+  assert.match(ui, /class="cal-agenda-desc"/);
+  assert.match(css, /\.cal-agenda-desc-body/);
+  assert.match(css, /\.cal-agenda-links/);
+});
+
 test("calendar mobile puts Filters and results before intro prose", () => {
   const html = read("calendar/index.html");
   const css = read("styles.css");
