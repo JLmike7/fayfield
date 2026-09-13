@@ -535,7 +535,10 @@ test("calendar Updated stamp is month-panel footer; empty day is one skim line",
   assert.match(ui, /Updated /);
   assert.match(ui, /function formatAsOfHuman/);
   assert.doesNotMatch(ui, /function formatAsOfHuman[\s\S]*?weekday:[\s\S]*?hour12/);
-  assert.match(css, /\.cal-month-body[\s\S]*padding-bottom:\s*0\.65rem/);
+  assert.match(css, /\.cal-month-pane[\s\S]*padding:\s*0/);
+  assert.match(css, /\.cal-month-body[\s\S]*padding:[\s\S]*0\.65rem/);
+  assert.match(css, /\.cal-updated--foot[\s\S]*border-radius:\s*0 0 0\.5rem/);
+  assert.doesNotMatch(css, /\.cal-month-pane[\s\S]*padding:\s*0\.25rem/);
   assert.match(ui, /replace\(\/\\bAM\\b\/g, "am"\)/);
   assert.match(ui, /updatedFooterHtml\(\)/);
   assert.doesNotMatch(ui, /asOfAgendaSub|cal-asof--agenda|As of /);

@@ -409,11 +409,10 @@ body:has(.cal-controls) main {
   border: 1px solid color-mix(in srgb, var(--bark, #3d3429) 18%, transparent);
   border-radius: 0.5rem;
   background: var(--paper, #f7f4ee);
-  padding: 0.25rem 0.5rem 0.5rem;
+  padding: 0;
 }
 .cal-month-body {
-  padding-top: 0.15rem;
-  padding-bottom: 0.65rem;
+  padding: 0.4rem 0.5rem 0.65rem;
 }
 .month-nav {
   display: flex;
@@ -647,7 +646,7 @@ body:has(.cal-controls) main {
   color: var(--bark, #3d3429);
   background: color-mix(in srgb, var(--leaf, #5a7a45) 12%, var(--paper, #f7f4ee));
   border-top: 1px solid color-mix(in srgb, var(--bark, #3d3429) 14%, transparent);
-  border-radius: 0 0 0.45rem 0.45rem;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 /* Hide empty intro as-of slot on calendar page */
