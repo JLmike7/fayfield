@@ -411,7 +411,9 @@ body:has(.cal-controls) main {
   background: var(--paper, #f7f4ee);
   padding: 0.25rem 0.5rem 0.5rem;
 }
-.cal-month-body { padding-top: 0.15rem;   padding-bottom: 0.65rem;
+.cal-month-body {
+  padding-top: 0.15rem;
+  padding-bottom: 0.65rem;
 }
 .month-nav {
   display: flex;
