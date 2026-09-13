@@ -38,17 +38,35 @@
     return prefs;
   }
 
+  function formatDayShort(ymd) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd || "")) return "Today";
+    var parts = ymd.split("-").map(Number);
+    var dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+    return new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(dt);
+  }
+
   function updateFiltersMeta(prefs) {
     var meta = document.getElementById("cal-filters-meta");
     if (!meta) return;
     var names = [];
     form.querySelectorAll('input[name="source"]:checked').forEach(function (el) {
       var label = el.closest("label");
-      var text = label ? label.textContent.replace(/\s+/g, " ").trim() : "";
+      if (!label) return;
+      var clone = label.cloneNode(true);
+      var sw = clone.querySelector(".cal-swatch");
+      if (sw) sw.remove();
+      var text = clone.textContent.replace(/\s+/g, " ").trim();
       if (text) names.push(text);
     });
-    var sources = names.length ? names.join(", ") : "No sources";
-    var dayLabel = formatDayHeading(prefs.selectedDay || selectedDay);
+    var n = names.length;
+    var sources =
+      n === 0 ? "No sources" : n === 1 ? names[0] : n + " sources";
+    var dayLabel = formatDayShort(prefs.selectedDay || selectedDay);
     meta.textContent = sources + " · " + dayLabel;
   }
 
@@ -189,13 +207,8 @@
 
   function attributionHtml(prefs) {
     if (!snapshot) return "";
-    var parts = [];
-    var retrieved = snapshot.retrievedAt || "";
-    if (retrieved) {
-      parts.push('<p class="cal-asof">As of ' + escapeHtml(retrieved) + " (snapshot).</p>");
-    }
     var enabled = prefs.enabled || [];
-    var links = [];
+    var rows = [];
     (snapshot.sources || []).forEach(function (s) {
       if (enabled.indexOf(s.id) === -1) return;
       if (!s.ok) return;
@@ -206,27 +219,43 @@
         '<span class="cal-swatch" style="background:' +
         escapeHtml(color) +
         '" aria-hidden="true"></span>';
-      if (href) {
-        links.push(
-          swatch +
-            '<a href="' +
-            escapeHtml(href) +
-            '" rel="noopener noreferrer">' +
-            escapeHtml(name) +
-            "</a>"
-        );
-      } else {
-        links.push(swatch + escapeHtml(name));
-      }
+      var label = href
+        ? '<a href="' +
+          escapeHtml(href) +
+          '" rel="noopener noreferrer">' +
+          escapeHtml(name) +
+          "</a>"
+        : escapeHtml(name);
+      rows.push(
+        '<li class="cal-publisher">' + swatch + " " + label + "</li>"
+      );
     });
-    if (links.length) {
-      parts.push(
-        '<p class="cal-attribution">Publishers: ' +
-          links.join(" · ") +
-          ". We don’t invent events.</p>"
+    var bits = [];
+    if (rows.length) {
+      var summaryText =
+        rows.length === 1 ? "1 publisher" : rows.length + " publishers";
+      bits.push(
+        '<details class="cal-publishers">' +
+          "<summary>" +
+          escapeHtml(summaryText) +
+          "</summary>" +
+          '<ul class="cal-publisher-list">' +
+          rows.join("") +
+          "</ul>" +
+          '<p class="cal-publishers-note">We don’t invent events.</p>' +
+          "</details>"
       );
     }
-    return parts.join("");
+    var retrieved = snapshot.retrievedAt || "";
+    if (retrieved) {
+      bits.push(
+        '<p class="cal-asof cal-asof--foot">As of ' +
+          escapeHtml(retrieved) +
+          "</p>"
+      );
+    }
+    if (!bits.length) return "";
+    return '<aside class="cal-foot-meta">' + bits.join("") + "</aside>";
   }
 
   function emptyDayMessage(prefs) {
@@ -445,9 +474,10 @@
 
   function render(events, prefs) {
     lastEvents = events || [];
-    var attr = attributionHtml(prefs);
     results.innerHTML =
-      attr + renderMonthPane(lastEvents) + renderDayAgenda(lastEvents, prefs);
+      renderMonthPane(lastEvents) +
+      renderDayAgenda(lastEvents, prefs) +
+      attributionHtml(prefs);
     var pane = results.querySelector("details.cal-month-pane");
     if (pane) {
       pane.addEventListener("toggle", function () {
@@ -475,8 +505,8 @@
     var prefs = currentPrefs();
     updateFiltersMeta(prefs);
     cal.savePrefs(window.localStorage, prefs);
-    if (asOfEl && snapshot && snapshot.retrievedAt) {
-      asOfEl.textContent = "As of " + snapshot.retrievedAt;
+    if (asOfEl) {
+      asOfEl.textContent = "";
     }
     var loaded = await cal.loadEnabledEvents(catalog, prefs, { snapshot: snapshot });
     var filtered = cal.filterEvents(loaded, {

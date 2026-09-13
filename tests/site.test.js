@@ -492,6 +492,21 @@ test("month-count badge centers number with flex", () => {
   assert.match(css, /\.month-count\s*\{[\s\S]*justify-content:\s*center/);
 });
 
+test("calendar foot meta: publishers collapsed below agenda; compact filters meta", () => {
+  const ui = read("calendar/ui.js");
+  const css = read("styles.css");
+  assert.match(ui, /class="cal-foot-meta"/);
+  assert.match(ui, /class="cal-publishers"/);
+  assert.match(ui, /class="cal-publisher-list"/);
+  assert.match(ui, /cal-asof--foot/);
+  assert.match(ui, /renderMonthPane\(lastEvents\)[\s\S]*renderDayAgenda[\s\S]*attributionHtml/);
+  assert.match(ui, /n \+ " sources"/);
+  assert.match(ui, /function formatDayShort/);
+  assert.match(css, /\.cal-foot-meta/);
+  assert.match(css, /\.cal-publisher-list/);
+});
+
+
 
 test("styles.css cache-bust token is SHA256 first 8 hex", () => {
   const crypto = require("node:crypto");
