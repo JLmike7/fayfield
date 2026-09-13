@@ -408,7 +408,7 @@
               '">' +
               '<label class="cal-agenda-desc-toggle" for="' +
               escapeHtml(descId) +
-              '">description</label>'
+              '">Description</label>'
           );
           panel =
             '<div class="cal-agenda-desc-panel">' + body + "</div>";

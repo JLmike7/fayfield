@@ -435,7 +435,7 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(ui, /function descriptionPlain/);
   assert.match(ui, /function shouldShowDescription/);
   assert.match(ui, /class="cal-agenda-desc-toggle"/);
-  assert.match(ui, />description<\/label>/);
+  assert.match(ui, />Description<\/label>/);
   assert.match(ui, /class="cal-agenda-links"/);
   assert.match(ui, /class="cal-agenda-actions"/);
   assert.match(ui, /class="cal-agenda-desc-panel"/);
