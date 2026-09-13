@@ -638,7 +638,7 @@ body:has(.cal-controls) main {
 /* Updated stamp: tinted footer bar inside month calendar panel */
 .cal-updated--foot {
   margin: 0;
-  padding: 0.55rem 0.75rem;
+  padding: calc(0.55rem - 4px) 0.75rem;
   text-align: center;
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;
