@@ -175,7 +175,8 @@ test("useful links jump-c uses quiet SVG line icons, not chips or emoji", () => 
   assert.match(css, /\.jump-c a[\s\S]*align-items:\s*flex-start/);
   assert.match(css, /\.jump-c svg[\s\S]*stroke-width:\s*1\.75/);
   assert.match(css, /\.jump-c svg[\s\S]*fill:\s*none/);
-  assert.match(css, /\.jump-c a[\s\S]*min-height:\s*44px/);
+  assert.match(css, /\.jump-c a[\s\S]*padding:\s*0\.65rem 0/);
+  assert.doesNotMatch(css, /\.jump-c a[\s\S]*min-height:\s*44px/);
   assert.doesNotMatch(html, /class="jump-d"|Short chips/);
   for (const label of [
     "Government and official alerts",
@@ -198,6 +199,8 @@ test("useful links jump-nav is full-width page chrome, not a content panel", () 
   assert.match(html, /class="useful-links-body"/);
   assert.match(css, /main\.useful-links-page[\s\S]*max-width:\s*none/);
   assert.match(css, /\.jump-band[\s\S]*width:\s*100%/);
+  assert.match(css, /\.jump-band[\s\S]*margin:\s*1\.15rem 0/);
+  assert.doesNotMatch(css, /\.jump-band[\s\S]*margin:\s*0\.85rem 0 1\.75rem/);
   assert.match(css, /\.jump-band[\s\S]*border-top:\s*1px solid/);
   assert.match(css, /\.jump-band[\s\S]*border-radius:\s*0/);
   assert.doesNotMatch(css, /\.jump-band[\s\S]{0,200}box-shadow:\s*[^n0]/);
