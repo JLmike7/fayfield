@@ -290,12 +290,12 @@
         var title =
           '<h3 class="cal-agenda-title">' + escapeHtml(event.title || "Event") + "</h3>";
         var when = formatWhen(event);
-        var whenHtml = when
-          ? '<p class="cal-agenda-when">' + escapeHtml(when) + "</p>"
-          : "";
         var where = cleanLocation(event.location);
-        var loc = where
-          ? '<p class="cal-agenda-where">' + escapeHtml(where) + "</p>"
+        var metaParts = [];
+        if (when) metaParts.push(when);
+        if (where) metaParts.push(where);
+        var meta = metaParts.length
+          ? '<p class="cal-agenda-meta">' + escapeHtml(metaParts.join(" · ")) + "</p>"
           : "";
         var link = event.url
           ? '<p class="cal-agenda-link"><a href="' +
@@ -308,8 +308,7 @@
           '">' +
           source +
           title +
-          whenHtml +
-          loc +
+          meta +
           link +
           "</li>"
         );

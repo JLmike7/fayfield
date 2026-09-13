@@ -488,16 +488,12 @@ body:has(.cal-controls) main {
   line-height: 1.25;
   color: var(--ink, #1a1510);
 }
-.cal-agenda-when {
+.cal-agenda-meta {
   margin: 0;
   font-family: system-ui, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 650;
-}
-.cal-agenda-where {
-  margin: 0;
   font-size: 0.9rem;
-  opacity: 0.85;
+  font-weight: 500;
+  opacity: 0.9;
   line-height: 1.35;
 }
 .cal-agenda-link {

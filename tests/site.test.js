@@ -411,15 +411,18 @@ test("calendar uses Teams-like month pane without Agenda/Month radios", () => {
   assert.match(ui, /colorForSourceId/);
 });
 
-test("day agenda cards use stacked title / when / where (not run-on blobs)", () => {
+test("day agenda cards use stacked title then when · where meta line", () => {
   const ui = read("calendar/ui.js");
   const css = read("styles.css");
   assert.match(ui, /class="cal-agenda-title"/);
-  assert.match(ui, /class="cal-agenda-when"/);
-  assert.match(ui, /class="cal-agenda-where"/);
+  assert.match(ui, /class="cal-agenda-meta"/);
   assert.match(ui, /class="cal-agenda-source"/);
+  assert.match(ui, /metaParts\.join\(" · "\)/);
+  assert.doesNotMatch(ui, /class="cal-agenda-when"/);
+  assert.doesNotMatch(ui, /class="cal-agenda-where"/);
   assert.doesNotMatch(ui, /label \+ " <strong>" \+\s*escapeHtml\(event\.title\)/);
   assert.match(css, /\.cal-agenda-title\s*\{/);
+  assert.match(css, /\.cal-agenda-meta\s*\{/);
   assert.match(css, /\.cal-agenda-item[^{]*\{[\s\S]*flex-direction:\s*column/);
 });
 
