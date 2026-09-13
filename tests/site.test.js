@@ -83,15 +83,17 @@ test("calendar UI is fail-closed with Fayfield default-on and no fake feed", () 
   const html = read("calendar/index.html");
   assert.match(html, /Fayfield Community/);
   assert.match(html, /cal-results|snapshot/i);
-  assert.match(html, /localStorage|this browser/i);
   assert.match(html, /unofficial|authoritative/i);
   assert.match(html, /Nothing on the calendar yet/);
   assert.match(html, /rather than make something up/);
-  assert.match(html, /same-origin public-ICS snapshot|don.t invent/i);
+  assert.doesNotMatch(html, /About this calendar/);
   assert.doesNotMatch(html, /not built yet|coming in a later slice/i);
   assert.doesNotMatch(html, /<iframe[^>]+google\.com\/calendar/i);
   assert.doesNotMatch(html, /corsproxy|allorigins|cors-anywhere/i);
   assert.doesNotMatch(html, /error panel|could not load/i);
+  // localStorage disclaimer lives on Privacy; invent note in publishers foot (ui.js)
+  const ui = read("calendar/ui.js");
+  assert.match(ui, /don.t invent events/i);
 });
 
 test("accents are sycamore, not maple", () => {
@@ -459,21 +461,16 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(ui, /endRaw\.hhmm === "23:59"/);
 });
 
-test("calendar buries intro below Filters/results (collapsed About)", () => {
+test("calendar has no About this calendar intro", () => {
   const html = read("calendar/index.html");
-  const css = read("styles.css");
   assert.match(html, /class="cal-page"/);
   assert.match(html, /class="visually-hidden"/);
-  assert.match(html, /class="cal-about"/);
-  assert.match(html, /<summary>About this calendar<\/summary>/);
-  const introAt = html.indexOf('class="cal-page-intro"');
-  const filtersAt = html.indexOf('class="cal-filter-bar"');
-  const resultsAt = html.indexOf('id="cal-results"');
-  assert.ok(filtersAt > -1 && resultsAt > filtersAt);
-  assert.ok(introAt > resultsAt);
-  assert.doesNotMatch(css, /main\.cal-page\s*>\s*\.cal-page-intro\s*\{[\s\S]*order:\s*3/);
-  assert.match(css, /\.cal-about/);
-  assert.match(css, /\.visually-hidden/);
+  assert.doesNotMatch(html, /About this calendar/);
+  assert.doesNotMatch(html, /class="cal-about"/);
+  assert.doesNotMatch(html, /class="cal-page-intro"/);
+  assert.doesNotMatch(html, /We don’t send emergency alerts/);
+  assert.match(html, /class="cal-filter-bar"/);
+  assert.match(html, /id="cal-results"/);
 });
 
 test("day agenda strips leading hyphen from location", () => {

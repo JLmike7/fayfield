@@ -7,7 +7,6 @@
 
   var snapshot = null;
   var catalog = cal.CATALOG;
-  var asOfEl = document.getElementById("cal-asof");
   var selectedDay = cal.todayYmdNy();
   var monthKey = selectedDay.slice(0, 7);
   var lastEvents = [];
@@ -532,9 +531,6 @@
     var prefs = currentPrefs();
     updateFiltersMeta(prefs);
     cal.savePrefs(window.localStorage, prefs);
-    if (asOfEl) {
-      asOfEl.textContent = "";
-    }
     var loaded = await cal.loadEnabledEvents(catalog, prefs, { snapshot: snapshot });
     var filtered = cal.filterEvents(loaded, {
       query: document.getElementById("cal-query").value,
