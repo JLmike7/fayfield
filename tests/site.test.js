@@ -423,6 +423,28 @@ test("day agenda cards use stacked title / when / where (not run-on blobs)", () 
   assert.match(css, /\.cal-agenda-item[^{]*\{[\s\S]*flex-direction:\s*column/);
 });
 
+test("calendar mobile puts Filters and results before intro prose", () => {
+  const html = read("calendar/index.html");
+  const css = read("styles.css");
+  assert.match(html, /class="cal-page"/);
+  assert.match(html, /class="cal-page-intro"/);
+  const introAt = html.indexOf('class="cal-page-intro"');
+  const filtersAt = html.indexOf('class="cal-filter-bar"');
+  const resultsAt = html.indexOf('id="cal-results"');
+  assert.ok(introAt > -1 && filtersAt > introAt);
+  assert.ok(resultsAt > filtersAt);
+  assert.match(css, /main\.cal-page\s*>\s*\.cal-page-intro\s*\{[\s\S]*order:\s*3/);
+  assert.match(css, /main\.cal-page\s*>\s*\.cal-filter-bar\s*\{[\s\S]*order:\s*1/);
+  assert.match(css, /main\.cal-page\s*>\s*#cal-results\s*\{[\s\S]*order:\s*2/);
+});
+
+test("day agenda strips leading hyphen from location", () => {
+  const ui = read("calendar/ui.js");
+  assert.match(ui, /function cleanLocation/);
+  assert.match(ui, /cleanLocation\(event\.location\)/);
+});
+
+
 
 test("month grid columns use minmax(0, 1fr) so event titles cannot stretch tracks", () => {
   const css = read("styles.css");

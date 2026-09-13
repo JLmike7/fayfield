@@ -61,6 +61,13 @@
     if (details && details.open) details.open = false;
   }
 
+  function cleanLocation(loc) {
+    return String(loc || "")
+      .replace(/^[\s\-–—]+/, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function formatWhen(event) {
     var start = event.start || event.dtstart || "";
     if (!start) return "";
@@ -286,8 +293,9 @@
         var whenHtml = when
           ? '<p class="cal-agenda-when">' + escapeHtml(when) + "</p>"
           : "";
-        var loc = event.location
-          ? '<p class="cal-agenda-where">' + escapeHtml(event.location) + "</p>"
+        var where = cleanLocation(event.location);
+        var loc = where
+          ? '<p class="cal-agenda-where">' + escapeHtml(where) + "</p>"
           : "";
         var link = event.url
           ? '<p class="cal-agenda-link"><a href="' +

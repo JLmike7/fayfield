@@ -293,6 +293,27 @@ main a:visited { color: var(--leaf); }
 body:has(.cal-controls) main {
   max-width: 48rem;
 }
+/* Mobile late-for-work: Filters + calendar before intro prose */
+@media (max-width: 40rem) {
+  main.cal-page {
+    display: flex;
+    flex-direction: column;
+  }
+  main.cal-page > .cal-page-intro {
+    order: 3;
+    margin-top: 1.25rem;
+  }
+  main.cal-page > .cal-filter-bar {
+    order: 1;
+  }
+  main.cal-page > #cal-results {
+    order: 2;
+  }
+  main.cal-page > .cal-page-intro h1 {
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+}
 @media (max-width: 40rem) {
   .cal-controls label {
     display: flex;
