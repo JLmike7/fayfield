@@ -209,6 +209,13 @@
     return snapshot.events.filter(function (e) { return e.sourceId === sourceId; });
   }
 
+  function usableEventUrl(url) {
+    var u = String(url || "").trim();
+    if (!/^https?:\/\//i.test(u)) return "";
+    if (/\/iCalendar\.aspx/i.test(u) && /(?:\?|&)feed=calendar\b/i.test(u)) return "";
+    return u;
+  }
+
   function mapSnapshotEvent(raw, source) {
     return {
       id: raw.uid,

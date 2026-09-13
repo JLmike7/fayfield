@@ -256,6 +256,37 @@ function parseVevents(icsText) {
   return events;
 }
 
+
+/** Absolute http(s) event URL only; resolve relative against publisher homepage. */
+function usableEventUrl(rawUrl, homepage, icsUrl) {
+  const raw = String(rawUrl || "").trim();
+  if (!raw) return "";
+  let abs = raw;
+  try {
+    if (!/^https?:\/\//i.test(raw)) {
+      if (!homepage) return "";
+      abs = new URL(raw, homepage).href;
+    } else {
+      abs = new URL(raw).href;
+    }
+  } catch {
+    return "";
+  }
+  if (!/^https?:\/\//i.test(abs)) return "";
+  // CivicEngage iCalendar feed is not an event page
+  if (/\/iCalendar\.aspx/i.test(abs) && /(?:\?|&)feed=calendar\b/i.test(abs)) {
+    return "";
+  }
+  if (icsUrl) {
+    try {
+      if (new URL(abs).href === new URL(icsUrl).href) return "";
+    } catch {
+      /* ignore */
+    }
+  }
+  return abs;
+}
+
 async function fetchText(url) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
@@ -306,7 +337,7 @@ async function pullSource(def, windowStart, windowEnd, retrievedAt) {
       allDay: !!e.allDay,
       location: e.location || "",
       description: e.description || "",
-      url: e.url || "",
+      url: usableEventUrl(e.url, def.homepage, def.icsUrl),
       retrievedAt,
     }));
     base.ok = true;

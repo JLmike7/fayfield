@@ -76,6 +76,15 @@
     if (details && details.open) details.open = false;
   }
 
+
+  /** Only absolute http(s) URLs; never relative github.io-breakers. */
+  function usableEventUrl(url) {
+    var u = String(url || "").trim();
+    if (!/^https?:\/\//i.test(u)) return "";
+    if (/\/iCalendar\.aspx/i.test(u) && /(?:\?|&)feed=calendar\b/i.test(u)) return "";
+    return u;
+  }
+
   function cleanLocation(loc) {
     return String(loc || "")
       .replace(/^[\s\-–—]+/, "")
@@ -475,10 +484,11 @@
           panel =
             '<div class="cal-agenda-desc-panel">' + body + "</div>";
         }
-        if (event.url) {
+        var eventHref = usableEventUrl(event.url);
+        if (eventHref) {
           rowBits.push(
             '<a class="cal-agenda-original" href="' +
-              escapeHtml(event.url) +
+              escapeHtml(eventHref) +
               '" rel="noopener noreferrer">Original event</a>'
           );
         }

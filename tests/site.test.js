@@ -461,6 +461,18 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(ui, /endRaw\.hhmm === "23:59"/);
 });
 
+test("Original event links require usable absolute http(s) URLs", () => {
+  const snap = read("scripts/calendar-snapshot.mjs");
+  const ui = read("calendar/ui.js");
+  const cal = read("calendar.js");
+  assert.match(snap, /function usableEventUrl/);
+  assert.match(ui, /function usableEventUrl/);
+  assert.match(cal, /function usableEventUrl/);
+  assert.match(ui, /usableEventUrl\(event\.url\)/);
+  assert.match(snap, /iCalendar\.aspx/);
+});
+
+
 test("calendar has no About this calendar intro", () => {
   const html = read("calendar/index.html");
   assert.match(html, /class="cal-page"/);
