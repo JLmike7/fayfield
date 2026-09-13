@@ -126,6 +126,34 @@ main a:visited { color: var(--leaf); }
   font-size: 0.95rem;
 }
 .jump a { color: var(--leaf); }
+.jump-c a {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  min-height: 44px;
+  text-decoration: none;
+  max-width: 100%;
+}
+.jump-c a span {
+  line-height: 1.35;
+  padding-top: 0.05rem;
+}
+.jump-c svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  stroke: var(--leaf);
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (min-width: 40.01rem) {
+  .jump-c {
+    gap: 0.45rem 1.5rem;
+  }
+}
 .links { list-style: none; margin: 0 0 2rem; padding: 0; }
 .links li { margin: 0 0 1rem; }
 .links a { color: var(--leaf); font-family: system-ui, sans-serif; font-weight: 650; }

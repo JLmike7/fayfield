@@ -161,9 +161,32 @@ test("useful links has jump menu and six sitemap headings", () => {
   for (const h of headings) {
     assert.match(html, new RegExp(h.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
-  assert.match(html, /<nav[^>]*jump|class="jump"/i);
+  assert.match(html, /class="jump jump-c"/);
+  assert.match(html, /aria-hidden="true"/);
+  assert.equal((html.match(/<svg viewBox="0 0 24 24" aria-hidden="true">/g) || []).length, 6);
+  assert.doesNotMatch(html, /jump-c[\s\S]{0,200}[\u{1F300}-\u{1FAFF}]/u);
   assert.doesNotMatch(html, /not written yet|coming in a later slice/i);
   assert.doesNotMatch(html, /facebook\.com/i);
+});
+
+test("useful links jump-c uses quiet SVG line icons, not chips or emoji", () => {
+  const html = read("useful-links/index.html");
+  const css = read("styles.css");
+  assert.match(css, /\.jump-c a[\s\S]*align-items:\s*flex-start/);
+  assert.match(css, /\.jump-c svg[\s\S]*stroke-width:\s*1\.75/);
+  assert.match(css, /\.jump-c svg[\s\S]*fill:\s*none/);
+  assert.match(css, /\.jump-c a[\s\S]*min-height:\s*44px/);
+  assert.doesNotMatch(html, /class="jump-d"|Short chips/);
+  for (const label of [
+    "Government and official alerts",
+    "Schools and family resources",
+    "Trash, utilities, roads, and property",
+    "Parks, libraries, and recreation",
+    "Health, safety, and assistance",
+    "Community destinations",
+  ]) {
+    assert.match(html, new RegExp("<span>" + label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "</span>"));
+  }
 });
 
 test("useful links only includes verified official publisher URLs", () => {
