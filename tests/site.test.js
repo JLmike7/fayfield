@@ -302,8 +302,8 @@ test("Sources fieldset has Fayfield + Court checked and City/Hellam opt-in", () 
   const match = html.match(/<fieldset>\s*<legend>Sources<\/legend>[\s\S]*?<\/fieldset>/);
   assert.ok(match, "Sources fieldset present");
   const fieldset = match[0];
-  assert.match(fieldset, /<label><input type="checkbox" name="source" value="fayfield-community" checked>\s*Fayfield Community<\/label>/);
-  assert.match(fieldset, /<label><input type="checkbox" name="source" value="york-county-court" checked>\s*York County Court<\/label>/);
+  assert.match(fieldset, /<label><input type="checkbox" name="source" value="fayfield-community" checked>[\s\S]*?Fayfield Community/);
+  assert.match(fieldset, /<label><input type="checkbox" name="source" value="york-county-court" checked>[\s\S]*?York County Court/);
   assert.match(fieldset, /name="source" value="city-of-york"(?![^>]*checked)/);
   assert.match(fieldset, /name="source" value="hellam-township"(?![^>]*checked)/);
   assert.match(fieldset, /name="source" value="york-township"(?![^>]*checked)/);
@@ -319,6 +319,15 @@ test("Sources fieldset has Fayfield + Court checked and City/Hellam opt-in", () 
   assert.doesNotMatch(fieldset, /york-county-parks/);
   assert.doesNotMatch(fieldset, /york-county-aging/);
 });
+
+test("Filters source labels keep text beside checkbox when wrapping", () => {
+  const html = read("calendar/index.html");
+  const css = read("styles.css");
+  assert.match(html, /class="cal-source-name"/);
+  assert.match(css, /\.cal-controls label[^{]*\{[\s\S]*flex-wrap:\s*nowrap/);
+  assert.match(css, /\.cal-source-name[^{]*\{[\s\S]*min-width:\s*0/);
+});
+
 
 test("every live page cache-busts styles.css with an 8-char query", () => {
   for (const rel of pages) {

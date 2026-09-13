@@ -232,9 +232,9 @@ main a:visited { color: var(--leaf); }
 .cal-controls label {
   box-sizing: border-box;
   display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.45rem 0.6rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.45rem 0.55rem;
   min-height: 44px;
   min-width: 44px;
   margin: 0 0.75rem 0.25rem 0;
@@ -242,6 +242,18 @@ main a:visited { color: var(--leaf); }
   font-size: 1rem;
   cursor: pointer;
   vertical-align: top;
+  max-width: 100%;
+}
+.cal-controls label > .cal-swatch,
+.cal-controls label > input[type="checkbox"],
+.cal-controls label > input[type="radio"] {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+.cal-controls label .cal-source-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.35;
 }
 .cal-controls input[type="checkbox"],
 .cal-controls input[type="radio"] {
@@ -307,6 +319,8 @@ body:has(.cal-controls) main {
 @media (max-width: 40rem) {
   .cal-controls label {
     display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
     width: 100%;
     margin-right: 0;
   }
@@ -346,7 +360,6 @@ body:has(.cal-controls) main {
   vertical-align: middle;
   flex-shrink: 0;
 }
-.cal-controls label { display: flex; align-items: center; gap: 0.15rem; }
 .cal-month-pane {
   margin: 0.75rem 0 1rem;
   border: 1px solid color-mix(in srgb, var(--bark, #3d3429) 18%, transparent);
