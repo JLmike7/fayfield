@@ -105,7 +105,7 @@ const SOURCE_DEFS = [
     defaultEnabled: false,
     homepage: "https://www.yssd.org/calendars",
     icsUrl:
-      "https://app.schoolinks.com/api/v1/event-scheduler/k12-admin/events/calendar-events/?token=9c0b355f81991ec2385ce276f05e666df8f3e659&schools=83129",
+      "https://www.yssd.org/fs/calendar-manager/events.ics?feed_id=fa08eed1-5920-47f6-b13c-5eeb3ea46253",
   },
 ];
 

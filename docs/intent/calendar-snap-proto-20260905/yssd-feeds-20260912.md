@@ -108,7 +108,7 @@ From `calendars.json?legacy_element=true&calendar_ids={id}`:
 |----|------|--------------|-------------|---------|
 | 22 | Trojan Athletics | 1496 | **159** | `https://calendar.google.com/calendar/ical/yssd.org_672nu723v7mel9a0re15sd7o28%40group.calendar.google.com/public/basic.ics` |
 | 24 | Cycle Days | 214 | **57** | `https://calendar.google.com/calendar/ical/c_86e8ef56991f1644a939f496afa4cba81f3ebd95451085165f2f3cb24157d2eb%40group.calendar.google.com/public/basic.ics` |
-| 25 | SchoolLinks CCW | 46 | **39** | `https://app.schoolinks.com/api/v1/event-scheduler/k12-admin/events/calendar-events/?token=9c0b355f81991ec2385ce276f05e666df8f3e659&schools=83129` |
+| 25 | SchoolLinks CCW | 46 | **39** | `https://www.yssd.org/fs/calendar-manager/events.ics?feed_id=fa08eed1-5920-47f6-b13c-5eeb3ea46253 *(replaced SchoolLinks token URL — green bar)*` |
 | 17 | York Suburban High School | 957 | **26** | `https://calendar.google.com/calendar/ical/yssd.org_b8r6hafv39r0gmoigp58e40ltc%40group.calendar.google.com/public/basic.ics` |
 | 14 | East York Elementary | 251 | **12** | `https://calendar.google.com/calendar/ical/yssd.org_udf88lnqvkan76522ggr996rd0%40group.calendar.google.com/public/basic.ics` |
 | 20 | District-Wide | 681 | **10** | `https://calendar.google.com/calendar/ical/yssd.org_d7ka4jjf6bcudvt1eblq2qlb7o%40group.calendar.google.com/public/basic.ics` |
