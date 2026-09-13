@@ -512,6 +512,9 @@ body:has(.cal-controls) main {
   cursor: pointer;
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+  font-weight: 400;
 }
 .cal-agenda-desc-check {
   position: absolute;
@@ -526,6 +529,10 @@ body:has(.cal-controls) main {
 }
 .cal-agenda-desc-toggle {
   font-weight: 400;
+  display: inline;
+  background: none;
+  border: 0;
+  padding: 0;
 }
 .cal-agenda-actions:has(.cal-agenda-desc-check:checked) .cal-agenda-desc-toggle {
   font-weight: 650;

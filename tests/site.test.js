@@ -441,6 +441,8 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(ui, /class="cal-agenda-desc-panel"/);
   assert.doesNotMatch(ui, /<details class="cal-agenda-desc"/);
   assert.match(css, /\.cal-agenda-desc-panel/);
+  assert.match(css, /\.cal-agenda-desc-toggle[\s\S]*text-decoration:\s*underline/);
+  assert.match(css, /\.cal-agenda-original[\s\S]*text-decoration:\s*underline/);
   assert.match(css, /\.cal-agenda-links/);
   assert.match(ui, /endClock === "23:59"/);
 });
