@@ -18,6 +18,17 @@ body {
   display: flex;
   flex-direction: column;
 }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .skip {
   position: absolute;
   left: -999px;
@@ -293,26 +304,30 @@ main a:visited { color: var(--leaf); }
 body:has(.cal-controls) main {
   max-width: 48rem;
 }
-/* Mobile late-for-work: Filters + calendar before intro prose */
-@media (max-width: 40rem) {
-  main.cal-page {
-    display: flex;
-    flex-direction: column;
-  }
-  main.cal-page > .cal-page-intro {
-    order: 3;
-    margin-top: 1.25rem;
-  }
-  main.cal-page > .cal-filter-bar {
-    order: 1;
-  }
-  main.cal-page > #cal-results {
-    order: 2;
-  }
-  main.cal-page > .cal-page-intro h1 {
-    font-size: 1.35rem;
-    margin-bottom: 0.35rem;
-  }
+/* Intro/disclaimer lives below calendar (DOM); collapsed by default */
+.cal-page-intro {
+  margin-top: 1.25rem;
+}
+.cal-about {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+.cal-about > summary {
+  cursor: pointer;
+  color: var(--bark, #3d3429);
+  font-weight: 650;
+  list-style: none;
+}
+.cal-about > summary::-webkit-details-marker { display: none; }
+.cal-about > summary::before {
+  content: "▸ ";
+  opacity: 0.7;
+}
+.cal-about[open] > summary::before { content: "▾ "; }
+.cal-about .notice,
+.cal-about p {
+  margin: 0.45rem 0 0;
+  max-width: 40rem;
 }
 @media (max-width: 40rem) {
   .cal-controls label {

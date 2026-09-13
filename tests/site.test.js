@@ -457,19 +457,21 @@ test("day agenda meta includes end times and description peek", () => {
   assert.match(ui, /endClock === "23:59"/);
 });
 
-test("calendar mobile puts Filters and results before intro prose", () => {
+test("calendar buries intro below Filters/results (collapsed About)", () => {
   const html = read("calendar/index.html");
   const css = read("styles.css");
   assert.match(html, /class="cal-page"/);
-  assert.match(html, /class="cal-page-intro"/);
+  assert.match(html, /class="visually-hidden"/);
+  assert.match(html, /class="cal-about"/);
+  assert.match(html, /<summary>About this calendar<\/summary>/);
   const introAt = html.indexOf('class="cal-page-intro"');
   const filtersAt = html.indexOf('class="cal-filter-bar"');
   const resultsAt = html.indexOf('id="cal-results"');
-  assert.ok(introAt > -1 && filtersAt > introAt);
-  assert.ok(resultsAt > filtersAt);
-  assert.match(css, /main\.cal-page\s*>\s*\.cal-page-intro\s*\{[\s\S]*order:\s*3/);
-  assert.match(css, /main\.cal-page\s*>\s*\.cal-filter-bar\s*\{[\s\S]*order:\s*1/);
-  assert.match(css, /main\.cal-page\s*>\s*#cal-results\s*\{[\s\S]*order:\s*2/);
+  assert.ok(filtersAt > -1 && resultsAt > filtersAt);
+  assert.ok(introAt > resultsAt);
+  assert.doesNotMatch(css, /main\.cal-page\s*>\s*\.cal-page-intro\s*\{[\s\S]*order:\s*3/);
+  assert.match(css, /\.cal-about/);
+  assert.match(css, /\.visually-hidden/);
 });
 
 test("day agenda strips leading hyphen from location", () => {
