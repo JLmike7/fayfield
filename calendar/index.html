@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Calendar — Fayfield Community</title>
   <base href="/fayfield/">
-  <link rel="stylesheet" href="styles.css?v=7435fc83">
+  <link rel="stylesheet" href="styles.css?v=31555222">
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
@@ -25,14 +25,15 @@
   <main id="content" class="cal-page">
     <h1 class="visually-hidden">Calendar</h1>
     <div class="cal-filter-bar">
-      <details class="cal-filters">
-        <summary>
-          <span class="cal-filters-title">Filters</span>
-          <span class="cal-filters-meta" id="cal-filters-meta">Fayfield Community · Today</span>
-        </summary>
-        <form class="cal-controls" id="cal-controls">
-          <fieldset>
-            <legend>Sources</legend>
+      <form class="cal-controls" id="cal-controls">
+        <details class="cal-menu cal-sources">
+          <summary>
+            <span class="cal-menu-title">Sources</span>
+            <span class="cal-filters-meta" id="cal-filters-meta">Fayfield Community · Today</span>
+          </summary>
+          <div class="cal-menu-panel" role="group" aria-label="Sources">
+            <fieldset>
+              <legend class="visually-hidden">Sources</legend>
             <label><input type="checkbox" name="source" value="fayfield-community" checked> <span class="cal-source-name">Fayfield Community</span></label>
             <label><input type="checkbox" name="source" value="york-county-court" checked> <span class="cal-source-name">York County Court</span></label>
             <label><input type="checkbox" name="source" value="city-of-york"> <span class="cal-source-name">City of York</span></label>
@@ -45,15 +46,23 @@
             <label><input type="checkbox" name="source" value="yssd-athletics"> <span class="cal-source-name">YSSD Trojan Athletics</span></label>
             <label><input type="checkbox" name="source" value="yssd-cycle-days"> <span class="cal-source-name">YSSD Cycle Days</span></label>
             <label><input type="checkbox" name="source" value="yssd-schoolinks-ccw"> <span class="cal-source-name">YSSD Career College Workforce</span></label>
-          </fieldset>
-          <fieldset>
-            <legend>Find</legend>
-            <label>Search <input type="search" name="query" id="cal-query"></label>
-            <label>From <input type="date" name="start" id="cal-start"></label>
-            <label>To <input type="date" name="end" id="cal-end"></label>
-          </fieldset>
-        </form>
-      </details>
+            </fieldset>
+          </div>
+        </details>
+        <details class="cal-menu cal-filters">
+          <summary>
+            <span class="cal-menu-title">Filters</span>
+          </summary>
+          <div class="cal-menu-panel" role="group" aria-label="Filters">
+            <fieldset>
+              <legend class="visually-hidden">Find</legend>
+              <label>Search <input type="search" name="query" id="cal-query"></label>
+              <label>From <input type="date" name="start" id="cal-start"></label>
+              <label>To <input type="date" name="end" id="cal-end"></label>
+            </fieldset>
+          </div>
+        </details>
+      </form>
     </div>
     <div id="cal-results">
       <p class="cal-empty">Nothing on the calendar yet. Fayfield’s public feed has no upcoming events in this window, so we show nothing rather than make something up.</p>
@@ -64,6 +73,6 @@
     <p><a href="privacy/">Privacy</a></p>
   </footer>
   <script src="calendar.js?v=db7b9c4e"></script>
-  <script src="calendar/ui.js?v=236989ae"></script>
+  <script src="calendar/ui.js?v=c5f56df5"></script>
 </body>
 </html>

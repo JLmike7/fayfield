@@ -67,13 +67,19 @@
     meta.textContent = sources + " · " + dayLabel;
   }
 
-  function filtersDetails() {
-    return document.querySelector("details.cal-filters");
+  function menuDetails() {
+    return Array.prototype.slice.call(document.querySelectorAll("details.cal-menu"));
   }
 
+  function closeMenus() {
+    menuDetails().forEach(function (d) {
+      if (d.open) d.open = false;
+    });
+  }
+
+  /** @deprecated name kept for Escape/outside handlers */
   function closeFilters() {
-    var details = filtersDetails();
-    if (details && details.open) details.open = false;
+    closeMenus();
   }
 
 
@@ -587,17 +593,27 @@
     form.addEventListener("input", refresh);
     results.addEventListener("click", onResultsClick);
 
+    menuDetails().forEach(function (menu) {
+      menu.addEventListener("toggle", function () {
+        if (!menu.open) return;
+        menuDetails().forEach(function (other) {
+          if (other !== menu && other.open) other.open = false;
+        });
+      });
+    });
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeFilters();
+      if (e.key === "Escape") closeMenus();
     });
 
     document.addEventListener("pointerdown", function (e) {
-      var details = filtersDetails();
-      if (!details || !details.open) return;
-      if (details.contains(e.target)) return;
+      var openMenus = menuDetails().filter(function (d) { return d.open; });
+      if (!openMenus.length) return;
+      var inside = openMenus.some(function (d) { return d.contains(e.target); });
+      if (inside) return;
       var active = document.activeElement;
-      if (active && active.type === "date" && details.contains(active)) return;
-      details.open = false;
+      if (active && active.type === "date" && openMenus.some(function (d) { return d.contains(active); })) return;
+      closeMenus();
     });
 
     refresh();

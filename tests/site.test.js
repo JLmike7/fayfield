@@ -299,7 +299,7 @@ test("calendar controls are 44px touch targets, stacked on phone, paper/sycamore
 });
 test("Sources fieldset has Fayfield + Court checked and City/Hellam opt-in", () => {
   const html = read("calendar/index.html");
-  const match = html.match(/<fieldset>\s*<legend>Sources<\/legend>[\s\S]*?<\/fieldset>/);
+  const match = html.match(/<fieldset>\s*<legend[^>]*>Sources<\/legend>[\s\S]*?<\/fieldset>/);
   assert.ok(match, "Sources fieldset present");
   const fieldset = match[0];
   assert.match(fieldset, /<label><input type="checkbox" name="source" value="fayfield-community" checked>[\s\S]*?Fayfield Community/);
@@ -342,27 +342,29 @@ test("calendar CSS uses custom paper widgets and a modest two-column desktop sta
   assert.match(css, /\.cal-controls input\[type=["']checkbox["']\][\s\S]{0,500}appearance:\s*none/);
   assert.match(css, /\.cal-controls input\[type=["']radio["']\][\s\S]{0,500}appearance:\s*none/);
   assert.match(css, /body:has\(\.cal-controls\)[\s\S]{0,80}max-width:\s*48rem/);
-  assert.match(css, /@media\s*\(\s*min-width:\s*(?:40\.01rem|48rem)\s*\)[\s\S]*?\.cal-controls[\s\S]*?grid-template-columns/);
+  assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*position:\s*absolute/);
 });
 
-test("calendar filters are a closed details overlay wrapping the form", () => {
+test("calendar has separate Sources and Filters click menus", () => {
   const html = read("calendar/index.html");
-  assert.match(html, /<details class="cal-filters">/);
-  assert.doesNotMatch(html, /<details class="cal-filters"[^>]*\sopen\b/);
-  assert.match(html, /<summary>[\s\S]*Filters[\s\S]*<\/summary>/);
-  assert.match(html, /<details class="cal-filters">[\s\S]*<form class="cal-controls" id="cal-controls">[\s\S]*<\/form>[\s\S]*<\/details>/);
-  assert.doesNotMatch(html, /<\/details>\s*<form class="cal-controls"/);
-  assert.doesNotMatch(html, /<form class="cal-controls"[^>]*>[\s\S]*<details class="cal-filters"/);
-  assert.equal((html.match(/<details class="cal-filters">/g) || []).length, 1);
-  assert.equal((html.match(/class="cal-filter-bar"/g) || []).length, 1);
+  assert.match(html, /class="cal-filter-bar"/);
+  assert.match(html, /<form class="cal-controls" id="cal-controls">/);
+  assert.match(html, /<details class="cal-menu cal-sources">/);
+  assert.match(html, /<details class="cal-menu cal-filters">/);
+  assert.doesNotMatch(html, /<details class="cal-menu[^"]*"[^>]*\sopen\b/);
+  assert.match(html, /cal-menu-title">Sources</);
+  assert.match(html, /cal-menu-title">Filters</);
+  assert.match(html, /id="cal-filters-meta"/);
+  assert.equal((html.match(/class="cal-menu /g) || []).length, 2);
+  assert.match(html, /<form class="cal-controls"[\s\S]*cal-menu cal-sources[\s\S]*cal-menu cal-filters[\s\S]*<\/form>/);
 });
 
-test("calendar filter overlay CSS is absolute and does not take document flow", () => {
+test("calendar menu panels overlay absolutely and do not take document flow", () => {
   const css = read("styles.css");
-  assert.match(css, /\.cal-filters\[open\]/);
-  assert.match(css, /\.cal-filters\[open\]\s+\.cal-controls[\s\S]*position:\s*absolute/);
+  assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel/);
+  assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*position:\s*absolute/);
   assert.match(css, /\.cal-filter-bar[\s\S]*position:\s*relative/);
-  assert.match(css, /\.cal-filters\[open\]\s+\.cal-controls[\s\S]*margin:\s*0/);
+  assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*margin:\s*0/);
   assert.doesNotMatch(css, /bootstrap/i);
   assert.doesNotMatch(css, /maple/i);
 });
