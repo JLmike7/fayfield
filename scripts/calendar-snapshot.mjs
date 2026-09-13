@@ -59,6 +59,54 @@ const SOURCE_DEFS = [
     homepage: "https://crispusattucks.org/events/",
     icsUrl: "https://crispusattucks.org/events/?ical=1",
   },
+  {
+    id: "yssd-east-york-elementary",
+    name: "YSSD East York Elementary",
+    defaultEnabled: false,
+    homepage: "https://www.yssd.org/calendars",
+    icsUrl:
+      "https://calendar.google.com/calendar/ical/yssd.org_udf88lnqvkan76522ggr996rd0%40group.calendar.google.com/public/basic.ics",
+  },
+  {
+    id: "yssd-district-wide",
+    name: "YSSD District-Wide",
+    defaultEnabled: false,
+    homepage: "https://www.yssd.org/calendars",
+    icsUrl:
+      "https://calendar.google.com/calendar/ical/yssd.org_d7ka4jjf6bcudvt1eblq2qlb7o%40group.calendar.google.com/public/basic.ics",
+  },
+  {
+    id: "yssd-school-board",
+    name: "YSSD School Board",
+    defaultEnabled: false,
+    homepage: "https://www.yssd.org/school-board/sb-meeting-schedule",
+    icsUrl:
+      "https://calendar.google.com/calendar/ical/yssd.org_pl41ed9flvfe3bsmub8kob662s%40group.calendar.google.com/public/basic.ics",
+  },
+  {
+    id: "yssd-athletics",
+    name: "YSSD Trojan Athletics",
+    defaultEnabled: false,
+    homepage: "https://www.yssd.org/departments/ysathletics/athletics-calendar",
+    icsUrl:
+      "https://calendar.google.com/calendar/ical/yssd.org_672nu723v7mel9a0re15sd7o28%40group.calendar.google.com/public/basic.ics",
+  },
+  {
+    id: "yssd-cycle-days",
+    name: "YSSD Cycle Days",
+    defaultEnabled: false,
+    homepage: "https://www.yssd.org/calendars",
+    icsUrl:
+      "https://calendar.google.com/calendar/ical/c_86e8ef56991f1644a939f496afa4cba81f3ebd95451085165f2f3cb24157d2eb%40group.calendar.google.com/public/basic.ics",
+  },
+  {
+    id: "yssd-schoolinks-ccw",
+    name: "YSSD Career College Workforce",
+    defaultEnabled: false,
+    homepage: "https://www.yssd.org/calendars",
+    icsUrl:
+      "https://app.schoolinks.com/api/v1/event-scheduler/k12-admin/events/calendar-events/?token=9c0b355f81991ec2385ce276f05e666df8f3e659&schools=83129",
+  },
 ];
 
 function nowIso() {

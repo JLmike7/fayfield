@@ -306,6 +306,13 @@ test("Sources fieldset has Fayfield + Court checked and City/Hellam opt-in", () 
   assert.match(fieldset, /name="source" value="hellam-township"(?![^>]*checked)/);
   assert.match(fieldset, /name="source" value="york-township"(?![^>]*checked)/);
   assert.match(fieldset, /name="source" value="crispus-attucks"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="yssd-east-york-elementary"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="yssd-district-wide"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="yssd-school-board"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="yssd-athletics"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="yssd-cycle-days"(?![^>]*checked)/);
+  assert.match(fieldset, /name="source" value="yssd-schoolinks-ccw"(?![^>]*checked)/);
+  assert.doesNotMatch(fieldset, /cysd|central-york/i);
   assert.doesNotMatch(fieldset, /york-county-main/);
   assert.doesNotMatch(fieldset, /york-county-parks/);
   assert.doesNotMatch(fieldset, /york-county-aging/);
