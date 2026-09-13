@@ -359,13 +359,13 @@ test("calendar Sources menu + inline search; no Filters panel", () => {
   assert.equal((html.match(/class="cal-menu /g) || []).length, 1);
 });
 
-test("calendar Sources panel overlays absolutely full-width on mobile", () => {
+test("calendar Sources panel attaches under Sources, full-width on mobile", () => {
   const css = read("styles.css");
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel/);
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*position:\s*absolute/);
   assert.match(css, /\.cal-filter-bar[\s\S]*position:\s*relative/);
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*width:\s*100%/);
-  assert.match(css, /\.cal-menu\s*\{[\s\S]*position:\s*static/);
+  assert.match(css, /\.cal-menu\s*\{[\s\S]*position:\s*relative/);
   assert.doesNotMatch(css, /bootstrap/i);
   assert.doesNotMatch(css, /maple/i);
 });

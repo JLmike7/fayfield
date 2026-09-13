@@ -146,7 +146,7 @@ main a:visited { color: var(--leaf); }
   margin: 0;
 }
 .cal-menu {
-  position: static;
+  position: relative;
   margin: 0;
   width: 100%;
 }
@@ -193,19 +193,19 @@ main a:visited { color: var(--leaf); }
 .cal-menu-panel {
   display: none;
 }
-/* Panel anchors to .cal-filter-bar so it overlays results, not Search */
+/* Panel attaches under Sources summary (overlays Search while open) */
 .cal-menu[open] > .cal-menu-panel {
   display: block;
   position: absolute;
   left: 0;
   right: 0;
-  top: 100%;
+  top: calc(100% + 0.25rem);
   z-index: 8;
   box-sizing: border-box;
   width: 100%;
   max-height: min(70vh, 32rem);
   overflow: auto;
-  margin: 0.35rem 0 0;
+  margin: 0;
   padding: 0.85rem 1rem 1rem;
   background: var(--paper);
   border: 1px solid var(--line);
