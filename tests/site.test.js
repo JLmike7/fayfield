@@ -513,6 +513,8 @@ test("calendar foot meta: publishers collapsed below agenda; compact filters met
   assert.match(ui, /class="cal-publishers"/);
   assert.match(ui, /class="cal-publisher-list"/);
   assert.match(ui, /cal-asof--foot/);
+  assert.match(ui, /function formatAsOfHuman/);
+  assert.match(ui, /hour12:\s*true/);
   assert.match(ui, /renderMonthPane\(lastEvents\)[\s\S]*renderDayAgenda[\s\S]*attributionHtml/);
   assert.match(ui, /n \+ " sources"/);
   assert.match(ui, /function formatDayShort/);

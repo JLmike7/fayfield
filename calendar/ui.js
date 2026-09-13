@@ -95,6 +95,23 @@
     return { hour: Number(m[1]), minute: m[2], hhmm: m[1] + ":" + m[2] };
   }
 
+
+  /** Neighbor-readable as-of in America/New_York (not raw ISO). */
+  function formatAsOfHuman(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso || "");
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/New_York",
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    }).format(d);
+  }
+
   /** User-facing clock: 12-hour with am/pm (never 24-hour). */
   function formatClock12(isoOrHhmm) {
     var hour;
@@ -271,7 +288,7 @@
     if (retrieved) {
       bits.push(
         '<p class="cal-asof cal-asof--foot">As of ' +
-          escapeHtml(retrieved) +
+          escapeHtml(formatAsOfHuman(retrieved)) +
           "</p>"
       );
     }
