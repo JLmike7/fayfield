@@ -175,8 +175,8 @@ test("useful links jump-c uses quiet SVG line icons, not chips or emoji", () => 
   assert.match(css, /\.jump-c a[\s\S]*align-items:\s*flex-start/);
   assert.match(css, /\.jump-c svg[\s\S]*stroke-width:\s*1\.75/);
   assert.match(css, /\.jump-c svg[\s\S]*fill:\s*none/);
-  assert.match(css, /\.jump-c a[\s\S]*padding:\s*0\.65rem 0/);
-  assert.doesNotMatch(css, /\.jump-c a[\s\S]*min-height:\s*44px/);
+  assert.match(css, /\.jump-c a\s*\{[\s\S]*?padding:\s*0\.65rem 0[\s\S]*?min-height:\s*0/);
+  assert.doesNotMatch(css, /\.jump-c a\s*\{[\s\S]*?min-height:\s*44px/);
   assert.doesNotMatch(html, /class="jump-d"|Short chips/);
   for (const label of [
     "Government and official alerts",
