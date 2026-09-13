@@ -199,11 +199,13 @@ test("useful links jump-nav is full-width page chrome, not a content panel", () 
   assert.match(html, /class="useful-links-body"/);
   assert.match(css, /main\.useful-links-page[\s\S]*max-width:\s*none/);
   assert.match(css, /\.jump-band[\s\S]*width:\s*100%/);
-  assert.match(css, /\.jump-band[\s\S]*margin:\s*1\.15rem 0/);
-  assert.doesNotMatch(css, /\.jump-band[\s\S]*margin:\s*0\.85rem 0 1\.75rem/);
   assert.match(css, /\.jump-band[\s\S]*border-top:\s*1px solid/);
   assert.match(css, /\.jump-band[\s\S]*border-radius:\s*0/);
-  assert.doesNotMatch(css, /\.jump-band[\s\S]{0,200}box-shadow:\s*[^n0]/);
+  assert.match(css, /\.jump-band[\s\S]*margin:\s*1\.15rem 0/);
+  assert.match(css, /\.jump-band\s*\{[^}]*background:\s*transparent/);
+  assert.equal((html.match(/class="useful-links-section"/g) || []).length, 6);
+  assert.match(css, /\.useful-links-section\s*\{[^}]*background:\s*color-mix/);
+  assert.doesNotMatch(css, /\.jump-band\s*\{[^}]*background:\s*color-mix/);
 });
 
 test("useful links only includes verified official publisher URLs", () => {
