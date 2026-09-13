@@ -154,6 +154,50 @@ main a:visited { color: var(--leaf); }
     gap: 0.45rem 1.5rem;
   }
 }
+
+/* Useful Links: jump-nav as full-width page chrome, not a content panel */
+main.useful-links-page {
+  max-width: none;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.useful-links-intro,
+.useful-links-body {
+  max-width: 40rem;
+  margin: 0;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.jump-band {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0.85rem 0 1.75rem;
+  padding: 0.55rem 1.25rem 0.65rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bark, #3d3429) 4%, var(--paper, #f7f4ee));
+  border-radius: 0;
+  box-shadow: none;
+}
+.jump-band .jump {
+  margin: 0;
+  max-width: 72rem;
+}
+.jump-band .jump-c a {
+  font-size: 0.9rem;
+  font-weight: 550;
+}
+@media (min-width: 40.01rem) {
+  .jump-band {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .jump-band .jump-c {
+    gap: 0.35rem 1.75rem;
+  }
+}
 .links { list-style: none; margin: 0 0 2rem; padding: 0; }
 .links li { margin: 0 0 1rem; }
 .links a { color: var(--leaf); font-family: system-ui, sans-serif; font-weight: 650; }

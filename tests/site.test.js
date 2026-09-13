@@ -189,6 +189,20 @@ test("useful links jump-c uses quiet SVG line icons, not chips or emoji", () => 
   }
 });
 
+test("useful links jump-nav is full-width page chrome, not a content panel", () => {
+  const html = read("useful-links/index.html");
+  const css = read("styles.css");
+  assert.match(html, /class="useful-links-page"/);
+  assert.match(html, /class="jump-band"/);
+  assert.match(html, /class="useful-links-intro"/);
+  assert.match(html, /class="useful-links-body"/);
+  assert.match(css, /main\.useful-links-page[\s\S]*max-width:\s*none/);
+  assert.match(css, /\.jump-band[\s\S]*width:\s*100%/);
+  assert.match(css, /\.jump-band[\s\S]*border-top:\s*1px solid/);
+  assert.match(css, /\.jump-band[\s\S]*border-radius:\s*0/);
+  assert.doesNotMatch(css, /\.jump-band[\s\S]{0,200}box-shadow:\s*[^n0]/);
+});
+
 test("useful links only includes verified official publisher URLs", () => {
   const html = read("useful-links/index.html");
   for (const url of [
