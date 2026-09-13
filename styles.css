@@ -194,7 +194,7 @@ main.useful-links-page {
   width: 100%;
   max-width: none;
   height: 0;
-  margin: 8px 0 0; /* 5–10px paper gap above full-bleed HR */
+  margin: 8px 0; /* 5–10px paper gap above and below full-bleed HR */
   padding: 0;
   border: 0;
   border-top: 1px solid var(--line);
@@ -209,7 +209,7 @@ main.useful-links-page {
   box-sizing: border-box;
   width: 100%;
   max-width: none;
-  margin: 1.15rem 0;
+  margin: 1.15rem 0 8px;
   padding: 0.35rem 1.25rem;
   border-top: 0;
   border-bottom: 1px solid var(--line);

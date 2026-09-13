@@ -205,11 +205,11 @@ test("useful links jump-nav is full-width page chrome, not a content panel", () 
   assert.match(html, /class="useful-links-rule"/);
   assert.equal((html.match(/class="useful-links-rule"/g) || []).length, 5);
   assert.match(css, /\.useful-links-rule\s*\{[^}]*width:\s*100%/);
-  assert.match(css, /\.useful-links-rule\s*\{[^}]*margin:\s*8px 0 0/);
+  assert.match(css, /\.useful-links-rule\s*\{[^}]*margin:\s*8px 0;/);
   assert.match(css, /\.useful-links-rule\s*\{[^}]*border-top:\s*1px solid var\(--line\)/);
   assert.doesNotMatch(css, /\.useful-links-section \+ \.useful-links-section/);
   assert.match(css, /\.jump-band[\s\S]*border-radius:\s*0/);
-  assert.match(css, /\.jump-band[\s\S]*margin:\s*1\.15rem 0/);
+  assert.match(css, /\.jump-band\s*\{[^}]*margin:\s*1\.15rem 0 8px/);
   assert.match(css, /\.jump-band\s*\{[^}]*background:\s*transparent/);
   assert.equal((html.match(/class="useful-links-section"/g) || []).length, 6);
   assert.match(css, /\.useful-links-section\s*\{[^}]*background:\s*color-mix/);
