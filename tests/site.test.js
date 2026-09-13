@@ -82,7 +82,7 @@ test("photo is a labeled placeholder, not a fake Fayfield street", () => {
 test("calendar UI is fail-closed with Fayfield default-on and no fake feed", () => {
   const html = read("calendar/index.html");
   assert.match(html, /Fayfield Community/);
-  assert.match(html, /cal-results|Month calendar|snapshot/i);
+  assert.match(html, /cal-results|snapshot/i);
   assert.match(html, /localStorage|this browser/i);
   assert.match(html, /unofficial|authoritative/i);
   assert.match(html, /Nothing on the calendar yet/);
@@ -410,6 +410,16 @@ test("calendar uses Teams-like month pane without Agenda/Month radios", () => {
   assert.match(ui, /selectedDay/);
   assert.match(ui, /colorForSourceId/);
 });
+
+test("month calendar is always visible (not a details peek)", () => {
+  const ui = read("calendar/ui.js");
+  const css = read("styles.css");
+  assert.match(ui, /<section class="cal-month-pane"/);
+  assert.doesNotMatch(ui, /<details class="cal-month-pane"/);
+  assert.doesNotMatch(ui, /<summary>Month calendar<\/summary>/);
+  assert.doesNotMatch(css, /\.cal-month-pane\s*>\s*summary/);
+});
+
 
 test("day agenda cards use stacked title then when · where meta line", () => {
   const ui = read("calendar/ui.js");

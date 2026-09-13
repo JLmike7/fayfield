@@ -364,21 +364,7 @@ body:has(.cal-controls) main {
   background: var(--paper, #f7f4ee);
   padding: 0.25rem 0.5rem 0.5rem;
 }
-.cal-month-pane > summary {
-  cursor: pointer;
-  font-weight: 650;
-  list-style: none;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-}
-.cal-month-pane > summary::-webkit-details-marker { display: none; }
-.cal-month-pane > summary::before {
-  content: "▾ ";
-  color: var(--leaf, #2f6b3a);
-}
-.cal-month-pane:not([open]) > summary::before { content: "▸ "; }
-.cal-month-body { padding-top: 0.35rem; }
+.cal-month-body { padding-top: 0.15rem; }
 .month-nav {
   display: flex;
   align-items: center;

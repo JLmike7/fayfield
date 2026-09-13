@@ -10,7 +10,6 @@
   var asOfEl = document.getElementById("cal-asof");
   var selectedDay = cal.todayYmdNy();
   var monthKey = selectedDay.slice(0, 7);
-  var monthOpen = true;
   var lastEvents = [];
 
   function escapeHtml(s) {
@@ -31,7 +30,6 @@
       enabled: enabled,
       view: "teams",
       selectedDay: selectedDay,
-      monthOpen: monthOpen,
       monthKey: monthKey,
     };
     if (Array.isArray(prev.seenSourceIds)) prefs.seenSourceIds = prev.seenSourceIds;
@@ -299,7 +297,6 @@
     var model = cal.buildMonthModel(monthKey, events);
     var today = cal.todayYmdNy();
     var counts = cal.countByDay(events);
-    var openAttr = monthOpen ? " open" : "";
     var nav =
       '<div class="month-nav">' +
       '<button type="button" class="month-nav-btn" data-month-delta="-1" aria-label="Previous month">‹</button>' +
@@ -368,10 +365,7 @@
       })
       .join("");
     return (
-      '<details class="cal-month-pane"' +
-      openAttr +
-      ">" +
-      "<summary>Month calendar</summary>" +
+      '<section class="cal-month-pane" aria-label="Month calendar">' +
       '<div class="cal-month-body">' +
       nav +
       '<div class="month-grid month-grid--compact" role="grid" aria-label="' +
@@ -379,7 +373,7 @@
       '">' +
       dow +
       cells +
-      "</div></div></details>"
+      "</div></div></section>"
     );
   }
 
@@ -478,13 +472,6 @@
       renderMonthPane(lastEvents) +
       renderDayAgenda(lastEvents, prefs) +
       attributionHtml(prefs);
-    var pane = results.querySelector("details.cal-month-pane");
-    if (pane) {
-      pane.addEventListener("toggle", function () {
-        monthOpen = pane.open;
-        cal.savePrefs(window.localStorage, currentPrefs());
-      });
-    }
   }
 
   function onResultsClick(e) {
@@ -539,12 +526,10 @@
     } else {
       monthKey = selectedDay.slice(0, 7);
     }
-    if (typeof stored.monthOpen === "boolean") monthOpen = stored.monthOpen;
 
     cal.savePrefs(window.localStorage, Object.assign({}, stored, {
       selectedDay: selectedDay,
       monthKey: monthKey,
-      monthOpen: monthOpen,
       view: "teams",
     }));
 
