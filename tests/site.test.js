@@ -352,6 +352,8 @@ test("calendar Sources menu + inline search; no Filters panel", () => {
   assert.doesNotMatch(html, /id="cal-start"|id="cal-end"/);
   assert.match(html, /id="cal-query"/);
   assert.match(html, /class="cal-search-row"/);
+  assert.match(html, /id="cal-query"[^>]*aria-label="Search events"/);
+  assert.doesNotMatch(html, /cal-search-label|>Search<\/label>/);
   assert.match(html, /cal-menu-title">Sources</);
   assert.match(html, /id="cal-filters-meta"/);
   assert.equal((html.match(/class="cal-menu /g) || []).length, 1);

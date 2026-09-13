@@ -218,11 +218,6 @@ main a:visited { color: var(--leaf); }
   gap: 0.3rem;
   width: 100%;
 }
-.cal-search-label {
-  font-size: 0.85rem;
-  font-weight: 650;
-  color: var(--bark);
-}
 .cal-search-input {
   box-sizing: border-box;
   width: 100%;
