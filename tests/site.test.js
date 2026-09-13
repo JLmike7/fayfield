@@ -190,6 +190,20 @@ test("useful links jump-c uses quiet SVG line icons, not chips or emoji", () => 
   }
 });
 
+
+test("sitewide centered content shell with full-bleed exceptions", () => {
+  const css = read("styles.css");
+  assert.match(css, /--shell-max:\s*40rem/);
+  assert.match(css, /main\s*\{[\s\S]*max-width:\s*var\(--shell-max\)/);
+  assert.match(css, /main\s*\{[\s\S]*margin-inline:\s*auto/);
+  assert.match(css, /\.site-header\s*\{[\s\S]*margin-inline:\s*auto/);
+  assert.match(css, /\.site-footer\s*\{[\s\S]*margin-inline:\s*auto/);
+  assert.match(css, /body:has\(\.cal-controls\)\s*\{[^}]*--shell-max:\s*48rem/);
+  assert.match(css, /overflow-x:\s*clip/);
+  assert.match(css, /\.jump-band\s*\{[^}]*width:\s*100vw/);
+  assert.match(css, /\.useful-links-rule\s*\{[^}]*width:\s*100vw/);
+});
+
 test("useful links jump-nav is full-width page chrome, not a content panel", () => {
   const html = read("useful-links/index.html");
   const css = read("styles.css");
@@ -198,18 +212,25 @@ test("useful links jump-nav is full-width page chrome, not a content panel", () 
   assert.match(html, /class="useful-links-intro"/);
   assert.match(html, /class="useful-links-stack"/);
   assert.doesNotMatch(html, /class="useful-links-body"/);
-  assert.match(css, /main\.useful-links-page[\s\S]*max-width:\s*none/);
-  assert.match(css, /\.jump-band[\s\S]*width:\s*100%/);
+  assert.match(css, /--shell-max:\s*40rem/);
+  assert.match(css, /main[\s\S]*margin-inline:\s*auto/);
+  assert.match(css, /\.site-header[\s\S]*margin-inline:\s*auto/);
+  assert.match(css, /\.site-footer[\s\S]*margin-inline:\s*auto/);
+  assert.match(css, /\.jump-band\s*\{[^}]*width:\s*100vw/);
   assert.match(css, /\.jump-band\s*\{[^}]*border-top:\s*0/);
   assert.match(css, /\.jump-band\s*\{[^}]*border-bottom:\s*1px solid var\(--line\)/);
   assert.match(html, /class="useful-links-rule"/);
   assert.equal((html.match(/class="useful-links-rule"/g) || []).length, 5);
-  assert.match(css, /\.useful-links-rule\s*\{[^}]*width:\s*100%/);
-  assert.match(css, /\.useful-links-rule\s*\{[^}]*margin:\s*8px 0;/);
+  assert.match(css, /\.useful-links-rule\s*\{[^}]*width:\s*100vw/);
+  assert.match(css, /\.useful-links-rule\s*\{[^}]*margin-left:\s*calc\(50% - 50vw\)/);
+  assert.match(css, /\.useful-links-rule\s*\{[^}]*margin-top:\s*8px/);
+  assert.match(css, /\.useful-links-rule\s*\{[^}]*margin-bottom:\s*8px/);
   assert.match(css, /\.useful-links-rule\s*\{[^}]*border-top:\s*1px solid var\(--line\)/);
   assert.doesNotMatch(css, /\.useful-links-section \+ \.useful-links-section/);
   assert.match(css, /\.jump-band[\s\S]*border-radius:\s*0/);
-  assert.match(css, /\.jump-band\s*\{[^}]*margin:\s*1\.15rem 0 8px/);
+  assert.match(css, /\.jump-band\s*\{[^}]*margin-top:\s*1\.15rem/);
+  assert.match(css, /\.jump-band\s*\{[^}]*margin-bottom:\s*8px/);
+  assert.match(css, /\.jump-band\s*\{[^}]*margin-left:\s*calc\(50% - 50vw\)/);
   assert.match(css, /\.jump-band\s*\{[^}]*background:\s*transparent/);
   assert.equal((html.match(/class="useful-links-section"/g) || []).length, 6);
   assert.match(css, /\.useful-links-section\s*\{[^}]*background:\s*color-mix/);
@@ -389,7 +410,7 @@ test("calendar CSS uses custom paper widgets and a modest two-column desktop sta
   const css = read("styles.css");
   assert.match(css, /\.cal-controls input\[type=["']checkbox["']\][\s\S]{0,500}appearance:\s*none/);
   assert.match(css, /\.cal-controls input\[type=["']radio["']\][\s\S]{0,500}appearance:\s*none/);
-  assert.match(css, /body:has\(\.cal-controls\)[\s\S]{0,80}max-width:\s*48rem/);
+  assert.match(css, /body:has\(\.cal-controls\)\s*\{[^}]*--shell-max:\s*48rem/);
   assert.match(css, /\.cal-menu\[open\]\s*>\s*\.cal-menu-panel[\s\S]*position:\s*absolute/);
 });
 
