@@ -100,7 +100,7 @@
   function formatAsOfHuman(iso) {
     var d = new Date(iso);
     if (isNaN(d.getTime())) return String(iso || "");
-    return new Intl.DateTimeFormat("en-US", {
+    var stamped = new Intl.DateTimeFormat("en-US", {
       timeZone: "America/New_York",
       weekday: "short",
       month: "short",
@@ -110,6 +110,8 @@
       minute: "2-digit",
       hour12: true,
     }).format(d);
+    // Match agenda clock casing (am/pm), not Intl AM/PM.
+    return stamped.replace(/\bAM\b/g, "am").replace(/\bPM\b/g, "pm");
   }
 
   /** User-facing clock: 12-hour with am/pm (never 24-hour). */
@@ -243,22 +245,18 @@
     }).format(dt);
   }
 
-  /** Human as-of as agenda subheading under the selected date. */
-  function asOfAgendaSub() {
+  /** Updated stamp: tinted footer inside the month calendar panel. */
+  function updatedFooterHtml() {
     if (!snapshot || !snapshot.retrievedAt) return "";
     return (
-      '<p class="cal-asof cal-asof--agenda">As of ' +
+      '<p class="cal-updated cal-updated--foot">Updated ' +
       escapeHtml(formatAsOfHuman(snapshot.retrievedAt)) +
       "</p>"
     );
   }
 
   function emptyDayMessage(prefs) {
-    return (
-      "Nothing on " +
-      formatDayHeading(prefs.selectedDay || selectedDay) +
-      " for the sources you checked. Tap another day, or we only show what the public feeds returned."
-    );
+    return "Nothing for these sources — try another day.";
   }
 
   function paintSourceSwatches() {
@@ -370,7 +368,9 @@
       '">' +
       dow +
       cells +
-      "</div></div></section>"
+      "</div></div>" +
+      updatedFooterHtml() +
+      "</section>"
     );
   }
 
@@ -387,16 +387,22 @@
     var head =
       '<div class="cal-day-head"><h2 class="cal-day-title">' +
       escapeHtml(formatDayHeading(day)) +
-      "</h2>" +
-      asOfAgendaSub() +
+      "</h2>";
+    if (!dayEvents.length) {
+      return (
+        head +
+        "</div>" +
+        '<p class="cal-empty">' +
+        escapeHtml(emptyDayMessage(prefs)) +
+        "</p>"
+      );
+    }
+    head +=
       '<p class="cal-day-sub">' +
       dayEvents.length +
       " event" +
       (dayEvents.length === 1 ? "" : "s") +
       "</p></div>";
-    if (!dayEvents.length) {
-      return head + '<p class="cal-empty">' + escapeHtml(emptyDayMessage(prefs)) + "</p>";
-    }
     var items = dayEvents
       .map(function (event) {
         var color = cal.colorForSourceId(event.sourceId, catalog);

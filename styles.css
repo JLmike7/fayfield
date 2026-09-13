@@ -404,6 +404,7 @@ body:has(.cal-controls) main {
   flex-shrink: 0;
 }
 .cal-month-pane {
+  overflow: hidden;
   margin: 0.75rem 0 1rem;
   border: 1px solid color-mix(in srgb, var(--bark, #3d3429) 18%, transparent);
   border-radius: 0.5rem;
@@ -632,14 +633,18 @@ body:has(.cal-controls) main {
 }
 
 
-/* Agenda as-of: subheading under selected date */
-.cal-asof--agenda {
-  margin: 0.2rem 0 0;
+/* Updated stamp: tinted footer bar inside month calendar panel */
+.cal-updated--foot {
+  margin: 0;
+  padding: 0.45rem 0.75rem;
+  text-align: center;
   font-family: system-ui, sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: var(--muted, #6b6358);
-  opacity: 0.95;
+  color: var(--bark, #3d3429);
+  background: color-mix(in srgb, var(--leaf, #5a7a45) 12%, var(--paper, #f7f4ee));
+  border-top: 1px solid color-mix(in srgb, var(--bark, #3d3429) 14%, transparent);
+  border-radius: 0 0 0.45rem 0.45rem;
 }
 
 /* Hide empty intro as-of slot on calendar page */

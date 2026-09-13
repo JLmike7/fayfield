@@ -377,13 +377,13 @@ test("calendar ui updates filter meta and closes overlay on Escape and outside p
   assert.match(js, /Escape/);
   assert.match(js, /pointerdown/);
   assert.match(js, /SNAPSHOT_URL|calendar-snapshot\.json|snapshot/);
-  assert.match(js, /As of/);
+  assert.match(js, /Updated /);
   const html = read("calendar/index.html");
   assert.match(html, /Nothing on the calendar yet/);
   assert.match(html, /rather than make something up/);
   assert.match(html, /class="cal-empty"/);
-  assert.match(js, /emptyDayMessage|Nothing on/);
-  assert.match(js, /public feeds returned/);
+  assert.match(js, /emptyDayMessage|Nothing for these sources/);
+  assert.match(js, /Nothing for these sources|try another day/);
 });
 
 test("calendar page cache-busts calendar.js and calendar/ui.js with 8-char queries", () => {
@@ -527,20 +527,23 @@ test("month-count badge centers number with flex", () => {
   assert.match(css, /\.month-count\s*\{[\s\S]*justify-content:\s*center/);
 });
 
-test("calendar as-of is agenda subheading under selected date; no publishers pane", () => {
+test("calendar Updated stamp is month-panel footer; empty day is one skim line", () => {
   const ui = read("calendar/ui.js");
   const css = read("styles.css");
-  assert.match(ui, /function asOfAgendaSub/);
-  assert.match(ui, /cal-asof--agenda/);
+  assert.match(ui, /function updatedFooterHtml/);
+  assert.match(ui, /cal-updated--foot/);
+  assert.match(ui, /Updated /);
   assert.match(ui, /function formatAsOfHuman/);
-  assert.match(ui, /hour12:\s*true/);
-  assert.match(ui, /cal-day-title[\s\S]*asOfAgendaSub\(\)/);
-  assert.doesNotMatch(ui, /cal-publishers|cal-foot-meta|cal-asof--foot|attributionHtml/);
+  assert.match(ui, /replace\(\/\\bAM\\b\/g, "am"\)/);
+  assert.match(ui, /updatedFooterHtml\(\)/);
+  assert.doesNotMatch(ui, /asOfAgendaSub|cal-asof--agenda|As of /);
+  assert.doesNotMatch(ui, /cal-publishers|cal-foot-meta|attributionHtml/);
+  assert.match(ui, /Nothing for these sources/);
+  assert.match(ui, /!dayEvents\.length[\s\S]*emptyDayMessage/);
   assert.match(ui, /n \+ " sources"/);
-  assert.doesNotMatch(ui, /formatDayShort| · " \+ dayLabel/);
-  assert.match(ui, /n === 1 \? names\[0\] : n \+ " sources"/);
-  assert.match(css, /\.cal-asof--agenda/);
-  assert.doesNotMatch(css, /\.cal-publishers|\.cal-foot-meta|cal-asof--foot/);
+  assert.match(css, /\.cal-updated--foot/);
+  assert.match(css, /\.cal-updated--foot[\s\S]*text-align:\s*center/);
+  assert.doesNotMatch(css, /\.cal-asof--agenda|\.cal-publishers|\.cal-foot-meta/);
 });
 
 
